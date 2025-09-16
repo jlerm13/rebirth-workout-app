@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Effective Training - Build Lasting Habits</title>
+    <title>Confusion-Proof Training</title>
     <style>
         * {
             margin: 0;
@@ -27,22 +27,9 @@
             --text-tertiary: #94a3b8;
             
             --border-color: #e2e8f0;
-            --border-light: #f1f5f9;
-            
             --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
             --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
             --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
-        }
-
-        [data-theme="dark"] {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-tertiary: #334155;
-            --text-primary: #f8fafc;
-            --text-secondary: #cbd5e1;
-            --text-tertiary: #94a3b8;
-            --border-color: #475569;
-            --border-light: #334155;
         }
 
         body {
@@ -53,31 +40,38 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
         }
 
         .header {
             background: var(--bg-primary);
-            padding: 24px;
+            padding: 32px;
             border-radius: 12px;
             box-shadow: var(--shadow-sm);
             margin-bottom: 24px;
             text-align: center;
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border-color);
         }
 
         .header h1 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .header p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--text-tertiary);
+            font-size: 1rem;
+            font-style: italic;
         }
 
         .warning-banner {
@@ -90,61 +84,73 @@
             border-radius: 8px;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 24px;
-            margin-bottom: 24px;
-        }
-
         .card {
             background: var(--bg-primary);
             border-radius: 12px;
-            padding: 24px;
+            padding: 32px;
             box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-light);
-            transition: all 0.2s ease;
-        }
-
-        .card:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-1px);
+            border: 1px solid var(--border-color);
+            margin-bottom: 24px;
         }
 
         .card h2 {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 16px;
-        }
-
-        .form-group {
             margin-bottom: 20px;
         }
 
-        .form-label {
-            display: block;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: 6px;
-            font-size: 14px;
-        }
-
-        .form-select {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid var(--border-color);
+        .progress-stats {
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
             border-radius: 8px;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            font-size: 15px;
-            cursor: pointer;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            text-align: center;
         }
 
-        .form-select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .question-card {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 2px solid transparent;
+        }
+
+        .question-card.answered {
+            border-color: var(--success-color);
+            background: rgba(22, 163, 74, 0.05);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .answer-buttons {
+            display: flex;
+            gap: 12px;
         }
 
         .btn {
@@ -156,10 +162,8 @@
             cursor: pointer;
             font-size: 15px;
             font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
             box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+            transition: all 0.2s ease;
         }
 
         .btn:hover {
@@ -168,87 +172,153 @@
             box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
         }
 
+        .btn:disabled {
+            background: var(--text-tertiary);
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .btn-secondary {
-            background: var(--text-secondary);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+            box-shadow: none;
         }
 
         .btn-secondary:hover {
-            background: var(--text-primary);
+            background: var(--bg-secondary);
+            border-color: var(--primary-color);
         }
 
-        .streak-display {
-            text-align: center;
-            padding: 20px;
-            background: linear-gradient(135deg, var(--success-color), #059669);
+        .btn-secondary.selected {
+            background: var(--primary-color);
             color: white;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            border-color: var(--primary-color);
         }
 
-        .streak-number {
-            font-size: 3rem;
-            font-weight: 700;
-            line-height: 1;
+        .btn-success {
+            background: var(--success-color);
+            color: white;
         }
 
-        .streak-label {
-            font-size: 1.1rem;
-            opacity: 0.9;
+        .btn-success:hover {
+            background: #15803d;
         }
 
-        .progress-section {
-            background: var(--bg-tertiary);
-            border-radius: 8px;
-            padding: 16px;
-            margin: 16px 0;
-        }
-
-        .progress-label {
+        .btn-small {
+            padding: 8px 16px;
             font-size: 14px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
         }
 
         .progress-bar {
             width: 100%;
-            height: 8px;
-            background: var(--border-color);
-            border-radius: 4px;
-            overflow: hidden;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            margin: 20px 0;
         }
 
         .progress-fill {
             height: 100%;
             background: var(--success-color);
-            border-radius: 4px;
+            border-radius: 3px;
             transition: width 0.3s ease;
         }
 
-        .workout-day {
+        .equipment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .equipment-option {
             background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            padding: 16px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .equipment-option:hover {
+            border-color: var(--primary-color);
+        }
+
+        .equipment-option.selected {
+            border-color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .equipment-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .equipment-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
             border-radius: 8px;
             padding: 20px;
-            margin-bottom: 16px;
-            border: 1px solid var(--border-color);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .track-indicator {
+            background: var(--success-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .workout-day {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .workout-day.completed {
+            border-left-color: var(--success-color);
+            background: rgba(22, 163, 74, 0.05);
         }
 
         .day-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .day-title {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             font-weight: 600;
+            color: var(--text-primary);
         }
 
-        .day-focus {
-            font-size: 0.9rem;
+        .day-duration {
             color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .completion-badge {
+            background: var(--success-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
         .exercise-list {
@@ -256,562 +326,528 @@
         }
 
         .exercise-item {
-            background: var(--bg-secondary);
+            background: var(--bg-primary);
             border-radius: 6px;
-            padding: 12px;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .exercise-item.completed {
+            background: rgba(22, 163, 74, 0.05);
+            border-color: var(--success-color);
         }
 
         .exercise-name {
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
         }
 
         .exercise-prescription {
             font-size: 14px;
             color: var(--text-secondary);
+            margin-bottom: 8px;
         }
 
-        .readiness-check {
-            background: var(--bg-tertiary);
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 20px;
+        .exercise-cue {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            font-style: italic;
+            margin-bottom: 12px;
         }
 
-        .readiness-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        .exercise-actions {
+            display: flex;
             gap: 8px;
-            margin-top: 12px;
+            flex-wrap: wrap;
         }
 
-        .readiness-btn {
-            padding: 8px 12px;
-            border: 2px solid var(--border-color);
-            background: var(--bg-primary);
-            border-radius: 6px;
-            cursor: pointer;
-            text-align: center;
-            font-size: 14px;
+        .hidden {
+            display: none;
         }
 
-        .readiness-btn:hover {
-            border-color: var(--primary-color);
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
         }
 
-        .readiness-btn.selected {
-            border-color: var(--primary-color);
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .motivation-panel {
-            background: linear-gradient(135deg, var(--primary-color), #1e40af);
-            color: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .wins-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            margin-top: 16px;
-        }
-
-        .win-item {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 6px;
-            padding: 12px;
-            text-align: center;
-            font-size: 14px;
-        }
-
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            
             .container {
                 padding: 15px;
+            }
+            
+            .header {
+                padding: 24px;
+            }
+            
+            .card {
+                padding: 24px;
+            }
+            
+            .answer-buttons {
+                flex-direction: column;
+            }
+            
+            .exercise-actions {
+                flex-direction: column;
+            }
+
+            .progress-stats {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
 <body>
     <div class="warning-banner">
-        ⚠️ Always consult your doctor before starting any exercise program. This tool provides general guidance only.
+        Always consult your doctor before starting any exercise program. This tool provides general guidance only.
     </div>
-
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 
     <div class="container">
         <div class="header">
-            <h1>Simple Effective Training</h1>
-            <p>Build lasting exercise habits with proven, straightforward programs</p>
+            <h1>Confusion-Proof Training</h1>
+            <p>Simple, effective programs designed by a coach with 10 years of experience</p>
+            <p class="subtitle">No choices, no complexity - just the right plan for you</p>
         </div>
 
-        <div class="grid" id="setupGrid">
-            <!-- Quick Setup Card -->
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen">
             <div class="card">
-                <h2>Quick Setup</h2>
+                <h2>Ready to Get Stronger?</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 1.1rem;">
+                    This isn't another confusing fitness app. We'll ask 3 simple questions, 
+                    check what equipment you have, and give you exactly the right program to start getting stronger today.
+                </p>
                 
-                <div class="form-group">
-                    <label class="form-label" for="experience">Your Experience Level</label>
-                    <select class="form-select" id="experience">
-                        <option value="beginner">Beginner (0-6 months)</option>
-                        <option value="intermediate">Intermediate (6+ months)</option>
-                    </select>
+                <div style="background: var(--bg-tertiary); padding: 20px; border-radius: 8px; margin-bottom: 24px;">
+                    <h3 style="margin-bottom: 12px; color: var(--text-primary);">What You Get:</h3>
+                    <ul style="padding-left: 20px; color: var(--text-secondary); line-height: 1.6;">
+                        <li><strong>No decision paralysis:</strong> We choose the right program for you</li>
+                        <li><strong>Equipment adaptive:</strong> Works with whatever you have available</li>
+                        <li><strong>Safety first:</strong> Conservative progressions, built-in form cues</li>
+                        <li><strong>Progress tracking:</strong> See your improvement week by week</li>
+                    </ul>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="frequency">Days Per Week</label>
-                    <select class="form-select" id="frequency">
-                        <option value="3">3 days (Recommended for most people)</option>
-                        <option value="4">4 days (If you have more time)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="equipment">Available Equipment</label>
-                    <select class="form-select" id="equipment">
-                        <option value="gym">Full gym access</option>
-                        <option value="home">Home/basic equipment</option>
-                        <option value="bodyweight">Bodyweight only</option>
-                    </select>
-                </div>
-
-                <button class="btn" onclick="generateProgram()">Start My Program</button>
+                <button class="btn" onclick="startOnboarding()" style="width: 100%; padding: 16px; font-size: 1.1rem;">
+                    Get Started - 2 Minutes
+                </button>
+                
+                <p style="color: var(--text-tertiary); font-size: 0.9rem; text-align: center; margin-top: 16px;">
+                    No account needed • Works offline • Your data stays private
+                </p>
             </div>
+        </div>
 
-            <!-- Habit Builder Card -->
+        <!-- Onboarding Screen -->
+        <div id="onboardingScreen" class="hidden">
             <div class="card">
-                <h2>Build the Habit</h2>
-                <p style="margin-bottom: 16px; color: var(--text-secondary);">Success comes from consistency, not perfection.</p>
-                
-                <div class="form-group">
-                    <label class="form-label">When will you work out?</label>
-                    <select class="form-select" id="habitStack">
-                        <option value="">Choose a consistent time...</option>
-                        <option value="morning">After I wake up</option>
-                        <option value="coffee">After I have coffee</option>
-                        <option value="work">After work</option>
-                        <option value="dinner">Before dinner</option>
-                        <option value="custom">Custom time</option>
-                    </select>
+                <h2>Let's Get You Started</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 24px;">
+                    We'll ask 3 quick questions to get you the safest and most effective starting point. 
+                    No levels to choose, no complex decisions - just the right program for your situation.
+                </p>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
                 </div>
 
-                <div class="progress-section">
-                    <div class="progress-label">Weekly Goal: 3 workouts</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="weeklyProgress" style="width: 0%"></div>
+                <!-- Question 1: Squat Check -->
+                <div class="question-card" id="question1">
+                    <div class="question-text">
+                        Can you squat down until your thighs are parallel to the floor, heels on the ground, without pain?
+                    </div>
+                    <div class="answer-buttons">
+                        <button class="btn btn-secondary" onclick="answerQuestion(1, true)">Yes</button>
+                        <button class="btn btn-secondary" onclick="answerQuestion(1, false)">No</button>
                     </div>
                 </div>
 
-                <div style="margin-top: 16px; padding: 12px; background: var(--bg-tertiary); border-radius: 6px; font-size: 14px;">
-                    <strong>Emergency Rule:</strong> If you can't do your full workout, do 5 minutes of something. Movement is better than nothing.
+                <!-- Question 2: Push-up Check -->
+                <div class="question-card hidden" id="question2">
+                    <div class="question-text">
+                        Can you do 10 push-ups in a row with straight body alignment (no sagging hips, no flared elbows)?
+                    </div>
+                    <div class="answer-buttons">
+                        <button class="btn btn-secondary" onclick="answerQuestion(2, true)">Yes</button>
+                        <button class="btn btn-secondary" onclick="answerQuestion(2, false)">No</button>
+                    </div>
                 </div>
+
+                <!-- Question 3: Consistency Check -->
+                <div class="question-card hidden" id="question3">
+                    <div class="question-text">
+                        Have you trained 2+ times per week for at least 6 months in a row?
+                    </div>
+                    <div class="answer-buttons">
+                        <button class="btn btn-secondary" onclick="answerQuestion(3, true)">Yes</button>
+                        <button class="btn btn-secondary" onclick="answerQuestion(3, false)">No</button>
+                    </div>
+                </div>
+
+                <button class="btn hidden" id="startProgramBtn" onclick="generateProgram()">
+                    Start Your Program
+                </button>
             </div>
         </div>
 
-        <!-- Program Display (Initially Hidden) -->
-        <div id="programDisplay" style="display: none;">
-            <!-- Streak Display -->
-            <div class="streak-display">
-                <div class="streak-number" id="streakCount">0</div>
-                <div class="streak-label">day streak</div>
-            </div>
+        <!-- Equipment Selection -->
+        <div id="equipmentScreen" class="hidden">
+            <div class="card">
+                <h2>What Equipment Do You Have Access To?</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Your program will automatically adapt to work with what you have available.
+                </p>
 
-            <!-- Daily Readiness Check -->
-            <div class="readiness-check">
-                <h3>How do you feel today?</h3>
-                <p style="margin-bottom: 8px; color: var(--text-secondary); font-size: 14px;">Your body knows best. Adjust your workout based on how you feel.</p>
-                <div class="readiness-options">
-                    <div class="readiness-btn" onclick="setReadiness('great')">Great!</div>
-                    <div class="readiness-btn" onclick="setReadiness('good')">Good</div>
-                    <div class="readiness-btn" onclick="setReadiness('tired')">Tired</div>
-                    <div class="readiness-btn" onclick="setReadiness('sore')">Sore</div>
-                    <div class="readiness-btn" onclick="setReadiness('pain')">Pain</div>
+                <div class="equipment-options">
+                    <div class="equipment-option" onclick="selectEquipment('gym')">
+                        <div class="equipment-title">Full Gym</div>
+                        <div class="equipment-desc">Barbells, dumbbells, machines, cables</div>
+                    </div>
+                    <div class="equipment-option" onclick="selectEquipment('basic')">
+                        <div class="equipment-title">Basic Setup</div>
+                        <div class="equipment-desc">Dumbbells, basic equipment, home gym</div>
+                    </div>
+                    <div class="equipment-option" onclick="selectEquipment('minimal')">
+                        <div class="equipment-title">Minimal Equipment</div>
+                        <div class="equipment-desc">Resistance bands, light weights</div>
+                    </div>
+                    <div class="equipment-option" onclick="selectEquipment('bodyweight')">
+                        <div class="equipment-title">Bodyweight Only</div>
+                        <div class="equipment-desc">No equipment needed</div>
+                    </div>
                 </div>
-                <div id="readinessAdvice" style="margin-top: 12px; font-size: 14px; color: var(--text-secondary);"></div>
+
+                <button class="btn hidden" id="continueToProgram" onclick="showProgram()">
+                    Get My Program
+                </button>
+            </div>
+        </div>
+
+        <!-- Program Display -->
+        <div id="programScreen" class="hidden">
+            <div class="success-message">
+                <h3>Your Program is Ready!</h3>
+                <p>Three workouts per week. Show up, follow the plan, get stronger.</p>
+                <div style="margin-top: 12px;">
+                    <span class="track-indicator" id="trackIndicator">Base Track</span>
+                </div>
             </div>
 
-            <!-- Program Content -->
-            <div id="weeklyProgram"></div>
+            <!-- Progress Stats -->
+            <div class="progress-stats" id="progressStats">
+                <div class="stat">
+                    <div class="stat-number" id="weekStreak">0</div>
+                    <div class="stat-label">Week Streak</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="totalWorkouts">0</div>
+                    <div class="stat-label">Workouts Done</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="currentWeekProgress">0/3</div>
+                    <div class="stat-label">This Week</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="nextWorkout">Day A</div>
+                    <div class="stat-label">Up Next</div>
+                </div>
+            </div>
 
-            <!-- Motivation Panel -->
-            <div class="motivation-panel">
-                <h3>This Week's Wins</h3>
-                <div class="wins-grid" id="winsDisplay">
-                    <div class="win-item">You showed up!</div>
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 id="programTitle">Week 1 - Strength Focus</h2>
+                    <button class="btn btn-secondary btn-small" onclick="resetApp()">Change Setup</button>
+                </div>
+
+                <div id="workoutDays">
+                    <!-- Sample workout for demo -->
+                    <div class="workout-day">
+                        <div class="day-header">
+                            <div class="day-title">Day A - Lower Body Focus</div>
+                            <div class="day-duration">45-60 minutes</div>
+                        </div>
+                        <ul class="exercise-list">
+                            <li class="exercise-item">
+                                <div class="exercise-name">Back Squat</div>
+                                <div class="exercise-prescription">4 sets × 5 reps</div>
+                                <div class="exercise-cue">Chest tall, knees track over toes, full depth</div>
+                                <div class="exercise-actions">
+                                    <button class="btn btn-secondary btn-small" onclick="completeExercise(this)">Mark Complete</button>
+                                </div>
+                            </li>
+                            <li class="exercise-item">
+                                <div class="exercise-name">Romanian Deadlift</div>
+                                <div class="exercise-prescription">3 sets × 8 reps</div>
+                                <div class="exercise-cue">Hinge at hips, flat back, hamstring stretch</div>
+                                <div class="exercise-actions">
+                                    <button class="btn btn-secondary btn-small" onclick="completeExercise(this)">Mark Complete</button>
+                                </div>
+                            </li>
+                        </ul>
+                        <div style="margin-top: 16px; text-align: center;">
+                            <button class="btn btn-success" onclick="completeWorkout(this)">Finish Day A</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: var(--bg-tertiary); padding: 16px; border-radius: 8px; margin-top: 20px;">
+                    <h3 style="margin-bottom: 12px;">How to Progress Safely</h3>
+                    <ul style="padding-left: 20px; color: var(--text-secondary);">
+                        <li><strong>When you can do 12 clean reps:</strong> Move to the next progression</li>
+                        <li><strong>Add weight slowly:</strong> 2.5-5 lbs per week if form is perfect</li>
+                        <li><strong>Stop if it hurts:</strong> Pain means stop, soreness is normal</li>
+                        <li><strong>Miss workouts?</strong> Just pick up where you left off</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== SIMPLE PROGRAM TEMPLATES ====================
-        
-        const PROGRAMS = {
-            beginner_3day_gym: {
-                title: "Beginner Full Body (3 Days)",
-                schedule: "Monday, Wednesday, Friday",
-                workouts: {
-                    day1: {
-                        title: "Full Body A",
-                        focus: "Learn the basics",
-                        exercises: [
-                            {name: "Goblet Squat", sets: 3, reps: "8-12", weight: "Light", cue: "Chest up, sit back like a chair"},
-                            {name: "Push-ups (modified if needed)", sets: 3, reps: "5-10", weight: "Bodyweight", cue: "Keep body straight as a plank"},
-                            {name: "Assisted Pull-ups or Lat Pulldown", sets: 3, reps: "5-8", weight: "Light", cue: "Pull with your back, not arms"},
-                            {name: "Plank", sets: 2, reps: "15-30 sec", weight: "Bodyweight", cue: "Straight line from head to heels"}
-                        ]
-                    },
-                    day2: {
-                        title: "Full Body B", 
-                        focus: "Build consistency",
-                        exercises: [
-                            {name: "Bodyweight or Box Squat", sets: 3, reps: "8-12", weight: "Bodyweight", cue: "Control the descent"},
-                            {name: "Dumbbell Bench Press", sets: 3, reps: "8-12", weight: "Light", cue: "Lower to chest, press up"},
-                            {name: "Bent-over Dumbbell Row", sets: 3, reps: "8-12", weight: "Light", cue: "Squeeze shoulder blades together"},
-                            {name: "Dead Bug", sets: 2, reps: "5 each side", weight: "Bodyweight", cue: "Press lower back into floor"}
-                        ]
-                    },
-                    day3: {
-                        title: "Full Body C",
-                        focus: "Practice makes progress", 
-                        exercises: [
-                            {name: "Dumbbell Deadlift", sets: 3, reps: "8-12", weight: "Light", cue: "Hinge at hips, keep chest up"},
-                            {name: "Overhead Press", sets: 3, reps: "6-10", weight: "Light", cue: "Press straight up, don't arch back"},
-                            {name: "Wall Sit", sets: 2, reps: "20-45 sec", weight: "Bodyweight", cue: "Back flat against wall"},
-                            {name: "Bird Dog", sets: 2, reps: "5 each side", weight: "Bodyweight", cue: "Opposite arm and leg"}
-                        ]
-                    }
-                }
-            },
-
-            intermediate_3day_gym: {
-                title: "Intermediate Full Body (3 Days)",
-                schedule: "Monday, Wednesday, Friday",
-                workouts: {
-                    day1: {
-                        title: "Full Body Strength A",
-                        focus: "Build strength foundation",
-                        exercises: [
-                            {name: "Back Squat", sets: 3, reps: "5-8", weight: "Moderate-Heavy", cue: "Drive through heels, knees track toes"},
-                            {name: "Bench Press", sets: 3, reps: "5-8", weight: "Moderate-Heavy", cue: "Pause at chest, drive with legs"},
-                            {name: "Bent-over Barbell Row", sets: 3, reps: "6-10", weight: "Moderate", cue: "Pull to lower chest/upper stomach"},
-                            {name: "Plank", sets: 2, reps: "30-60 sec", weight: "Bodyweight", cue: "Breathe normally, stay tight"}
-                        ]
-                    },
-                    day2: {
-                        title: "Full Body Strength B",
-                        focus: "Develop power and control", 
-                        exercises: [
-                            {name: "Romanian Deadlift", sets: 3, reps: "6-10", weight: "Moderate", cue: "Feel stretch in hamstrings"},
-                            {name: "Overhead Press", sets: 3, reps: "5-8", weight: "Moderate", cue: "Tight core, press straight up"},
-                            {name: "Pull-ups or Lat Pulldown", sets: 3, reps: "5-10", weight: "Moderate", cue: "Lead with chest, not chin"},
-                            {name: "Single-leg Glute Bridge", sets: 2, reps: "8-12 each", weight: "Bodyweight", cue: "Squeeze glutes at top"}
-                        ]
-                    },
-                    day3: {
-                        title: "Full Body Strength C",
-                        focus: "Round out development",
-                        exercises: [
-                            {name: "Front Squat or Goblet Squat", sets: 3, reps: "6-10", weight: "Moderate", cue: "Elbows up, torso upright"},
-                            {name: "Incline Dumbbell Press", sets: 3, reps: "6-10", weight: "Moderate", cue: "Control the weight down"},
-                            {name: "Single-arm Dumbbell Row", sets: 3, reps: "8-12 each", weight: "Moderate", cue: "Pull to hip, squeeze back"},
-                            {name: "Side Plank", sets: 2, reps: "15-30 sec each", weight: "Bodyweight", cue: "Straight line, breathe"}
-                        ]
-                    }
-                }
-            },
-
-            bodyweight_3day: {
-                title: "Bodyweight Strength (3 Days)",
-                schedule: "Monday, Wednesday, Friday", 
-                workouts: {
-                    day1: {
-                        title: "Push Focus",
-                        focus: "Upper body pushing strength",
-                        exercises: [
-                            {name: "Push-ups (modify as needed)", sets: 3, reps: "5-15", weight: "Bodyweight", cue: "Full range of motion"},
-                            {name: "Bodyweight Squats", sets: 3, reps: "10-20", weight: "Bodyweight", cue: "Control the descent"},
-                            {name: "Pike Push-ups", sets: 2, reps: "3-8", weight: "Bodyweight", cue: "Walk feet toward hands"},
-                            {name: "Plank", sets: 2, reps: "20-60 sec", weight: "Bodyweight", cue: "Straight line, tight core"}
-                        ]
-                    },
-                    day2: {
-                        title: "Pull Focus", 
-                        focus: "Upper body pulling strength",
-                        exercises: [
-                            {name: "Reverse Table Top", sets: 3, reps: "5-12", weight: "Bodyweight", cue: "Squeeze shoulder blades"},
-                            {name: "Single-leg Glute Bridge", sets: 3, reps: "8-15 each", weight: "Bodyweight", cue: "Drive through heel"},
-                            {name: "Inverted Rows (table/bar)", sets: 2, reps: "3-10", weight: "Bodyweight", cue: "Pull chest to bar"},
-                            {name: "Dead Bug", sets: 2, reps: "5-10 each", weight: "Bodyweight", cue: "Press back into floor"}
-                        ]
-                    },
-                    day3: {
-                        title: "Legs Focus",
-                        focus: "Lower body and core strength",
-                        exercises: [
-                            {name: "Lunges", sets: 3, reps: "6-12 each", weight: "Bodyweight", cue: "Step forward, knee to 90 degrees"},
-                            {name: "Tricep Dips (chair)", sets: 2, reps: "3-10", weight: "Bodyweight", cue: "Lower until elbows at 90 degrees"},
-                            {name: "Wall Sit", sets: 2, reps: "20-60 sec", weight: "Bodyweight", cue: "Thighs parallel to floor"},
-                            {name: "Bird Dog", sets: 2, reps: "5-10 each", weight: "Bodyweight", cue: "Opposite arm and leg"}
-                        ]
-                    }
-                }
-            }
-        };
-
-        // ==================== PROGRESSION SYSTEM ====================
-        
-        const PROGRESSION_RULES = {
-            beginner: {
-                reps: "Add 1-2 reps when you can complete all sets at the top of the range",
-                weight: "Increase weight by 2.5-5lbs when you can complete all sets at top reps",
-                time: "Add 5-10 seconds to holds when current time feels easy"
-            },
-            intermediate: {
-                reps: "Add 1 rep when you complete all sets with perfect form",
-                weight: "Increase weight by 2.5-5lbs when all sets completed with 1-2 reps in reserve",
-                time: "Add 10-15 seconds to holds when current time allows normal conversation"
-            }
-        };
-
-        // ==================== USER DATA MANAGEMENT ====================
-        
+        // User data storage
         let userData = {
-            streak: 0,
-            lastWorkout: null,
-            weeklyWorkouts: 0,
-            currentProgram: null,
-            readiness: null,
-            wins: []
+            answers: {},
+            track: null,
+            equipment: null,
+            currentWeek: 1,
+            completedWorkouts: [],
+            totalWorkouts: 0,
+            weekStreak: 0,
+            currentWeekWorkouts: 0,
+            completedExercises: new Set(),
+            startDate: null
         };
 
-        // Load from localStorage if available
-        function loadUserData() {
-            const saved = localStorage.getItem('simpleTrainingData');
-            if (saved) {
-                userData = {...userData, ...JSON.parse(saved)};
-                updateUI();
-            }
+        let currentQuestion = 1;
+
+        // Welcome screen function
+        function startOnboarding() {
+            console.log('Starting onboarding');
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('onboardingScreen').classList.remove('hidden');
+            document.getElementById('onboardingScreen').classList.add('fade-in');
         }
 
-        function saveUserData() {
-            localStorage.setItem('simpleTrainingData', JSON.stringify(userData));
-        }
-
-        // ==================== PROGRAM GENERATION ====================
-        
-        function generateProgram() {
-            const experience = document.getElementById('experience').value;
-            const frequency = document.getElementById('frequency').value;
-            const equipment = document.getElementById('equipment').value;
+        // Question answering
+        function answerQuestion(questionNum, answer) {
+            userData.answers[questionNum] = answer;
             
-            // Select appropriate program
-            let programKey;
-            if (equipment === 'bodyweight') {
-                programKey = 'bodyweight_3day';
-            } else if (experience === 'beginner') {
-                programKey = 'beginner_3day_gym';
-            } else {
-                programKey = 'intermediate_3day_gym';
-            }
+            // Mark current question as answered
+            const currentCard = document.getElementById(`question${questionNum}`);
+            currentCard.classList.add('answered');
             
-            userData.currentProgram = PROGRAMS[programKey];
-            
-            // Hide setup, show program
-            document.getElementById('setupGrid').style.display = 'none';
-            document.getElementById('programDisplay').style.display = 'block';
-            
-            displayProgram();
-            saveUserData();
-        }
-
-        function displayProgram() {
-            if (!userData.currentProgram) return;
-            
-            const programContainer = document.getElementById('weeklyProgram');
-            const program = userData.currentProgram;
-            
-            let html = `
-                <div class="card">
-                    <h2>${program.title}</h2>
-                    <p style="color: var(--text-secondary); margin-bottom: 20px;">${program.schedule}</p>
-            `;
-            
-            Object.entries(program.workouts).forEach(([day, workout]) => {
-                html += `
-                    <div class="workout-day">
-                        <div class="day-header">
-                            <div class="day-title">${workout.title}</div>
-                            <div class="day-focus">${workout.focus}</div>
-                        </div>
-                        <ul class="exercise-list">
-                `;
-                
-                workout.exercises.forEach(exercise => {
-                    html += `
-                        <li class="exercise-item">
-                            <div>
-                                <div class="exercise-name">${exercise.name}</div>
-                                <div class="exercise-prescription">${exercise.sets} sets × ${exercise.reps} reps</div>
-                                <div style="font-size: 12px; color: var(--text-tertiary); margin-top: 4px;">${exercise.cue}</div>
-                            </div>
-                            <button class="btn btn-secondary" onclick="completeExercise('${exercise.name}')">✓</button>
-                        </li>
-                    `;
-                });
-                
-                html += `
-                        </ul>
-                    </div>
-                `;
-            });
-            
-            html += `</div>`;
-            
-            // Add progression guidelines
-            const experience = document.getElementById('experience').value;
-            const rules = PROGRESSION_RULES[experience];
-            
-            html += `
-                <div class="card">
-                    <h2>How to Progress</h2>
-                    <div style="background: var(--bg-tertiary); padding: 16px; border-radius: 8px;">
-                        <div style="margin-bottom: 12px;"><strong>Reps:</strong> ${rules.reps}</div>
-                        <div style="margin-bottom: 12px;"><strong>Weight:</strong> ${rules.weight}</div>
-                        <div><strong>Time:</strong> ${rules.time}</div>
-                    </div>
-                    <div style="margin-top: 16px; padding: 12px; background: var(--bg-secondary); border-radius: 6px; font-size: 14px;">
-                        <strong>Form First:</strong> Only progress when you can maintain perfect form throughout all reps.
-                    </div>
-                </div>
-            `;
-            
-            programContainer.innerHTML = html;
-        }
-
-        // ==================== READINESS SYSTEM ====================
-        
-        function setReadiness(level) {
-            // Clear previous selection
-            document.querySelectorAll('.readiness-btn').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            
-            // Set new selection
+            // Update button state
+            const buttons = currentCard.querySelectorAll('.btn-secondary');
+            buttons.forEach(btn => btn.classList.remove('selected'));
             event.target.classList.add('selected');
-            userData.readiness = level;
             
-            const advice = {
-                great: "Perfect! Proceed with your planned workout. You're ready to push yourself today.",
-                good: "Good to go! Stick to your planned weights and reps.",
-                tired: "Take it easier today. Reduce weight by 10-15% and focus on movement quality.",
-                sore: "Light movement only. Consider mobility work or a gentle walk instead.",
-                pain: "Rest day. Address any pain issues. Consider seeing a healthcare provider if pain persists."
+            // Show next question or finish
+            if (questionNum < 3) {
+                setTimeout(() => {
+                    const nextCard = document.getElementById(`question${questionNum + 1}`);
+                    nextCard.classList.remove('hidden');
+                    nextCard.classList.add('fade-in');
+                    updateProgress((questionNum + 1) / 3 * 100);
+                }, 300);
+            } else {
+                // All questions answered
+                setTimeout(() => {
+                    document.getElementById('startProgramBtn').classList.remove('hidden');
+                    updateProgress(100);
+                }, 300);
+            }
+        }
+
+        function updateProgress(percentage) {
+            document.getElementById('progressFill').style.width = percentage + '%';
+        }
+
+        function generateProgram() {
+            // Determine track based on answers
+            const q1 = userData.answers[1]; // Can squat
+            const q2 = userData.answers[2]; // Can do push-ups  
+            const q3 = userData.answers[3]; // Has consistency
+
+            if (!q1 || !q2) {
+                userData.track = 'pattern';
+            } else if (!q3) {
+                userData.track = 'novice';
+            } else {
+                userData.track = 'base';
+            }
+
+            userData.startDate = new Date().toISOString();
+
+            // Show equipment selection
+            document.getElementById('onboardingScreen').classList.add('hidden');
+            document.getElementById('equipmentScreen').classList.remove('hidden');
+            document.getElementById('equipmentScreen').classList.add('fade-in');
+        }
+
+        function selectEquipment(equipment) {
+            userData.equipment = equipment;
+            
+            // Update UI
+            document.querySelectorAll('.equipment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+            
+            document.getElementById('continueToProgram').classList.remove('hidden');
+        }
+
+        function showProgram() {
+            document.getElementById('equipmentScreen').classList.add('hidden');
+            document.getElementById('programScreen').classList.remove('hidden');
+            document.getElementById('programScreen').classList.add('fade-in');
+            
+            // Update track indicator
+            const trackNames = {
+                pattern: 'Pattern Track - Movement Foundation',
+                novice: 'Novice Load Track - Safe Loading', 
+                base: 'Base Track - Progressive Strength'
             };
+            document.getElementById('trackIndicator').textContent = trackNames[userData.track];
             
-            document.getElementById('readinessAdvice').innerHTML = advice[level];
-            saveUserData();
+            updateProgressStats();
+            saveData();
         }
 
-        // ==================== STREAK AND MOTIVATION ====================
-        
-        function completeExercise(exerciseName) {
-            const today = new Date().toDateString();
+        function updateProgressStats() {
+            document.getElementById('weekStreak').textContent = userData.weekStreak;
+            document.getElementById('totalWorkouts').textContent = userData.totalWorkouts;
+            document.getElementById('currentWeekProgress').textContent = `${userData.currentWeekWorkouts}/3`;
             
-            if (userData.lastWorkout !== today) {
-                userData.streak++;
-                userData.weeklyWorkouts++;
-                userData.lastWorkout = today;
-                
-                // Add wins
-                userData.wins.push(`Completed ${exerciseName}`);
-                if (userData.streak === 1) userData.wins.push("Started your streak!");
-                if (userData.streak === 7) userData.wins.push("One week streak!");
-                if (userData.weeklyWorkouts === 3) userData.wins.push("Hit weekly goal!");
-                
-                updateUI();
-                saveUserData();
+            const nextWorkout = userData.currentWeekWorkouts < 3 ? ['Day A', 'Day B', 'Day C'][userData.currentWeekWorkouts] : 'Week Complete!';
+            document.getElementById('nextWorkout').textContent = nextWorkout;
+        }
+
+        function completeExercise(button) {
+            button.textContent = '✓ Completed!';
+            button.className = 'btn btn-success btn-small';
+            button.disabled = true;
+            button.parentElement.parentElement.classList.add('completed');
+            
+            showMessage('Exercise completed! Nice work.', 'success');
+        }
+
+        function completeWorkout(button) {
+            userData.totalWorkouts++;
+            userData.currentWeekWorkouts++;
+            
+            if (userData.currentWeekWorkouts >= 3) {
+                userData.weekStreak++;
+                userData.currentWeekWorkouts = 0;
+            }
+            
+            const workoutDay = button.parentElement.parentElement;
+            workoutDay.classList.add('completed');
+            
+            const dayHeader = workoutDay.querySelector('.day-header');
+            const statusDiv = dayHeader.querySelector('.day-status') || document.createElement('div');
+            statusDiv.className = 'day-status';
+            statusDiv.innerHTML = '<div class="completion-badge">✓ Complete</div>';
+            if (!dayHeader.querySelector('.day-status')) {
+                dayHeader.appendChild(statusDiv);
+            }
+            
+            button.style.display = 'none';
+            
+            updateProgressStats();
+            saveData();
+            showMessage('Workout completed! 🎉', 'success');
+        }
+
+        function showMessage(text, type = 'info') {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success-color)' : 'var(--primary-color)'};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 6px;
+                z-index: 1000;
+                font-weight: 500;
+            `;
+            messageDiv.textContent = text;
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.parentNode.removeChild(messageDiv);
+                }
+            }, 3000);
+        }
+
+        // Simple reset function
+        function resetApp() {
+            console.log('Reset button clicked');
+            if (confirm('This will reset your program and progress. Are you sure?')) {
+                localStorage.removeItem('confusionProofTraining');
+                sessionStorage.clear();
+                window.location.reload();
             }
         }
 
-        function updateUI() {
-            // Update streak display
-            document.getElementById('streakCount').textContent = userData.streak;
-            
-            // Update weekly progress
-            const weeklyProgress = Math.min((userData.weeklyWorkouts / 3) * 100, 100);
-            document.getElementById('weeklyProgress').style.width = weeklyProgress + '%';
-            
-            // Update wins display
-            const winsContainer = document.getElementById('winsDisplay');
-            if (userData.wins.length > 0) {
-                winsContainer.innerHTML = userData.wins.slice(-6).map(win => 
-                    `<div class="win-item">${win}</div>`
-                ).join('');
+        // Save/load data
+        function saveData() {
+            try {
+                const dataToSave = {
+                    ...userData,
+                    completedExercises: Array.from(userData.completedExercises)
+                };
+                localStorage.setItem('confusionProofTraining', JSON.stringify(dataToSave));
+            } catch (e) {
+                console.warn('Could not save data:', e);
             }
         }
 
-        // ==================== THEME TOGGLE ====================
-        
-        function toggleTheme() {
-            const body = document.body;
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            body.setAttribute('data-theme', newTheme);
-            
-            const button = document.querySelector('.theme-toggle');
-            button.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+        function loadData() {
+            try {
+                const saved = localStorage.getItem('confusionProofTraining');
+                if (saved) {
+                    const loadedData = JSON.parse(saved);
+                    userData = { 
+                        ...userData, 
+                        ...loadedData,
+                        completedExercises: new Set(loadedData.completedExercises || [])
+                    };
+                }
+            } catch (e) {
+                console.warn('Could not load data:', e);
+            }
         }
 
-        // ==================== INITIALIZATION ====================
-        
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            loadUserData();
+            loadData();
             
-            // Reset weekly workouts on Monday
-            const today = new Date();
-            const lastReset = localStorage.getItem('lastWeeklyReset');
-            const isMonday = today.getDay() === 1;
-            
-            if (isMonday && lastReset !== today.toDateString()) {
-                userData.weeklyWorkouts = 0;
-                userData.wins = [];
-                localStorage.setItem('lastWeeklyReset', today.toDateString());
-                saveUserData();
+            // Show existing program if user has completed setup
+            if (userData.track && userData.equipment) {
+                document.getElementById('welcomeScreen').classList.add('hidden');
+                document.getElementById('programScreen').classList.remove('hidden');
+                
+                const trackNames = {
+                    pattern: 'Pattern Track - Movement Foundation',
+                    novice: 'Novice Load Track - Safe Loading', 
+                    base: 'Base Track - Progressive Strength'
+                };
+                document.getElementById('trackIndicator').textContent = trackNames[userData.track];
+                
+                updateProgressStats();
             }
             
-            // Show program if already generated
-            if (userData.currentProgram) {
-                document.getElementById('setupGrid').style.display = 'none';
-                document.getElementById('programDisplay').style.display = 'block';
-                displayProgram();
-            }
+            console.log('App initialized successfully');
         });
-
-        console.log('Simple Effective Training System Loaded');
-        console.log('Focus: Consistency, Safety, and Motivation over complex optimization');
     </script>
 </body>
 </html>
