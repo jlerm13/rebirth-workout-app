@@ -563,7 +563,10 @@
             <div class="card">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <h2 id="programTitle">Week 1 - Strength Focus</h2>
-                    <button class="btn btn-secondary btn-small" onclick="resetApp()">Change Setup</button>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-secondary btn-small" onclick="changeEquipmentLevel()">Equipment Settings</button>
+                        <button class="btn btn-secondary btn-small" onclick="resetApp()">Change Setup</button>
+                    </div>
                 </div>
 
                 <div id="workoutDays">
@@ -611,7 +614,7 @@
     </div>
 
     <script>
-        // User data storage
+        // Enhanced user data storage with real progression tracking
         let userData = {
             answers: {},
             track: null,
@@ -621,8 +624,20 @@
             totalWorkouts: 0,
             weekStreak: 0,
             currentWeekWorkouts: 0,
+            lastWorkoutDate: null,
+            workoutRatings: [],
+            notifications: [],
             completedExercises: new Set(),
-            startDate: null
+            startDate: null,
+            // New progression tracking
+            exerciseProgress: {}, // tracks reps/sets for progression rules
+            exerciseVersions: {}, // tracks which progression level each exercise is at
+            trackGraduation: {
+                patternToNovice: false,
+                noviceToBase: false
+            },
+            weekCompletionData: {}, // tracks completion percentage for week advancement
+            lastProgressionCheck: null
         };
 
         let currentQuestion = 1;
@@ -729,40 +744,618 @@
             document.getElementById('nextWorkout').textContent = nextWorkout;
         }
 
-        function completeExercise(button) {
-            button.textContent = '✓ Completed!';
-            button.className = 'btn btn-success btn-small';
-            button.disabled = true;
-            button.parentElement.parentElement.classList.add('completed');
-            
-            showMessage('Exercise completed! Nice work.', 'success');
+        // Real progression logic functions
+        function completeExercise(exerciseId, dayId) {
+            // Show rep tracking interface instead of simple completion
+            showRepTracker(exerciseId, dayId);
         }
 
-        function completeWorkout(button) {
-            userData.totalWorkouts++;
-            userData.currentWeekWorkouts++;
+        function showRepTracker(exerciseId, dayId) {
+            const exerciseKey = exerciseId.split('-')[2]; // Extract exercise name from ID
+            const exercise = EXERCISE_DATABASE[exerciseKey];
+            if (!exercise) return;
+
+            // Create rep tracking modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                padding: 24px;
+                border-radius: 12px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+                z-index: 1000;
+                border: 1px solid var(--border-color);
+                min-width: 300px;
+            `;
+
+            const currentVersion = getCurrentExerciseVersion(exerciseKey);
+            const targetReps = getTargetReps(exercise, currentVersion);
+
+            modal.innerHTML = `
+                <h3 style="margin-bottom: 16px;">${currentVersion.name}</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                    How many clean reps did you complete?
+                </p>
+                <div style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
+                    ${Array.from({length: Math.min(targetReps + 8, 20)}, (_, i) => 
+                        `<button class="btn btn-secondary btn-small rep-btn" onclick="selectReps(${i + 1})">${i + 1}</button>`
+                    ).join('')}
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; margin-bottom: 8px;">Form Quality:</label>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-secondary btn-small form-btn" onclick="selectForm('perfect')">Perfect</button>
+                        <button class="btn btn-secondary btn-small form-btn" onclick="selectForm('good')">Good</button>
+                        <button class="btn btn-secondary btn-small form-btn" onclick="selectForm('poor')">Form Broke Down</button>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                    <button class="btn btn-secondary" onclick="closeRepTracker()">Cancel</button>
+                    <button class="btn" onclick="submitExerciseProgress('${exerciseId}', '${dayId}', '${exerciseKey}')" id="submitReps" disabled>Submit</button>
+                </div>
+            `;
+
+            // Add backdrop
+            const backdrop = document.createElement('div');
+            backdrop.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+            `;
+            backdrop.onclick = closeRepTracker;
+
+            document.body.appendChild(backdrop);
+            document.body.appendChild(modal);
+
+            // Store references for cleanup
+            window.currentModal = modal;
+            window.currentBackdrop = backdrop;
+            window.selectedReps = null;
+            window.selectedForm = null;
+        }
+
+        function selectReps(reps) {
+            window.selectedReps = reps;
             
-            if (userData.currentWeekWorkouts >= 3) {
-                userData.weekStreak++;
-                userData.currentWeekWorkouts = 0;
+            // Update button states
+            document.querySelectorAll('.rep-btn').forEach(btn => btn.classList.remove('selected'));
+            event.target.classList.add('selected');
+            
+            checkSubmitReady();
+        }
+
+        function selectForm(form) {
+            window.selectedForm = form;
+            
+            // Update button states
+            document.querySelectorAll('.form-btn').forEach(btn => btn.classList.remove('selected'));
+            event.target.classList.add('selected');
+            
+            checkSubmitReady();
+        }
+
+        function checkSubmitReady() {
+            const submitBtn = document.getElementById('submitReps');
+            if (window.selectedReps && window.selectedForm) {
+                submitBtn.disabled = false;
+            }
+        }
+
+        function closeRepTracker() {
+            if (window.currentModal) document.body.removeChild(window.currentModal);
+            if (window.currentBackdrop) document.body.removeChild(window.currentBackdrop);
+            window.currentModal = null;
+            window.currentBackdrop = null;
+            window.selectedReps = null;
+            window.selectedForm = null;
+        }
+
+        function submitExerciseProgress(exerciseId, dayId, exerciseKey) {
+            const reps = window.selectedReps;
+            const form = window.selectedForm;
+            
+            if (!reps || !form) return;
+
+            // Record the exercise progress
+            const progressKey = `${exerciseKey}-${userData.currentWeek}`;
+            if (!userData.exerciseProgress[progressKey]) {
+                userData.exerciseProgress[progressKey] = [];
             }
             
-            const workoutDay = button.parentElement.parentElement;
-            workoutDay.classList.add('completed');
+            userData.exerciseProgress[progressKey].push({
+                reps: reps,
+                form: form,
+                date: new Date().toISOString(),
+                week: userData.currentWeek
+            });
+
+            // Mark exercise as completed
+            userData.completedExercises.add(exerciseId);
+
+            // Check for progression opportunity
+            const progressionResult = checkProgressionTrigger(exerciseKey, reps, form);
             
-            const dayHeader = workoutDay.querySelector('.day-header');
-            const statusDiv = dayHeader.querySelector('.day-status') || document.createElement('div');
-            statusDiv.className = 'day-status';
-            statusDiv.innerHTML = '<div class="completion-badge">✓ Complete</div>';
-            if (!dayHeader.querySelector('.day-status')) {
-                dayHeader.appendChild(statusDiv);
+            // Update UI
+            const exerciseElement = document.querySelector(`[onclick*="${exerciseId}"]`);
+            if (exerciseElement) {
+                exerciseElement.textContent = '✓ Completed!';
+                exerciseElement.className = 'btn btn-success btn-small';
+                exerciseElement.disabled = true;
+                exerciseElement.parentElement.parentElement.classList.add('completed');
             }
-            
-            button.style.display = 'none';
-            
-            updateProgressStats();
+
+            // Show progression feedback
+            if (progressionResult.shouldProgress) {
+                showProgressionNotification(exerciseKey, progressionResult);
+            } else if (progressionResult.message) {
+                showMessage(progressionResult.message, 'info');
+            }
+
+            closeRepTracker();
             saveData();
-            showMessage('Workout completed! 🎉', 'success');
+            
+            showMessage(`${reps} reps recorded with ${form} form!`, 'success');
+        }
+
+        function getCurrentExerciseVersion(exerciseKey) {
+            const exercise = EXERCISE_DATABASE[exerciseKey];
+            const currentLevel = userData.exerciseVersions[exerciseKey] || 0;
+            
+            // Get current progression level
+            if (exercise.progressions && exercise.progressions.length > currentLevel) {
+                return {
+                    name: exercise.progressions[currentLevel],
+                    level: currentLevel,
+                    baseExercise: exercise
+                };
+            }
+            
+            return {
+                name: exercise.name,
+                level: 0,
+                baseExercise: exercise
+            };
+        }
+
+        function getTargetReps(exercise, currentVersion) {
+            // Return target reps based on exercise and current progression level
+            if (exercise.prescription.includes('×')) {
+                const repsMatch = exercise.prescription.match(/(\d+)\s*reps/);
+                return repsMatch ? parseInt(repsMatch[1]) : 10;
+            }
+            return 10; // Default target
+        }
+
+        function checkProgressionTrigger(exerciseKey, reps, form) {
+            const exercise = EXERCISE_DATABASE[exerciseKey];
+            const currentLevel = userData.exerciseVersions[exerciseKey] || 0;
+            
+            // Only progress with perfect or good form
+            if (form === 'poor') {
+                return {
+                    shouldProgress: false,
+                    message: "Focus on form before adding difficulty. Rest extra between sets."
+                };
+            }
+
+            // Check progression trigger based on exercise type
+            if (typeof exercise.progressionTrigger === 'number') {
+                // Rep-based progression (Pattern/Novice tracks)
+                if (reps >= exercise.progressionTrigger && form === 'perfect') {
+                    return {
+                        shouldProgress: true,
+                        type: 'rep_based',
+                        currentLevel: currentLevel,
+                        nextProgression: exercise.progressions[currentLevel + 1] || 'Max Level Reached',
+                        trigger: exercise.progressionTrigger
+                    };
+                } else {
+                    const needed = exercise.progressionTrigger - reps;
+                    return {
+                        shouldProgress: false,
+                        message: `${needed} more clean reps needed to progress to ${exercise.progressions[currentLevel + 1] || 'next level'}.`
+                    };
+                }
+            } else if (exercise.progressionTrigger === 'RIR_based') {
+                // RIR-based progression (Base track)
+                if (form === 'perfect' && reps >= getTargetReps(exercise, getCurrentExerciseVersion(exerciseKey))) {
+                    return {
+                        shouldProgress: true,
+                        type: 'RIR_based',
+                        message: 'Great work! Add 2.5-5% more weight next week.',
+                        currentLevel: currentLevel
+                    };
+                }
+                return {
+                    shouldProgress: false,
+                    message: 'Focus on completing all reps with 2-3 left in the tank.'
+                };
+            }
+
+            return { shouldProgress: false };
+        }
+
+        function showProgressionNotification(exerciseKey, progressionResult) {
+            if (progressionResult.type === 'rep_based') {
+                // Advance exercise to next progression level
+                userData.exerciseVersions[exerciseKey] = (userData.exerciseVersions[exerciseKey] || 0) + 1;
+                
+                showMessage(
+                    `🎉 Progression unlocked! Next week: ${progressionResult.nextProgression}`, 
+                    'success'
+                );
+                
+                addNotification(
+                    `${EXERCISE_DATABASE[exerciseKey].name}: Ready for ${progressionResult.nextProgression}!`,
+                    'success'
+                );
+            } else if (progressionResult.type === 'RIR_based') {
+                showMessage(progressionResult.message, 'success');
+                addNotification(`${EXERCISE_DATABASE[exerciseKey].name}: Add weight next week!`, 'success');
+            }
+
+            // Check for track graduation
+            checkTrackGraduation();
+        }
+
+        function checkTrackGraduation() {
+            if (userData.track === 'pattern') {
+                // Check Pattern Track graduation criteria
+                const patternExercises = ['bodyweightSquat', 'inclinePushUp', 'hipHingeDrill', 'invertedRowHigh', 'backpackCarry'];
+                const graduationReady = patternExercises.every(exerciseKey => {
+                    const level = userData.exerciseVersions[exerciseKey] || 0;
+                    return level >= 2; // All exercises at level 2+ (final progression)
+                });
+
+                if (graduationReady && !userData.trackGraduation.patternToNovice) {
+                    userData.trackGraduation.patternToNovice = true;
+                    showTrackGraduationModal('novice');
+                }
+            } else if (userData.track === 'novice') {
+                // Check Novice Track graduation criteria
+                const completedWeeks = Math.floor(userData.totalWorkouts / 9); // 3 workouts per week
+                const hasProgressedExercises = Object.keys(userData.exerciseVersions).length >= 5;
+                
+                if (completedWeeks >= 3 && hasProgressedExercises && !userData.trackGraduation.noviceToBase) {
+                    userData.trackGraduation.noviceToBase = true;
+                    showTrackGraduationModal('base');
+                }
+            }
+        }
+
+        function showTrackGraduationModal(newTrack) {
+            const trackNames = {
+                novice: 'Novice Load Track',
+                base: 'Base Track'
+            };
+
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                padding: 32px;
+                border-radius: 12px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+                z-index: 1000;
+                border: 1px solid var(--border-color);
+                max-width: 400px;
+                text-align: center;
+            `;
+
+            modal.innerHTML = `
+                <h2 style="color: var(--success-color); margin-bottom: 16px;">🎉 Congratulations!</h2>
+                <p style="margin-bottom: 20px; font-size: 1.1rem;">
+                    You've mastered the fundamentals and are ready to advance to the <strong>${trackNames[newTrack]}</strong>!
+                </p>
+                <div style="background: var(--bg-tertiary); padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+                    <h4 style="margin-bottom: 8px;">What Changes:</h4>
+                    <ul style="text-align: left; padding-left: 20px; color: var(--text-secondary);">
+                        ${newTrack === 'novice' ? `
+                            <li>Introduction of external load (dumbbells, weights)</li>
+                            <li>More varied exercise selection</li>
+                            <li>Progressive loading system</li>
+                        ` : `
+                            <li>Barbell movements for maximum strength</li>
+                            <li>Periodized training blocks</li>
+                            <li>Advanced progression systems</li>
+                        `}
+                    </ul>
+                </div>
+                <div style="display: flex; gap: 12px; justify-content: center;">
+                    <button class="btn btn-secondary" onclick="declineGraduation()">Stay Current Track</button>
+                    <button class="btn" onclick="acceptGraduation('${newTrack}')">Advance to ${trackNames[newTrack]}</button>
+                </div>
+            `;
+
+            const backdrop = document.createElement('div');
+            backdrop.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+            `;
+
+            document.body.appendChild(backdrop);
+            document.body.appendChild(modal);
+
+            window.graduationModal = modal;
+            window.graduationBackdrop = backdrop;
+        }
+
+        function acceptGraduation(newTrack) {
+            userData.track = newTrack;
+            userData.currentWeek = 1;
+            userData.currentWeekWorkouts = 0;
+            
+            // Reset exercise versions for new track
+            userData.exerciseVersions = {};
+            
+            // Update UI
+            updateProgramTitle();
+            renderWorkouts();
+            
+            showMessage(`Welcome to ${newTrack === 'novice' ? 'Novice Load Track' : 'Base Track'}! 🎉`, 'success');
+            addNotification(`Advanced to new track! Your program has been updated.`, 'success');
+            
+            closeGraduationModal();
+            saveData();
+        }
+
+        function declineGraduation() {
+            showMessage('No problem! You can continue with your current track.', 'info');
+            closeGraduationModal();
+        }
+
+        function closeGraduationModal() {
+            if (window.graduationModal) document.body.removeChild(window.graduationModal);
+            if (window.graduationBackdrop) document.body.removeChild(window.graduationBackdrop);
+            window.graduationModal = null;
+            window.graduationBackdrop = null;
+        }
+
+        function completeWorkout(dayId) {
+            if (!userData.completedWorkouts.includes(dayId)) {
+                userData.completedWorkouts.push(dayId);
+                userData.totalWorkouts++;
+                userData.currentWeekWorkouts++;
+                userData.lastWorkoutDate = new Date().toISOString();
+                
+                // Record week completion data
+                const weekKey = `week-${userData.currentWeek}`;
+                if (!userData.weekCompletionData[weekKey]) {
+                    userData.weekCompletionData[weekKey] = { completed: 0, total: 3 };
+                }
+                userData.weekCompletionData[weekKey].completed++;
+                
+                // Check for week completion and advancement
+                if (userData.currentWeekWorkouts >= 3) {
+                    userData.weekStreak++;
+                    userData.currentWeekWorkouts = 0;
+                    
+                    // Auto-advance week based on track rules
+                    checkWeekAdvancement();
+                }
+                
+                updateProgressStats();
+                renderWorkouts();
+                showWorkoutFeedback();
+                saveData();
+                
+                showMessage('Workout completed! 🎉', 'success');
+            }
+        }
+
+        function checkWeekAdvancement() {
+            const currentWeekData = userData.weekCompletionData[`week-${userData.currentWeek}`];
+            const completionRate = currentWeekData ? currentWeekData.completed / currentWeekData.total : 0;
+            
+            // Week advancement rules by track
+            if (userData.track === 'pattern') {
+                // Pattern track: complete week, check for graduation
+                if (completionRate >= 0.67) { // 2/3 workouts minimum
+                    addNotification('Week completed! Continue building movement quality.', 'success');
+                    checkTrackGraduation();
+                } else {
+                    addNotification('Complete more workouts this week to maintain consistency.', 'info');
+                }
+            } else if (userData.track === 'novice') {
+                // Novice track: advance weekly, check for graduation after 3 weeks
+                if (completionRate >= 0.67) {
+                    addNotification('Week completed! Keep building strength safely.', 'success');
+                    checkTrackGraduation();
+                } else {
+                    addNotification('Try to complete all 3 workouts next week for best results.', 'info');
+                }
+            } else if (userData.track === 'base') {
+                // Base track: auto-advance through 9-week program
+                if (completionRate >= 0.67 && userData.currentWeek < 9) {
+                    userData.currentWeek++;
+                    userData.currentWeekWorkouts = 0;
+                    
+                    // Provide block transition notifications
+                    if (userData.currentWeek === 4) {
+                        addNotification('🎉 Strength Block Complete! Starting Hypertrophy Block.', 'success');
+                    } else if (userData.currentWeek === 7) {
+                        addNotification('🎉 Hypertrophy Block Complete! Starting Conditioning Block.', 'success');
+                    } else {
+                        addNotification(`Advanced to Week ${userData.currentWeek}! Keep up the great work.`, 'success');
+                    }
+                    
+                    updateProgramTitle();
+                    renderWorkouts();
+                } else if (userData.currentWeek >= 9) {
+                    addNotification('🎉 Program Complete! Consider cycling back to Week 1 with heavier weights.', 'success');
+                }
+            }
+        }
+
+        function renderWorkouts() {
+            const workoutContainer = document.getElementById('workoutDays');
+            
+            // Get the appropriate workout template
+            let workouts;
+            let weekKey = `week${userData.currentWeek}`;
+            
+            if (userData.track === 'pattern') {
+                workouts = WORKOUTS.patternTrack.week1;
+            } else if (userData.track === 'novice') {
+                workouts = WORKOUTS.noviceTrack.week1;
+            } else {
+                workouts = WORKOUTS.baseTrack[weekKey] || WORKOUTS.baseTrack.week1;
+            }
+            
+            let html = '';
+            Object.entries(workouts).forEach(([dayKey, day], index) => {
+                const dayId = `${userData.currentWeek}-${dayKey}`;
+                const isCompleted = userData.completedWorkouts.includes(dayId);
+                const isCurrent = index === userData.currentWeekWorkouts && !isCompleted;
+                
+                html += `
+                    <div class="workout-day ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''}">
+                        <div class="day-header">
+                            <div class="day-title">${day.title}</div>
+                            <div class="day-status">
+                                <div class="day-duration">${day.duration}</div>
+                                ${isCompleted ? '<div class="completion-badge">✓ Complete</div>' : ''}
+                            </div>
+                        </div>
+                        <ul class="exercise-list">
+                `;
+                
+                // Add warm-up
+                html += `
+                    <li class="exercise-item" style="background: var(--bg-tertiary);">
+                        <div class="exercise-name">Warm-up</div>
+                        <div class="exercise-prescription">5-10 minutes</div>
+                        <div class="exercise-cue">${day.warmup}</div>
+                    </li>
+                `;
+                
+                day.exercises.forEach((exerciseRef, exerciseIndex) => {
+                    const exercise = EXERCISE_DATABASE[exerciseRef.exercise];
+                    if (!exercise) {
+                        console.warn(`Exercise ${exerciseRef.exercise} not found in database`);
+                        return;
+                    }
+                    
+                    // Get current progression version of exercise
+                    const currentVersion = getCurrentExerciseVersion(exerciseRef.exercise);
+                    const adaptedExercise = getExerciseForEquipment(currentVersion.baseExercise, userData.equipment, exerciseRef.exercise);
+                    
+                    const exerciseId = `${dayId}-${exerciseIndex}`;
+                    const isExerciseCompleted = userData.completedExercises.has(exerciseId);
+                    
+                    // Use custom prescription if provided, otherwise use current version
+                    const prescription = exerciseRef.prescription || adaptedExercise.prescription;
+                    const note = exerciseRef.note || '';
+                    
+                    // Show progression level if not base level
+                    const progressionInfo = currentVersion.level > 0 ? 
+                        `<div class="exercise-cue" style="color: var(--success-color); font-weight: 600;">
+                            Progression Level ${currentVersion.level + 1}: ${currentVersion.name}
+                        </div>` : '';
+
+                    // Show substitution info if exercise is substituted
+                    const substitutionInfo = adaptedExercise.isSubstituted ?
+                        `<div class="exercise-cue" style="color: var(--warning-color); font-weight: 500;">
+                            Substituted: ${adaptedExercise.name} (${userData.temporarySubstitutions && userData.temporarySubstitutions[exerciseRef.exercise] ? 'Temporary' : 'Equipment Level'})
+                        </div>` : '';
+
+                    // Show recent progress
+                    const recentProgress = getRecentProgress(exerciseRef.exercise);
+                    const progressDisplay = recentProgress ? 
+                        `<div class="exercise-cue" style="color: var(--primary-color);">
+                            Last session: ${recentProgress.reps} reps (${recentProgress.form} form)
+                        </div>` : '';
+                    
+                    html += `
+                        <li class="exercise-item ${isExerciseCompleted ? 'completed' : ''}">
+                            <div class="exercise-header">
+                                <div class="exercise-name">${adaptedExercise.name}</div>
+                            </div>
+                            <div class="exercise-prescription">${prescription}</div>
+                            <div class="exercise-cue">${adaptedExercise.cue}</div>
+                            ${progressionInfo}
+                            ${substitutionInfo}
+                            ${adaptedExercise.instructions ? `<div class="exercise-cue" style="color: var(--primary-color); font-weight: 500;">${adaptedExercise.instructions}</div>` : ''}
+                            ${adaptedExercise.safetyNotes ? `<div class="exercise-cue" style="color: var(--warning-color); font-weight: 500;">Safety: ${adaptedExercise.safetyNotes}</div>` : ''}
+                            ${note ? `<div class="exercise-cue" style="color: var(--warning-color); font-weight: 500;">Week ${userData.currentWeek}: ${note}</div>` : ''}
+                            ${progressDisplay}
+                            <div class="exercise-actions">
+                                <button class="btn ${isExerciseCompleted ? 'btn-success' : 'btn-secondary'} btn-small" 
+                                        onclick="completeExercise('${exerciseId}', '${dayId}')"
+                                        ${isExerciseCompleted ? 'disabled' : ''}>
+                                    ${isExerciseCompleted ? '✓ Completed!' : 'Track Reps'}
+                                </button>
+                                ${adaptedExercise.hasSubstitution ? `<button class="btn btn-secondary btn-small" onclick="showSubstitution('${exerciseRef.exercise}')">No Equipment?</button>` : ''}
+                                ${adaptedExercise.isSubstituted ? `<button class="btn btn-secondary btn-small" onclick="resetSubstitutions()">Reset Exercise</button>` : ''}
+                            </div>
+                        </li>
+                    `;
+                });
+                
+                html += `</ul>`;
+                
+                // Add conditioning section if present
+                if (day.conditioning) {
+                    html += `
+                        <div style="background: var(--bg-tertiary); padding: 16px; border-radius: 8px; margin-top: 16px;">
+                            <div class="exercise-name" style="margin-bottom: 8px;">Conditioning</div>
+                            <div class="exercise-cue">${day.conditioning}</div>
+                        </div>
+                    `;
+                }
+
+                // Add notes if present
+                if (day.notes) {
+                    html += `
+                        <div style="background: var(--bg-secondary); padding: 12px; border-radius: 6px; margin-top: 12px;">
+                            <div class="exercise-cue" style="font-weight: 500;">${day.notes}</div>
+                        </div>
+                    `;
+                }
+                
+                // Add workout completion button if not completed
+                if (!isCompleted) {
+                    html += `
+                        <div style="margin-top: 16px; text-align: center;">
+                            <button class="btn btn-success" onclick="completeWorkout('${dayId}')">
+                                Finish ${day.title.split(' - ')[0]}
+                            </button>
+                        </div>
+                    `;
+                }
+                
+                html += `</div>`;
+            });
+            
+            workoutContainer.innerHTML = html;
+            
+            // Update progression notes
+            document.getElementById('progressionNotes').innerHTML = getProgressionNotes();
+        }
+
+        function getRecentProgress(exerciseKey) {
+            const progressKey = `${exerciseKey}-${userData.currentWeek}`;
+            const progress = userData.exerciseProgress[progressKey];
+            
+            if (progress && progress.length > 0) {
+                return progress[progress.length - 1]; // Most recent entry
+            }
+            return null;
         }
 
         function showMessage(text, type = 'info') {
