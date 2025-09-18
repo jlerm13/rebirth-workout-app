@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confusion-Proof Training</title>
+    <title>Athletic Development Training System</title>
     <style>
         * {
             margin: 0;
@@ -100,57 +100,69 @@
             margin-bottom: 20px;
         }
 
-        .progress-stats {
-            background: linear-gradient(135deg, var(--success-color), #059669);
-            color: white;
+        .context-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .context-option {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
             border-radius: 8px;
             padding: 20px;
-            margin-bottom: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 20px;
+            cursor: pointer;
             text-align: center;
+            transition: all 0.2s ease;
         }
 
-        .stat {
-            display: flex;
-            flex-direction: column;
+        .context-option:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
         }
 
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 4px;
+        .context-option.selected {
+            border-color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.05);
         }
 
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .question-card {
-            background: var(--bg-tertiary);
-            border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 20px;
-            border: 2px solid transparent;
-        }
-
-        .question-card.answered {
-            border-color: var(--success-color);
-            background: rgba(22, 163, 74, 0.05);
-        }
-
-        .question-text {
+        .context-title {
+            font-weight: 600;
+            margin-bottom: 8px;
             font-size: 1.1rem;
-            font-weight: 500;
-            margin-bottom: 16px;
-            color: var(--text-primary);
         }
 
-        .answer-buttons {
-            display: flex;
+        .context-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .equipment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 12px;
+            margin-top: 20px;
+        }
+
+        .equipment-option {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            padding: 16px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .equipment-option:hover {
+            border-color: var(--primary-color);
+        }
+
+        .equipment-option.selected {
+            border-color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.05);
         }
 
         .btn {
@@ -190,24 +202,65 @@
             border-color: var(--primary-color);
         }
 
-        .btn-secondary.selected {
+        .workout-block {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .block-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .movement-category {
             background: var(--primary-color);
             color: white;
-            border-color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 12px;
         }
 
-        .btn-success {
-            background: var(--success-color);
-            color: white;
+        .block-title {
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
-        .btn-success:hover {
-            background: #15803d;
+        .exercise-item {
+            background: var(--bg-primary);
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
         }
 
-        .btn-small {
-            padding: 8px 16px;
+        .exercise-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .exercise-prescription {
             font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .substitution-notice {
+            background: rgba(234, 88, 12, 0.1);
+            color: var(--warning-color);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-top: 8px;
+            font-weight: 500;
         }
 
         .progress-bar {
@@ -225,145 +278,6 @@
             transition: width 0.3s ease;
         }
 
-        .equipment-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            margin-top: 12px;
-        }
-
-        .equipment-option {
-            background: var(--bg-primary);
-            border: 2px solid var(--border-color);
-            border-radius: 6px;
-            padding: 16px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s ease;
-        }
-
-        .equipment-option:hover {
-            border-color: var(--primary-color);
-        }
-
-        .equipment-option.selected {
-            border-color: var(--primary-color);
-            background: rgba(37, 99, 235, 0.05);
-        }
-
-        .equipment-title {
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .equipment-desc {
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-
-        .success-message {
-            background: linear-gradient(135deg, var(--success-color), #059669);
-            color: white;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .track-indicator {
-            background: var(--success-color);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .workout-day {
-            background: var(--bg-secondary);
-            border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--primary-color);
-        }
-
-        .workout-day.completed {
-            border-left-color: var(--success-color);
-            background: rgba(22, 163, 74, 0.05);
-        }
-
-        .day-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .day-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .day-duration {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .completion-badge {
-            background: var(--success-color);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .exercise-list {
-            list-style: none;
-        }
-
-        .exercise-item {
-            background: var(--bg-primary);
-            border-radius: 6px;
-            padding: 16px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-color);
-        }
-
-        .exercise-item.completed {
-            background: rgba(22, 163, 74, 0.05);
-            border-color: var(--success-color);
-        }
-
-        .exercise-name {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .exercise-prescription {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
-
-        .exercise-cue {
-            font-size: 13px;
-            color: var(--text-tertiary);
-            font-style: italic;
-            margin-bottom: 12px;
-        }
-
-        .exercise-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
         .hidden {
             display: none;
         }
@@ -377,87 +291,56 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .category-sprint { background: #dc2626; }
+        .category-jump { background: #ea580c; }
+        .category-throw { background: #ca8a04; }
+        .category-push { background: #2563eb; }
+        .category-pull { background: #7c3aed; }
+        .category-hinge { background: #c026d3; }
+        .category-carry { background: #0891b2; }
+        .category-core { background: #059669; }
+
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
             }
             
-            .header {
-                padding: 24px;
+            .context-options {
+                grid-template-columns: 1fr;
             }
-            
-            .card {
-                padding: 24px;
-            }
-            
-            .answer-buttons {
-                flex-direction: column;
-            }
-            
-            .exercise-actions {
-                flex-direction: column;
-            }
-
-            .progress-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* Equipment Configuration Modal Styles */
-        .modal-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 999;
-        }
-
-        .modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 32px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            z-index: 1000;
-            border: 1px solid var(--border-color);
-            max-width: 500px;
-            width: 90%;
         }
     </style>
 </head>
 <body>
     <div class="warning-banner">
-        Always consult your doctor before starting any exercise program. This tool provides general guidance only.
+        Always consult your doctor before starting any exercise program. Sprint and jump training carries inherent risks.
     </div>
 
     <div class="container">
         <div class="header">
-            <h1>Confusion-Proof Training</h1>
-            <p>Simple, effective programs designed by a coach with 10 years of experience</p>
-            <p class="subtitle">No choices, no complexity - just the right plan for you</p>
+            <h1>Athletic Development Training System</h1>
+            <p>Real athletic training, adapted to your reality</p>
+            <p class="subtitle">Sprint • Jump • Throw • Push • Pull • Hinge • Carry</p>
         </div>
 
         <!-- Welcome Screen -->
         <div id="welcomeScreen">
             <div class="card">
-                <h2>Ready to Get Stronger?</h2>
+                <h2>Scalable Athletic Development</h2>
                 <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 1.1rem;">
-                    This isn't another confusing fitness app. We'll ask 3 simple questions, 
-                    check what equipment you have, and give you exactly the right program to start getting stronger today.
+                    Complete athletic training that adapts to your space, equipment, and context. 
+                    Whether you're in a franchise gym, training remotely, or with a club team - 
+                    we deliver the right program for your situation.
                 </p>
                 
                 <div style="background: var(--bg-tertiary); padding: 20px; border-radius: 8px; margin-bottom: 24px;">
-                    <h3 style="margin-bottom: 12px; color: var(--text-primary);">What You Get:</h3>
-                    <ul style="padding-left: 20px; color: var(--text-secondary); line-height: 1.6;">
-                        <li><strong>No decision paralysis:</strong> We choose the right program for you</li>
-                        <li><strong>Equipment adaptive:</strong> Works with whatever you have available</li>
-                        <li><strong>Safety first:</strong> Conservative progressions, built-in form cues</li>
-                        <li><strong>Progress tracking:</strong> See your improvement week by week</li>
+                    <h3 style="margin-bottom: 12px; color: var(--text-primary);">Every Program Includes:</h3>
+                    <ul style="padding-left: 20px; color: var(--text-secondary); line-height: 1.8;">
+                        <li><strong>Sprint/Speed:</strong> From 10yd dashes to band-resisted marching</li>
+                        <li><strong>Jump/Power:</strong> Vertical, broad, or scaled plyometrics</li>
+                        <li><strong>Throw/Ballistic:</strong> Medicine ball or explosive alternatives</li>
+                        <li><strong>Strength:</strong> Push, pull, squat, hinge progressions</li>
+                        <li><strong>Carry/Core:</strong> Functional trunk and grip strength</li>
                     </ul>
                 </div>
 
@@ -466,59 +349,36 @@
                 </button>
                 
                 <p style="color: var(--text-tertiary); font-size: 0.9rem; text-align: center; margin-top: 16px;">
-                    No account needed • Works offline • Your data stays private
+                    Built for coaches and athletes • Equipment adaptive • Safety first
                 </p>
             </div>
         </div>
 
-        <!-- Onboarding Screen -->
-        <div id="onboardingScreen" class="hidden">
+        <!-- Context Selection -->
+        <div id="contextScreen" class="hidden">
             <div class="card">
-                <h2>Let's Get You Started</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 24px;">
-                    We'll ask 3 quick questions to get you the safest and most effective starting point. 
-                    No levels to choose, no complex decisions - just the right program for your situation.
+                <h2>What's Your Training Context?</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                    This helps us deliver the right program structure for your situation.
                 </p>
 
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-                </div>
-
-                <!-- Question 1: Squat Check -->
-                <div class="question-card" id="question1">
-                    <div class="question-text">
-                        Can you squat down until your thighs are parallel to the floor, heels on the ground, without pain?
+                <div class="context-options">
+                    <div class="context-option" onclick="selectContext('franchise')">
+                        <div class="context-title">Franchise Training Facility</div>
+                        <div class="context-desc">D1, F45, Orange Theory - standardized equipment, group training, limited space</div>
                     </div>
-                    <div class="answer-buttons">
-                        <button class="btn btn-secondary" onclick="answerQuestion(1, true)">Yes</button>
-                        <button class="btn btn-secondary" onclick="answerQuestion(1, false)">No</button>
+                    <div class="context-option" onclick="selectContext('remote')">
+                        <div class="context-title">Remote/Individual Athlete</div>
+                        <div class="context-desc">Training alone, variable equipment, hotel gyms, home workouts</div>
                     </div>
-                </div>
-
-                <!-- Question 2: Push-up Check -->
-                <div class="question-card hidden" id="question2">
-                    <div class="question-text">
-                        Can you do 10 push-ups in a row with straight body alignment (no sagging hips, no flared elbows)?
-                    </div>
-                    <div class="answer-buttons">
-                        <button class="btn btn-secondary" onclick="answerQuestion(2, true)">Yes</button>
-                        <button class="btn btn-secondary" onclick="answerQuestion(2, false)">No</button>
+                    <div class="context-option" onclick="selectContext('club')">
+                        <div class="context-title">Club/Team Sport</div>
+                        <div class="context-desc">Youth or amateur team, field access, group training, mixed abilities</div>
                     </div>
                 </div>
 
-                <!-- Question 3: Consistency Check -->
-                <div class="question-card hidden" id="question3">
-                    <div class="question-text">
-                        Have you trained 2+ times per week for at least 6 months in a row?
-                    </div>
-                    <div class="answer-buttons">
-                        <button class="btn btn-secondary" onclick="answerQuestion(3, true)">Yes</button>
-                        <button class="btn btn-secondary" onclick="answerQuestion(3, false)">No</button>
-                    </div>
-                </div>
-
-                <button class="btn hidden" id="startProgramBtn" onclick="generateProgram()">
-                    Start Your Program
+                <button class="btn hidden" id="contextContinue" onclick="showEquipmentScreen()">
+                    Continue
                 </button>
             </div>
         </div>
@@ -526,73 +386,63 @@
         <!-- Equipment Selection -->
         <div id="equipmentScreen" class="hidden">
             <div class="card">
-                <h2>What Equipment Do You Have Access To?</h2>
+                <h2>Available Equipment & Space</h2>
                 <p style="color: var(--text-secondary); margin-bottom: 20px;">
-                    Your program will automatically adapt to work with what you have available.
+                    We'll adapt exercises based on what you have access to.
                 </p>
 
                 <div class="equipment-options">
-                    <div class="equipment-option" onclick="selectEquipment('gym')">
-                        <div class="equipment-title">Full Gym</div>
-                        <div class="equipment-desc">Barbells, dumbbells, machines, cables</div>
+                    <div class="equipment-option" onclick="selectEquipment('full')">
+                        <div style="font-weight: 600;">Full Facility</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                            Track/turf, barbells, medicine balls, full gym
+                        </div>
                     </div>
-                    <div class="equipment-option" onclick="selectEquipment('basic')">
-                        <div class="equipment-title">Basic Setup</div>
-                        <div class="equipment-desc">Dumbbells, basic equipment, home gym</div>
+                    <div class="equipment-option" onclick="selectEquipment('gym')">
+                        <div style="font-weight: 600;">Standard Gym</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                            Treadmill, dumbbells, limited space
+                        </div>
                     </div>
                     <div class="equipment-option" onclick="selectEquipment('minimal')">
-                        <div class="equipment-title">Minimal Equipment</div>
-                        <div class="equipment-desc">Resistance bands, light weights</div>
+                        <div style="font-weight: 600;">Minimal</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                            Bands, light DBs, small space
+                        </div>
                     </div>
                     <div class="equipment-option" onclick="selectEquipment('bodyweight')">
-                        <div class="equipment-title">Bodyweight Only</div>
-                        <div class="equipment-desc">No equipment needed</div>
+                        <div style="font-weight: 600;">Bodyweight Only</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                            No equipment, limited space
+                        </div>
                     </div>
                 </div>
 
-                <button class="btn hidden" id="continueToProgram" onclick="showProgram()">
-                    Get My Program
+                <div style="margin-top: 20px; padding: 16px; background: var(--bg-tertiary); border-radius: 6px;">
+                    <h4 style="margin-bottom: 8px;">Sprint Space Available?</h4>
+                    <div style="display: flex; gap: 12px;">
+                        <button class="btn btn-secondary" onclick="setSprintSpace('field')">Field/Track (30+ yards)</button>
+                        <button class="btn btn-secondary" onclick="setSprintSpace('treadmill')">Treadmill Only</button>
+                        <button class="btn btn-secondary" onclick="setSprintSpace('none')">No Sprint Space</button>
+                    </div>
+                </div>
+
+                <button class="btn hidden" id="equipmentContinue" onclick="generateProgram()" style="margin-top: 20px; width: 100%;">
+                    Generate My Program
                 </button>
             </div>
         </div>
 
         <!-- Program Display -->
         <div id="programScreen" class="hidden">
-            <div class="success-message">
-                <h3>Your Program is Ready!</h3>
-                <p>Three workouts per week. Show up, follow the plan, get stronger.</p>
-                <div style="margin-top: 12px;">
-                    <span class="track-indicator" id="trackIndicator">Base Track</span>
-                </div>
-            </div>
-
-            <!-- Progress Stats -->
-            <div class="progress-stats" id="progressStats">
-                <div class="stat">
-                    <div class="stat-number" id="weekStreak">0</div>
-                    <div class="stat-label">Week Streak</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number" id="totalWorkouts">0</div>
-                    <div class="stat-label">Workouts Done</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number" id="currentWeekProgress">0/3</div>
-                    <div class="stat-label">This Week</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number" id="nextWorkout">Day A</div>
-                    <div class="stat-label">Up Next</div>
-                </div>
-            </div>
-
             <div class="card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2 id="programTitle">Week 1 - Strength Focus</h2>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-secondary btn-small" onclick="showEquipmentConfiguration()">Equipment Settings</button>
-                        <button class="btn btn-secondary btn-small" onclick="resetApp()">Change Setup</button>
-                    </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                    <h2 id="programTitle">Week 1 - Athletic Foundation</h2>
+                    <button class="btn btn-secondary" onclick="resetApp()">Change Setup</button>
+                </div>
+
+                <div id="contextNotice" style="background: var(--bg-tertiary); padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+                    <!-- Context-specific notice will be inserted here -->
                 </div>
 
                 <div id="workoutDays">
@@ -600,12 +450,12 @@
                 </div>
 
                 <div style="background: var(--bg-tertiary); padding: 16px; border-radius: 8px; margin-top: 20px;">
-                    <h3 style="margin-bottom: 12px;">How to Progress Safely</h3>
+                    <h3 style="margin-bottom: 12px;">Safety Guidelines</h3>
                     <ul style="padding-left: 20px; color: var(--text-secondary);">
-                        <li><strong>When you can do 12 clean reps:</strong> Move to the next progression</li>
-                        <li><strong>Add weight slowly:</strong> 2.5-5 lbs per week if form is perfect</li>
-                        <li><strong>Stop if it hurts:</strong> Pain means stop, soreness is normal</li>
-                        <li><strong>Miss workouts?</strong> Just pick up where you left off</li>
+                        <li><strong>Sprints:</strong> Always warm up thoroughly. Start at 70% intensity week 1</li>
+                        <li><strong>Jumps:</strong> Focus on landing mechanics before height/distance</li>
+                        <li><strong>Throws:</strong> Use appropriate weight (3-10lbs typically)</li>
+                        <li><strong>All movements:</strong> Stop if form breaks down or pain occurs</li>
                     </ul>
                 </div>
             </div>
@@ -613,898 +463,586 @@
     </div>
 
     <script>
-        // Global helpers for RIR cues
-        const RIR_CUES = {
-            3: "Stop with ~3 reps left in the tank.",
-            2: "Stop with ~2 reps left in the tank.",
-            1: "Stop with ~1 rep left in the tank."
-        };
-
-        function rirCue(rir = 2) { 
-            return RIR_CUES[rir] || RIR_CUES[2]; 
-        }
-
-        // Complete Exercise Database with All Required Exercises
+        // ==================== ATHLETIC EXERCISE DATABASE ====================
         const EXERCISE_DATABASE = {
-            // ==================== PATTERN TRACK EXERCISES ====================
-            
-            bodyweightSquat: {
-                name: "Bodyweight Squat",
-                prescription: "3 sets × 10 reps",
-                cue: "Chest tall, knees track over toes, full depth with control",
-                progression: { type: "REPS", target: 12, nextStep: "tempo" },
-                ladder: [
-                    { key: "bodyweightSquat", label: "Bodyweight Squat" },
-                    { key: "tempoBodyweightSquat", label: "Tempo Squat (3s down)" },
-                    { key: "gobletSquat", label: "Goblet Squat" }
-                ],
-                nextRule: "If you hit 12 clean reps, move to tempo. After tempo mastery, add weight.",
-                instructions: "Feet shoulder-width apart, squat down until thighs parallel to floor",
-                safetyNotes: "Stop if knees cave inward or you can't reach depth pain-free",
+            // SPRINT CATEGORY
+            sprint_10yd: {
+                name: "10yd Acceleration Sprint",
+                category: "SPRINT",
+                prescription: "6 × 10 yards, walk back recovery",
+                cue: "Drive knees forward, stay low first 5 yards",
+                safetyNotes: "70% intensity week 1, build to 90% by week 3",
                 equipmentMap: {
-                    gym: "bodyweightSquat",
-                    basic: "bodyweightSquat", 
-                    minimal: "bodyweightSquat",
-                    bodyweight: "bodyweightSquat"
+                    full: { name: "10yd Sprint", space: "field" },
+                    gym: { name: "Treadmill Sprint 8% Incline", space: "treadmill", sub: "15 seconds @ high speed" },
+                    minimal: { name: "Band-Resisted High Knees", space: "none", sub: "6 × 20 contacts" },
+                    bodyweight: { name: "Wall Drive", space: "none", sub: "6 × 15 per leg" }
                 }
             },
 
-            tempoBodyweightSquat: {
-                name: "Tempo Bodyweight Squat (3s down)",
-                prescription: "3 sets × 12 reps",
-                cue: "3 seconds lowering, control depth, no bounce at bottom",
-                progression: { type: "REPS", target: 12, nextStep: "loadGoblet" },
-                instructions: "Slow, controlled descent over 3 seconds",
-                safetyNotes: "Focus on control, not speed",
+            sprint_20yd: {
+                name: "20yd Build-up",
+                category: "SPRINT",
+                prescription: "6 × 20 yards @ 80% intensity",
+                cue: "Accelerate smoothly, relax at top speed",
+                safetyNotes: "Never go 100% in first 2 weeks",
                 equipmentMap: {
-                    gym: "tempoBodyweightSquat",
-                    basic: "tempoBodyweightSquat",
-                    minimal: "tempoBodyweightSquat",
-                    bodyweight: "tempoBodyweightSquat"
+                    full: { name: "20yd Sprint", space: "field" },
+                    gym: { name: "Treadmill Sprint", space: "treadmill", sub: "20 seconds @ moderate incline" },
+                    minimal: { name: "Band-Resisted Running", space: "none", sub: "6 × 30 seconds" },
+                    bodyweight: { name: "Mountain Climbers", space: "none", sub: "6 × 30 seconds" }
                 }
             },
 
-            inclinePushUp: {
-                name: "Incline Push-Up",
-                prescription: "3 sets × 8 reps",
-                cue: "Straight line from head to heels, control the descent, full range",
-                progression: { type: "REPS", target: 12, nextStep: "lowerIncline" },
-                ladder: [
-                    { key: "inclinePushUpHigh", label: "Incline Push-Up (high)" },
-                    { key: "inclinePushUpLow", label: "Incline Push-Up (low)" },
-                    { key: "pushUp", label: "Standard Push-Up" },
-                    { key: "pushUpTempo", label: "Tempo Push-Up (3s down)" },
-                    { key: "pushUpWeighted", label: "Weighted Push-Up" }
-                ],
-                nextRule: "If you hit 12 clean reps, move to the next rung. After tempo, add weight.",
-                instructions: "Hands on elevated surface (couch, table), lower chest to surface",
-                safetyNotes: "Stop if hips sag or you can't maintain straight body line",
+            // JUMP CATEGORY
+            verticalJump: {
+                name: "Vertical Jump",
+                category: "JUMP",
+                prescription: "3 × 5 jumps, stick landing",
+                cue: "Full arm swing, land soft, 2-foot takeoff and landing",
+                safetyNotes: "Master landing before maximizing height",
                 equipmentMap: {
-                    gym: "pushUp",
-                    basic: "pushUp",
-                    minimal: "inclinePushUpLow",
-                    bodyweight: "inclinePushUpHigh"
+                    full: { name: "Vertical Jump" },
+                    gym: { name: "Box Jump", sub: "Step down, don't jump down" },
+                    minimal: { name: "Jump in Place", sub: "Focus on landing position" },
+                    bodyweight: { name: "Squat Jump", sub: "Pause in landing position" }
                 }
             },
 
-            hipHingeDrill: {
-                name: "Hip Hinge Drill",
-                prescription: "3 sets × 8 reps",
-                cue: "Hands on hips, stick behind back, hips back first, flat back",
-                progression: { type: "REPS", target: 12, nextStep: "gluteBridge" },
-                ladder: [
-                    { key: "hipHingeDrill", label: "Hip Hinge Drill" },
-                    { key: "gluteBridge", label: "Glute Bridge" },
-                    { key: "hipThrust", label: "Hip Thrust" }
-                ],
-                nextRule: "If you hit 12 clean reps, move to glute bridge. After bridge mastery, progress to hip thrust.",
-                instructions: "Practice hip hinge movement with hands on hips or stick against back",
-                safetyNotes: "Stop if lower back rounds or you feel pain in back",
+            broadJump: {
+                name: "Broad Jump",
+                category: "JUMP",
+                prescription: "4 × 3 jumps, walk back recovery",
+                cue: "Swing arms back to front, project hips forward",
+                safetyNotes: "Land in athletic position, don't fall backward",
                 equipmentMap: {
-                    gym: "hipHingeDrill",
-                    basic: "hipHingeDrill",
-                    minimal: "hipHingeDrill",
-                    bodyweight: "hipHingeDrill"
+                    full: { name: "Broad Jump" },
+                    gym: { name: "Broad Jump" },
+                    minimal: { name: "Single Broad Jump + Stick", sub: "Hold landing 2 seconds" },
+                    bodyweight: { name: "Frog Jump", sub: "Continuous small jumps × 10" }
                 }
             },
 
-            gluteBridge: {
-                name: "Glute Bridge",
-                prescription: "3 sets × 12 reps",
-                cue: "Posterior tilt, squeeze glutes hard, no lumbar arch",
-                progression: { type: "REPS", target: 12, nextStep: "hipThrust" },
-                instructions: "Lie on back, knees bent, lift hips by squeezing glutes",
-                safetyNotes: "Avoid overarching lower back",
+            // THROW CATEGORY
+            mbChestPass: {
+                name: "MB Chest Pass",
+                category: "THROW",
+                prescription: "4 × 6 explosive passes",
+                cue: "Throw from chest, extend arms fully, snap wrists",
+                safetyNotes: "Start with 6-8lb ball, progress slowly",
                 equipmentMap: {
-                    gym: "gluteBridge",
-                    basic: "gluteBridge",
-                    minimal: "gluteBridge",
-                    bodyweight: "gluteBridge"
+                    full: { name: "6lb MB Chest Pass" },
+                    gym: { name: "6lb MB Chest Pass" },
+                    minimal: { name: "Explosive Push-ups", sub: "Hands leave ground" },
+                    bodyweight: { name: "Clap Push-ups", sub: "Or fastest regular push-ups" }
                 }
             },
 
-            invertedRowHigh: {
-                name: "Inverted Row (High Angle)",
-                prescription: "3 sets × 6-8 reps",
-                cue: "Body straight, pull chest to bar/table, squeeze shoulder blades together",
-                progression: { type: "REPS", target: 12, nextStep: "steeperAngle" },
-                ladder: [
-                    { key: "invertedRowHigh", label: "Inverted Row (High Angle)" },
-                    { key: "invertedRowLow", label: "Inverted Row (Low Angle)" },
-                    { key: "invertedRowFlat", label: "Inverted Row (Flat)" },
-                    { key: "invertedRowWeighted", label: "Weighted Inverted Row" }
-                ],
-                nextRule: "If you hit 12 clean reps, lower the angle. After flat, add weight.",
-                instructions: "Under table or TRX at 45°, pull body up maintaining straight line",
-                safetyNotes: "Stop if you can't maintain body alignment or shoulders roll forward",
+            mbSlam: {
+                name: "MB Overhead Slam",
+                category: "THROW",
+                prescription: "4 × 6 slams",
+                cue: "Reach tall, slam down hard, use whole body",
+                safetyNotes: "Non-bounce ball preferred, watch rebound",
                 equipmentMap: {
-                    gym: "invertedRowHigh",
-                    basic: "invertedRowHigh",
-                    minimal: "bandRow",
-                    bodyweight: "tableRow"
+                    full: { name: "10lb MB Slam" },
+                    gym: { name: "10lb MB Slam" },
+                    minimal: { name: "Jump + Reach Down", sub: "Explosive squat pattern" },
+                    bodyweight: { name: "Burpee", sub: "Explosive stand up" }
                 }
             },
 
-            backpackCarry: {
-                name: "Backpack Carry",
-                prescription: "3 sets × 20 seconds",
-                cue: "Tall posture, shoulders back, controlled breathing while walking",
-                progression: { type: "TIME", targetSec: 60, stepSec: 5 },
-                ladder: [
-                    { key: "backpackCarry", label: "Backpack Carry (light)" },
-                    { key: "backpackCarryModerate", label: "Backpack Carry (moderate)" },
-                    { key: "backpackCarryHeavy", label: "Backpack Carry (heavy)" }
-                ],
-                nextRule: "If you can hold for 60 seconds easily, add more weight to backpack.",
-                instructions: "Load backpack with books/water, hug to chest, walk or hold",
-                safetyNotes: "Stop if posture breaks or breathing becomes labored",
+            mbRotational: {
+                name: "MB Rotational Throw",
+                category: "THROW",
+                prescription: "3 × 5 each side",
+                cue: "Rotate from hips, release at chest height",
+                safetyNotes: "Start light (6lb), control is key",
                 equipmentMap: {
-                    gym: "farmersWalk",
-                    basic: "dumbbellCarry",
-                    minimal: "backpackCarry",
-                    bodyweight: "backpackCarry"
+                    full: { name: "MB Side Throw" },
+                    gym: { name: "MB to Wall" },
+                    minimal: { name: "Band Rotation", sub: "Explosive tempo" },
+                    bodyweight: { name: "Explosive Cross-Body Reach", sub: "3 × 8 each" }
                 }
             },
 
-            // ==================== NOVICE TRACK EXERCISES ====================
-
-            gobletSquat: {
-                name: "Goblet Squat",
-                prescription: "3 sets × 8 reps",
-                cue: "Hold weight at chest, squat between legs, knees out",
-                progression: { type: "RIR", repsInReserve: 2, weeklyIncrementPct: 0.025 },
-                effortCue: rirCue(2),
-                instructions: "Hold dumbbell or loaded backpack at chest level",
-                safetyNotes: "Stop if knees cave in or you lose balance",
-                equipmentMap: {
-                    gym: "dumbbellGobletSquat",
-                    basic: "dumbbellGobletSquat",
-                    minimal: "backpackGobletSquat",
-                    bodyweight: "tempoBodyweightSquat"
-                }
-            },
-
-            dbRDL: {
-                name: "Dumbbell Romanian Deadlift",
-                prescription: "3 sets × 10 reps",
-                cue: "Hinge at hips, dumbbells close to legs, feel hamstring stretch",
-                progression: { type: "RIR", repsInReserve: 2, weeklyIncrementPct: 0.025 },
-                effortCue: rirCue(2),
-                instructions: "Hold dumbbells at sides, hinge back at hips keeping back flat",
-                safetyNotes: "Stop if back rounds or you feel sharp pain in hamstrings",
-                equipmentMap: {
-                    gym: "dumbbellRDL",
-                    basic: "dumbbellRDL",
-                    minimal: "backpackRDL",
-                    bodyweight: "singleLegRDL"
-                }
-            },
-
-            splitSquat: {
-                name: "Split Squat",
-                prescription: "3 sets × 8 each leg",
-                cue: "Front knee over ankle, drop back knee down, stay tall",
-                progression: { type: "RIR", repsInReserve: 2, weeklyIncrementPct: 0.025 },
-                effortCue: rirCue(2),
-                instructions: "Step into lunge position, lower and rise without stepping",
-                safetyNotes: "Stop if front knee caves in or you can't balance",
-                equipmentMap: {
-                    gym: "dumbbellSplitSquat",
-                    basic: "dumbbellSplitSquat",
-                    minimal: "bodyweightSplitSquat",
-                    bodyweight: "bodyweightSplitSquat"
-                }
-            },
-
-            dbBenchPress: {
-                name: "Dumbbell Bench Press",
-                prescription: "3 sets × 8 reps",
-                cue: "Dumbbells at chest level, press straight up, control down",
-                progression: { type: "RIR", repsInReserve: 2, weeklyIncrementPct: 0.025 },
-                effortCue: rirCue(2),
-                instructions: "Lie on bench or floor, press dumbbells from chest",
-                safetyNotes: "Stop if shoulders hurt or you lose control of weights",
-                equipmentMap: {
-                    gym: "dumbbellBenchPress",
-                    basic: "dumbbellFloorPress",
-                    minimal: "pushUp",
-                    bodyweight: "pushUp"
-                }
-            },
-
-            oneArmRow: {
-                name: "One-Arm Dumbbell Row",
-                prescription: "3 sets × 8 each arm",
-                cue: "Pull dumbbell to ribs, keep torso stable, squeeze shoulder blade",
-                progression: { type: "RIR", repsInReserve: 2, weeklyIncrementPct: 0.025 },
-                effortCue: rirCue(2),
-                instructions: "Support on bench, pull dumbbell with one arm",
-                safetyNotes: "Stop if lower back hurts or you can't maintain posture",
-                equipmentMap: {
-                    gym: "oneArmDumbbellRow",
-                    basic: "oneArmDumbbellRow",
-                    minimal: "bandRow",
-                    bodyweight: "invertedRow"
-                }
-            },
-
-            dbOverheadPress: {
-                name: "Dumbbell Overhead Press",
-                prescription: "3 sets × 8 reps",
-                cue: "Press dumbbells straight overhead, keep core tight",
-                progression: { type: "RIR", repsInReserve: 2, weeklyIncrementPct: 0.025 },
-                effortCue: rirCue(2),
-                instructions: "Start dumbbells at shoulder height, press overhead",
-                safetyNotes: "Stop if shoulders hurt or back arches excessively",
-                equipmentMap: {
-                    gym: "dumbbellOverheadPress",
-                    basic: "dumbbellOverheadPress",
-                    minimal: "pikePushUp",
-                    bodyweight: "pikePushUp"
-                }
-            },
-
-            plank: {
-                name: "Plank",
-                prescription: "3 sets × 30 seconds",
-                cue: "Straight line from head to heels, breathe normally",
-                progression: { type: "TIME", targetSec: 60, stepSec: 5 },
-                ladder: [
-                    { key: "plank30", label: "Plank (30s)" },
-                    { key: "plank60", label: "Plank (60s)" },
-                    { key: "plankWeighted", label: "Weighted Plank" }
-                ],
-                nextRule: "If you can hold for 60 seconds easily, add weight on back.",
-                instructions: "Hold push-up position on forearms",
-                safetyNotes: "Stop if hips sag or you can't breathe normally",
-                equipmentMap: {
-                    gym: "plank",
-                    basic: "plank",
-                    minimal: "plank",
-                    bodyweight: "plank"
-                }
-            },
-
-            // ==================== BASE TRACK EXERCISES ====================
-
-            backSquat: {
-                name: "Back Squat",
-                prescription: "4 sets × 5 reps",
-                cue: "Bar on upper back, chest up, drive through heels",
-                progression: { type: "RIR", repsInReserve: 2, weeklyIncrementPct: 0.025 },
-                effortCue: rirCue(2),
-                instructions: "Barbell across upper back, squat to parallel depth",
-                safetyNotes: "Use safety bars, stop if knees cave or back rounds",
-                equipmentMap: {
-                    gym: "backSquat",
-                    basic: "frontSquat",
-                    minimal: "gobletSquat",
-                    bodyweight: "tempoBodyweightSquat"
-                }
-            },
-
+            // PUSH CATEGORY (Upper)
             benchPress: {
                 name: "Bench Press",
-                prescription: "4 sets × 5 reps",
-                cue: "Arch back slightly, control down to chest, drive up powerfully",
-                progression: { type: "RIR", repsInReserve: 2, weeklyIncrementPct: 0.025 },
-                effortCue: rirCue(2),
-                instructions: "Barbell bench press with safety bars set",
-                safetyNotes: "Use spotter or safety bars, stop if shoulders hurt",
+                category: "PUSH",
+                prescription: "4 × 5 @ RPE 7-8",
+                cue: "Control down, drive feet into floor, press up strong",
+                safetyNotes: "Always use spotter or safety bars",
                 equipmentMap: {
-                    gym: "barbellBenchPress",
-                    basic: "dumbbellBenchPress",
-                    minimal: "floorPress",
-                    bodyweight: "pushUp"
-                }
-            },
-
-            romanianDeadlift: {
-                name: "Romanian Deadlift",
-                prescription: "3 sets × 8 reps",
-                cue: "Barbell close to legs, hinge at hips, feel hamstring stretch",
-                progression: { type: "RIR", repsInReserve: 2, weeklyIncrementPct: 0.025 },
-                effortCue: rirCue(2),
-                instructions: "Start standing, lower barbell by hinging at hips",
-                safetyNotes: "Stop if back rounds or you feel sharp hamstring pain",
-                equipmentMap: {
-                    gym: "barbellRomanianDeadlift",
-                    basic: "dumbbellRDL",
-                    minimal: "singleDumbbellRDL",
-                    bodyweight: "singleLegRDL"
-                }
-            },
-
-            trapBarDeadlift: {
-                name: "Trap Bar Deadlift",
-                prescription: "4 sets × 5 reps",
-                cue: "Stand inside bar, chest up, drive through heels and hips",
-                progression: { type: "RIR", repsInReserve: 2, weeklyIncrementPct: 0.025 },
-                effortCue: rirCue(2),
-                instructions: "Stand inside trap bar, lift by extending hips and knees",
-                safetyNotes: "Start light, stop if back rounds or you lose balance",
-                equipmentMap: {
-                    gym: "trapBarDeadlift",
-                    basic: "dumbbellDeadlift",
-                    minimal: "backpackDeadlift",
-                    bodyweight: "hipHingeGluteBridge"
-                }
-            },
-
-            hipHingeGluteBridge: {
-                name: "Hip Hinge → Glute Bridge",
-                prescription: "3 sets × 12 reps",
-                cue: "Hinge pattern drill, then strong glute bridge, ribs down",
-                progression: { type: "REPS", target: 12, nextStep: "hipThrustLoaded" },
-                instructions: "Practice hinge movement, then perform glute bridges",
-                safetyNotes: "Focus on glute activation, avoid lower back arch",
-                equipmentMap: {
-                    gym: "hipHingeGluteBridge",
-                    basic: "hipHingeGluteBridge",
-                    minimal: "hipHingeGluteBridge",
-                    bodyweight: "hipHingeGluteBridge"
-                }
-            },
-
-            frontSquat: {
-                name: "Front Squat",
-                prescription: "4 sets × 8 reps",
-                cue: "Bar on front shoulders, elbows high, stay upright",
-                progression: { type: "RIR", repsInReserve: 2, weeklyIncrementPct: 0.025 },
-                effortCue: rirCue(2),
-                instructions: "Barbell across front shoulders, squat keeping torso upright",
-                safetyNotes: "Drop bar forward if needed, stop if wrists hurt",
-                equipmentMap: {
-                    gym: "barbellFrontSquat",
-                    basic: "gobletSquat",
-                    minimal: "gobletSquat",
-                    bodyweight: "tempoBodyweightSquat"
-                }
-            },
-
-            inclinePress: {
-                name: "Incline Press",
-                prescription: "3 sets × 8 reps",
-                cue: "Press dumbbells on incline, full range of motion",
-                progression: { type: "RIR", repsInReserve: 2, weeklyIncrementPct: 0.025 },
-                effortCue: rirCue(2),
-                instructions: "Dumbbell press on inclined bench",
-                safetyNotes: "Control the weight, stop if shoulders hurt",
-                equipmentMap: {
-                    gym: "dumbbellInclinePress",
-                    basic: "dumbbellInclinePress",
-                    minimal: "inclinePushUp",
-                    bodyweight: "inclinePushUp"
-                }
-            },
-
-            chinUps: {
-                name: "Chin-Ups",
-                prescription: "3 sets × max reps (stop 2 shy of failure)",
-                cue: "Pull chest to bar, control down, engage back muscles",
-                progression: { type: "RIR", repsInReserve: 2, weeklyIncrementPct: 0.025 },
-                effortCue: rirCue(2),
-                instructions: "Hang from bar, pull body up until chin over bar",
-                safetyNotes: "Stop if form breaks, use assistance if needed",
-                equipmentMap: {
-                    gym: "chinUps",
-                    basic: "assistedChinUps",
-                    minimal: "bandAssistedChinUps",
-                    bodyweight: "invertedRow"
+                    full: { name: "Barbell Bench Press" },
+                    gym: { name: "DB Bench Press" },
+                    minimal: { name: "Floor Press" },
+                    bodyweight: { name: "Push-ups", sub: "4 × max-3 reps" }
                 }
             },
 
             overheadPress: {
                 name: "Overhead Press",
-                prescription: "3 sets × 6 reps",
-                cue: "Press barbell overhead, keep core tight, straight path",
-                progression: { type: "RIR", repsInReserve: 2, weeklyIncrementPct: 0.025 },
-                effortCue: rirCue(2),
-                instructions: "Standing barbell press from shoulders to overhead",
-                safetyNotes: "Don't arch back excessively, stop if shoulders hurt",
+                category: "PUSH",
+                prescription: "3 × 6 @ RPE 7-8",
+                cue: "Core tight, press straight up, no back arch",
+                safetyNotes: "Start light, shoulder health is priority",
                 equipmentMap: {
-                    gym: "barbellOverheadPress",
-                    basic: "dumbbellOverheadPress",
-                    minimal: "singleDumbbellPress",
-                    bodyweight: "pikePushUp"
+                    full: { name: "Barbell OHP" },
+                    gym: { name: "DB Overhead Press" },
+                    minimal: { name: "Band Press" },
+                    bodyweight: { name: "Pike Push-ups" }
                 }
             },
 
+            // PULL CATEGORY
+            pullUp: {
+                name: "Pull-ups",
+                category: "PULL",
+                prescription: "3 × max-2 reps",
+                cue: "Full hang to chin over bar, control down",
+                safetyNotes: "Use assistance if needed for good form",
+                equipmentMap: {
+                    full: { name: "Pull-ups" },
+                    gym: { name: "Lat Pulldown" },
+                    minimal: { name: "Band Pulldown" },
+                    bodyweight: { name: "Inverted Row", sub: "Use table/TRX" }
+                }
+            },
+
+            bentRow: {
+                name: "Bent Row",
+                category: "PULL",
+                prescription: "3 × 8 @ RPE 7",
+                cue: "Hinge at hips, pull to stomach, squeeze shoulder blades",
+                safetyNotes: "Keep back flat, don't jerk weight",
+                equipmentMap: {
+                    full: { name: "Barbell Row" },
+                    gym: { name: "DB Row" },
+                    minimal: { name: "Band Row" },
+                    bodyweight: { name: "Inverted Row" }
+                }
+            },
+
+            // SQUAT CATEGORY
+            backSquat: {
+                name: "Back Squat",
+                category: "SQUAT",
+                prescription: "4 × 5 @ RPE 7-8",
+                cue: "Chest up, knees out, hip crease below knee",
+                safetyNotes: "Use safety bars, warm up thoroughly",
+                equipmentMap: {
+                    full: { name: "Back Squat" },
+                    gym: { name: "Goblet Squat" },
+                    minimal: { name: "DB/Band Squat" },
+                    bodyweight: { name: "Jump Squat", sub: "4 × 8" }
+                }
+            },
+
+            splitSquat: {
+                name: "Split Squat",
+                category: "SQUAT",
+                prescription: "3 × 8 each leg",
+                cue: "Vertical torso, back knee down, drive through front heel",
+                safetyNotes: "Start bodyweight, add load gradually",
+                equipmentMap: {
+                    full: { name: "BB Split Squat" },
+                    gym: { name: "DB Split Squat" },
+                    minimal: { name: "BW Split Squat" },
+                    bodyweight: { name: "Split Squat" }
+                }
+            },
+
+            // HINGE CATEGORY
+            romanianDeadlift: {
+                name: "Romanian Deadlift",
+                category: "HINGE",
+                prescription: "3 × 8 @ RPE 7",
+                cue: "Push hips back, feel hamstring stretch, squeeze glutes at top",
+                safetyNotes: "Stop if back rounds, start light",
+                equipmentMap: {
+                    full: { name: "Barbell RDL" },
+                    gym: { name: "DB RDL" },
+                    minimal: { name: "Band Good Morning" },
+                    bodyweight: { name: "Single Leg RDL", sub: "Bodyweight only" }
+                }
+            },
+
+            kettlebellSwing: {
+                name: "KB/DB Swing",
+                category: "HINGE",
+                prescription: "4 × 15",
+                cue: "Hinge not squat, explosive hip drive, float the weight",
+                safetyNotes: "Master hip hinge first, quality over quantity",
+                equipmentMap: {
+                    full: { name: "KB Swing" },
+                    gym: { name: "DB Swing" },
+                    minimal: { name: "Band Pull-Through" },
+                    bodyweight: { name: "Broad Jump", sub: "4 × 5" }
+                }
+            },
+
+            // CARRY CATEGORY
             farmersCarry: {
                 name: "Farmer's Carry",
-                prescription: "3 sets × 30 seconds",
-                cue: "Heavy weights at sides, walk with perfect posture",
-                progression: { type: "TIME", targetSec: 60, stepSec: 5 },
-                ladder: [
-                    { key: "farmersCarry30", label: "Farmer's Carry (30s)" },
-                    { key: "farmersCarry45", label: "Farmer's Carry (45s)" },
-                    { key: "heavyFarmersCarry", label: "Heavy Farmer's Carry" }
-                ],
-                nextRule: "If you can carry for 60 seconds easily, increase weight.",
-                instructions: "Hold heavy weights at sides, walk maintaining posture",
-                safetyNotes: "Stop if grip fails or posture breaks down",
+                category: "CARRY",
+                prescription: "3 × 40 yards",
+                cue: "Tall posture, shoulders back, breathe normally",
+                safetyNotes: "Start with manageable weight, build grip gradually",
                 equipmentMap: {
-                    gym: "dumbbellFarmersWalk",
-                    basic: "dumbbellFarmersWalk",
-                    minimal: "suitcaseCarry",
-                    bodyweight: "backpackCarry"
+                    full: { name: "Heavy Farmer's Walk" },
+                    gym: { name: "DB Farmer's Walk" },
+                    minimal: { name: "Suitcase Carry", sub: "One side at a time" },
+                    bodyweight: { name: "Bear Crawl", sub: "3 × 20 yards" }
                 }
             },
 
-            stepUps: {
-                name: "Step-Ups",
-                prescription: "3 sets × 10/leg",
-                cue: "Full foot on box, drive through heel, control down",
-                progression: { type: "REPS", target: 12, nextStep: "addLoad" },
-                instructions: "Step onto stable surface, focus on control",
-                safetyNotes: "Use stable surface, avoid bouncing",
+            // CORE CATEGORY
+            pallofPress: {
+                name: "Pallof Press",
+                category: "CORE",
+                prescription: "3 × 10 each side",
+                cue: "Resist rotation, arms straight, core tight",
+                safetyNotes: "Control the resistance, don't let it pull you",
                 equipmentMap: {
-                    gym: "stepUps",
-                    basic: "stepUps",
-                    minimal: "stepUps",
-                    bodyweight: "stepUps"
+                    full: { name: "Cable Pallof Press" },
+                    gym: { name: "Band Pallof Press" },
+                    minimal: { name: "Band Anti-Rotation" },
+                    bodyweight: { name: "Bird Dog", sub: "3 × 8 each" }
                 }
             },
 
-            sidePlank: {
-                name: "Side Plank",
-                prescription: "3 sets × 20-40s/side",
-                cue: "Hips high, straight line from head to feet, breathe normally",
-                progression: { type: "TIME", targetSec: 45, stepSec: 5 },
-                instructions: "Lie on side, support body on forearm",
-                safetyNotes: "Stop if form breaks, modify on knees if needed",
+            plank: {
+                name: "Plank",
+                category: "CORE",
+                prescription: "3 × 30-45 seconds",
+                cue: "Straight line head to heels, breathe normally",
+                safetyNotes: "Stop if back hurts, quality over duration",
                 equipmentMap: {
-                    gym: "sidePlank",
-                    basic: "sidePlank",
-                    minimal: "sidePlank",
-                    bodyweight: "sidePlank"
+                    full: { name: "Plank" },
+                    gym: { name: "Plank" },
+                    minimal: { name: "Plank" },
+                    bodyweight: { name: "Plank" }
                 }
             }
         };
 
-        // Complete Workout Templates with Fixed Titles
-        const WORKOUTS = {
-            patternTrack: {
+        // ==================== WORKOUT TEMPLATES ====================
+        const WORKOUT_TEMPLATES = {
+            franchise: {
                 week1: {
                     dayA: {
-                        title: "Day A - Movement Foundation",
-                        duration: "30-45 minutes",
-                        warmup: "8-10 min: Cat-Cow (2×6), Glute Bridge (2×10), Wall Sit (2×20s), Arm Circles (2×15)",
-                        exercises: [
-                            { exercise: "bodyweightSquat" },
-                            { exercise: "inclinePushUp" },
-                            { exercise: "hipHingeDrill" },
-                            { exercise: "invertedRowHigh" },
-                            { exercise: "backpackCarry" }
+                        title: "Day A - Power & Lower",
+                        duration: "50 minutes",
+                        warmup: "5 min bike + dynamic stretching",
+                        blocks: [
+                            {
+                                category: "SPRINT",
+                                exercises: ["sprint_10yd"],
+                                note: "Use treadmill if no turf space"
+                            },
+                            {
+                                category: "JUMP", 
+                                exercises: ["verticalJump"],
+                                note: "Use box if available"
+                            },
+                            {
+                                category: "SQUAT",
+                                exercises: ["backSquat", "splitSquat"]
+                            },
+                            {
+                                category: "HINGE",
+                                exercises: ["romanianDeadlift"]
+                            },
+                            {
+                                category: "CARRY",
+                                exercises: ["farmersCarry"]
+                            }
                         ],
-                        conditioning: "5-10 minutes light walking or stretching",
-                        notes: "Focus on perfect form. Stop 2-3 reps before failure."
+                        cooldown: "5 min walk + stretch"
                     },
                     dayB: {
-                        title: "Day B - Movement Quality",
-                        duration: "30-45 minutes", 
-                        warmup: "8-10 min: Dynamic stretching - leg swings, arm circles, hip circles",
-                        exercises: [
-                            { exercise: "bodyweightSquat", prescription: "3 sets × 8 reps" },
-                            { exercise: "inclinePushUp", prescription: "3 sets × 6 reps" },
-                            { exercise: "hipHingeDrill", prescription: "3 sets × 10 reps" },
-                            { exercise: "backpackCarry", prescription: "3 sets × 25 seconds" },
-                            { exercise: "plank", prescription: "3 sets × 20 seconds" }
+                        title: "Day B - Ballistic & Upper",
+                        duration: "50 minutes",
+                        warmup: "5 min row + arm circles",
+                        blocks: [
+                            {
+                                category: "THROW",
+                                exercises: ["mbChestPass", "mbSlam"],
+                                note: "Use explosive push-ups if no MB"
+                            },
+                            {
+                                category: "PUSH",
+                                exercises: ["benchPress", "overheadPress"]
+                            },
+                            {
+                                category: "PULL",
+                                exercises: ["pullUp", "bentRow"]
+                            },
+                            {
+                                category: "CORE",
+                                exercises: ["pallofPress", "plank"]
+                            }
                         ],
-                        conditioning: "Balance and stability practice",
-                        notes: "Week 1: Build consistency. Quality over intensity."
+                        cooldown: "5 min stretch"
                     },
                     dayC: {
-                        title: "Day C - Movement Practice",
-                        duration: "30-45 minutes",
-                        warmup: "8-10 min: Light movement, joint mobility",
-                        exercises: [
-                            { exercise: "bodyweightSquat" },
-                            { exercise: "inclinePushUp" },
-                            { exercise: "hipHingeDrill" },
-                            { exercise: "invertedRowHigh" },
-                            { exercise: "backpackCarry" }
+                        title: "Day C - Total Athletic",
+                        duration: "45 minutes",
+                        warmup: "5 min general movement",
+                        blocks: [
+                            {
+                                category: "SPRINT",
+                                exercises: ["sprint_20yd"],
+                                note: "Can use bike sprints"
+                            },
+                            {
+                                category: "JUMP",
+                                exercises: ["broadJump"]
+                            },
+                            {
+                                category: "THROW",
+                                exercises: ["mbRotational"]
+                            },
+                            {
+                                category: "HINGE",
+                                exercises: ["kettlebellSwing"]
+                            },
+                            {
+                                category: "Circuit",
+                                exercises: ["3 rounds: 30s each station"],
+                                note: "Customize based on class size"
+                            }
                         ],
-                        conditioning: "Flexibility and breathing exercises",
-                        notes: "Week 1: Practice makes progress. Focus on movement control."
+                        cooldown: "Group stretch"
                     }
                 }
             },
-        
-            noviceTrack: {
+
+            remote: {
                 week1: {
                     dayA: {
-                        title: "Day A - Lower Body Focus", 
-                        duration: "45-55 minutes",
-                        warmup: "8-10 min: light cardio, dynamic stretching, glute activation",
-                        exercises: [
-                            { exercise: "gobletSquat" },
-                            { exercise: "dbRDL" },
-                            { exercise: "splitSquat" },
-                            { exercise: "backpackCarry", prescription: "3 sets × 30 seconds" }
-                        ],
-                        conditioning: "5 minutes light stretching",
-                        notes: "Week 1: Learn to load movements safely. Start conservative."
+                        title: "Day A - Athletic Power",
+                        duration: "40-50 minutes",
+                        warmup: "5 min dynamic warm-up",
+                        blocks: [
+                            {
+                                category: "SPRINT",
+                                exercises: ["sprint_10yd"],
+                                note: "Adapt to available space"
+                            },
+                            {
+                                category: "JUMP",
+                                exercises: ["verticalJump", "broadJump"]
+                            },
+                            {
+                                category: "SQUAT",
+                                exercises: ["backSquat"]
+                            },
+                            {
+                                category: "HINGE",
+                                exercises: ["romanianDeadlift"]
+                            },
+                            {
+                                category: "CORE",
+                                exercises: ["plank"]
+                            }
+                        ]
                     },
                     dayB: {
-                        title: "Day B - Upper Body Focus",
-                        duration: "45-55 minutes", 
-                        warmup: "8-10 min: arm circles, band pull-aparts, light movement",
-                        exercises: [
-                            { exercise: "dbBenchPress" },
-                            { exercise: "oneArmRow" },
-                            { exercise: "dbOverheadPress" },
-                            { exercise: "plank" }
-                        ],
-                        conditioning: "5 minutes upper body stretching",
-                        notes: "Week 1: Focus on control with external load."
+                        title: "Day B - Upper & Ballistic",
+                        duration: "40-50 minutes",
+                        warmup: "Arm swings, push-ups",
+                        blocks: [
+                            {
+                                category: "THROW",
+                                exercises: ["mbChestPass"],
+                                note: "Use explosive push-ups if needed"
+                            },
+                            {
+                                category: "PUSH",
+                                exercises: ["benchPress", "overheadPress"]
+                            },
+                            {
+                                category: "PULL",
+                                exercises: ["pullUp", "bentRow"]
+                            },
+                            {
+                                category: "CARRY",
+                                exercises: ["farmersCarry"]
+                            }
+                        ]
                     },
                     dayC: {
-                        title: "Day C - Total Body",
-                        duration: "45-55 minutes",
-                        warmup: "8-10 min: full body movement preparation",
-                        exercises: [
-                            { exercise: "dbRDL", prescription: "3 sets × 8 reps" },
-                            { exercise: "inclinePress", prescription: "3 sets × 8 reps" },
-                            { exercise: "chinUps", prescription: "3 sets × max reps" },
-                            { exercise: "farmersCarry", prescription: "3 sets × 20 seconds" }
-                        ],
-                        conditioning: "8-10 minutes: 30s squats → 30s push-ups → 30s rest × 3 rounds",
-                        notes: "Week 1: Total body integration with light conditioning."
+                        title: "Day C - Conditioning",
+                        duration: "30-40 minutes",
+                        warmup: "Light movement prep",
+                        blocks: [
+                            {
+                                category: "SPRINT",
+                                exercises: ["sprint_20yd"]
+                            },
+                            {
+                                category: "THROW",
+                                exercises: ["mbSlam"]
+                            },
+                            {
+                                category: "HINGE",
+                                exercises: ["kettlebellSwing"]
+                            },
+                            {
+                                category: "FINISHER",
+                                exercises: ["5 rounds: 30s work/30s rest"],
+                                note: "Pick 3 movements, rotate"
+                            }
+                        ]
                     }
                 }
             },
-        
-            baseTrack: {
+
+            club: {
                 week1: {
                     dayA: {
-                        title: "Day A - Lower Body Strength",
-                        duration: "50-60 minutes",
-                        warmup: "8-10 min: dynamic warm-up, movement preparation, activation",
-                        exercises: [
-                            { exercise: "backSquat" },
-                            { exercise: "romanianDeadlift" },
-                            { exercise: "splitSquat" },
-                            { exercise: "farmersCarry" }
-                        ],
-                        conditioning: "5 minutes light stretching",
-                        notes: "Week 1: Establish baseline weights. Focus on perfect form with 2-3 RIR."
+                        title: "Day A - Field Speed & Power",
+                        duration: "60 minutes",
+                        warmup: "10 min team dynamic warm-up",
+                        blocks: [
+                            {
+                                category: "SPRINT",
+                                exercises: ["sprint_10yd", "sprint_20yd"],
+                                note: "Full field sprints - use cones"
+                            },
+                            {
+                                category: "JUMP",
+                                exercises: ["verticalJump", "broadJump"],
+                                note: "Test and track progress"
+                            },
+                            {
+                                category: "THROW",
+                                exercises: ["mbChestPass", "mbRotational"],
+                                note: "Partner drills"
+                            },
+                            {
+                                category: "SQUAT",
+                                exercises: ["backSquat"]
+                            },
+                            {
+                                category: "Team Competition",
+                                exercises: ["Relay races or team challenges"]
+                            }
+                        ]
                     },
                     dayB: {
-                        title: "Day B - Upper Body Strength", 
-                        duration: "50-60 minutes",
-                        warmup: "8-10 min: shoulder preparation, thoracic mobility, activation",
-                        exercises: [
-                            { exercise: "benchPress" },
-                            { exercise: "oneArmRow" },
-                            { exercise: "overheadPress" },
-                            { exercise: "plank", prescription: "3 sets × 45 seconds" }
-                        ],
-                        conditioning: "5 minutes upper body stretching",
-                        notes: "Week 1: Conservative starting weights. Build confidence with barbell movements."
+                        title: "Day B - Gym Strength",
+                        duration: "50 minutes",
+                        warmup: "5 min general prep",
+                        blocks: [
+                            {
+                                category: "PUSH",
+                                exercises: ["benchPress", "overheadPress"]
+                            },
+                            {
+                                category: "PULL",
+                                exercises: ["pullUp", "bentRow"]
+                            },
+                            {
+                                category: "HINGE",
+                                exercises: ["romanianDeadlift"]
+                            },
+                            {
+                                category: "CARRY",
+                                exercises: ["farmersCarry"],
+                                note: "Can be relay format"
+                            },
+                            {
+                                category: "CORE",
+                                exercises: ["pallofPress", "plank"]
+                            }
+                        ]
                     },
                     dayC: {
-                        title: "Day C - Total Body + Conditioning",
-                        duration: "50-60 minutes", 
-                        warmup: "8-10 min: full body activation, movement preparation",
-                        exercises: [
-                            { exercise: "trapBarDeadlift" },
-                            { exercise: "inclinePress" },
-                            { exercise: "chinUps" },
-                            { exercise: "farmersCarry", prescription: "3 sets × 40 seconds" }
-                        ],
-                        conditioning: "15 minutes interval work: 30s work → 90s rest × 6 rounds",
-                        notes: "Week 1: Learn trap bar technique. Avoid training to failure."
-                    }
-                },
-                week2: {
-                    dayA: {
-                        title: "Day A - Lower Body Strength",
-                        duration: "50-60 minutes",
-                        warmup: "8-10 min: dynamic warm-up, movement preparation",
-                        exercises: [
-                            { exercise: "backSquat", prescription: "5 sets × 4 reps", note: "Increase weight 2.5-5%" },
-                            { exercise: "romanianDeadlift", prescription: "3 sets × 8 reps" },
-                            { exercise: "splitSquat", prescription: "3 sets × 8 each leg" },
-                            { exercise: "farmersCarry", prescription: "3 sets × 45 seconds" }
-                        ],
-                        conditioning: "5 minutes mobility work",
-                        notes: "Week 2: Small weight increases. Maintain perfect form with 2-3 RIR."
-                    },
-                    dayB: {
-                        title: "Day B - Upper Body Strength",
-                        duration: "50-60 minutes",
-                        warmup: "8-10 min: shoulder prep, activation work",
-                        exercises: [
-                            { exercise: "benchPress", prescription: "5 sets × 4 reps", note: "Increase weight 2.5-5%" },
-                            { exercise: "oneArmRow", prescription: "3 sets × 8 each arm" },
-                            { exercise: "overheadPress", prescription: "3 sets × 6 reps" },
-                            { exercise: "plank", prescription: "3 sets × 60 seconds" }
-                        ],
-                        conditioning: "5 minutes stretching",
-                        notes: "Week 2: Progressive overload. Quality movement over heavy weight."
-                    },
-                    dayC: {
-                        title: "Day C - Total Body + Conditioning",
-                        duration: "50-60 minutes",
-                        warmup: "8-10 min: full body activation",
-                        exercises: [
-                            { exercise: "trapBarDeadlift", prescription: "5 sets × 4 reps", note: "Increase weight 2.5-5%" },
-                            { exercise: "inclinePress", prescription: "3 sets × 8 reps" },
-                            { exercise: "chinUps", prescription: "3 sets × max reps" },
-                            { exercise: "farmersCarry", prescription: "3 sets × 45 seconds" }
-                        ],
-                        conditioning: "15 minutes intervals: slightly increased intensity",
-                        notes: "Week 2: Building intensity while maintaining excellent technique."
-                    }
-                },
-                week3: {
-                    dayA: {
-                        title: "Day A - Lower Body Strength",
-                        duration: "50-60 minutes",
-                        warmup: "8-10 min: thorough preparation for heavier loads",
-                        exercises: [
-                            { exercise: "backSquat", prescription: "5 sets × 3 reps", note: "Increase weight, 1-2 RIR" },
-                            { exercise: "romanianDeadlift", prescription: "4 sets × 6 reps" },
-                            { exercise: "splitSquat", prescription: "4 sets × 6 each leg" },
-                            { exercise: "farmersCarry", prescription: "4 sets × 50 seconds" }
-                        ],
-                        conditioning: "10 minutes recovery work",
-                        notes: "Week 3: Peak intensity for strength block. 1-2 reps in reserve."
-                    },
-                    dayB: {
-                        title: "Day B - Upper Body Strength", 
-                        duration: "50-60 minutes",
-                        warmup: "8-10 min: comprehensive upper body preparation",
-                        exercises: [
-                            { exercise: "benchPress", prescription: "5 sets × 3 reps", note: "Peak load, 1-2 RIR" },
-                            { exercise: "oneArmRow", prescription: "4 sets × 6 each arm" },
-                            { exercise: "overheadPress", prescription: "4 sets × 6 reps" },
-                            { exercise: "plank", prescription: "3 sets × 75 seconds" }
-                        ],
-                        conditioning: "10 minutes recovery stretching",
-                        notes: "Week 3: Strength block peak. Focus on solid technique under load."
-                    },
-                    dayC: {
-                        title: "Day C - Total Body + Conditioning",
-                        duration: "50-60 minutes",
-                        warmup: "8-10 min: full preparation for peak session",
-                        exercises: [
-                            { exercise: "trapBarDeadlift", prescription: "5 sets × 3 reps", note: "Peak load, 1-2 RIR" },
-                            { exercise: "inclinePress", prescription: "4 sets × 8 reps" },
-                            { exercise: "chinUps", prescription: "4 sets × max reps" },
-                            { exercise: "farmersCarry", prescription: "4 sets × 60 seconds" }
-                        ],
-                        conditioning: "20 minutes varied intervals",
-                        notes: "Week 3: Strength block completion. Prepare for hypertrophy transition."
+                        title: "Day C - Game Speed",
+                        duration: "45 minutes",
+                        warmup: "Sport-specific warm-up",
+                        blocks: [
+                            {
+                                category: "SPRINT",
+                                exercises: ["sprint_20yd"],
+                                note: "Sport-specific patterns"
+                            },
+                            {
+                                category: "JUMP",
+                                exercises: ["verticalJump"]
+                            },
+                            {
+                                category: "THROW",
+                                exercises: ["mbSlam"]
+                            },
+                            {
+                                category: "CONDITIONING",
+                                exercises: ["Sport-specific drills"],
+                                note: "Small-sided games"
+                            }
+                        ]
                     }
                 }
             }
         };
-        
-        // Fixed Equipment Substitution Function (removed duplicate)
-        function getExerciseForEquipment(exercise, equipmentLevel, exerciseKey) {
-            if (!exercise) {
-                // Return safe placeholder if exercise not found
-                return { 
-                    name: "Exercise Configuration Error", 
-                    prescription: "3 sets × 10 reps", 
-                    cue: "Please report this issue",
-                    instructions: "Exercise not found in database",
-                    safetyNotes: "Stop and select alternative",
-                    isSubstituted: false,
-                    hasSubstitution: false
-                };
-            }
 
-            // Handle equipment mapping
-            if (exercise.equipmentMap && exercise.equipmentMap[equipmentLevel]) {
-                const substitutedKey = exercise.equipmentMap[equipmentLevel];
-                
-                // If substituted, get the actual exercise from database
-                if (substitutedKey !== exerciseKey && EXERCISE_DATABASE[substitutedKey]) {
-                    const substitutedExercise = EXERCISE_DATABASE[substitutedKey];
-                    return {
-                        ...substitutedExercise,
-                        isSubstituted: true,
-                        hasSubstitution: true,
-                        originalExercise: exercise.name
-                    };
-                }
+        // ==================== CONTEXT & SAFETY RULES ====================
+        const CONTEXT_RULES = {
+            franchise: {
+                sprintSub: "Treadmill sprints at 8-10% incline",
+                throwSub: "Medicine ball at designated area or explosive push-ups",
+                spaceLimitations: true,
+                groupSize: "10-20 athletes",
+                safetyNote: "Follow facility protocols, use designated areas only"
+            },
+            remote: {
+                sprintSub: "Hill sprints, parking lot, or band-resisted marching",
+                throwSub: "Any explosive movement if no ball available",
+                spaceLimitations: "variable",
+                groupSize: "Individual",
+                safetyNote: "Assess your space, start conservative, progress slowly"
+            },
+            club: {
+                sprintSub: "Full field sprints available",
+                throwSub: "Partner medicine ball drills",
+                spaceLimitations: false,
+                groupSize: "20-40 athletes",
+                safetyNote: "Proper warm-up critical, monitor fatigue in young athletes"
             }
-            
-            // Return original exercise with substitution availability flag
-            return {
-                ...exercise,
-                isSubstituted: false,
-                hasSubstitution: exercise.equipmentMap && Object.keys(exercise.equipmentMap).length > 1
-            };
+        };
+
+        // ==================== USER STATE ====================
+        let userData = {
+            context: null,      // franchise, remote, club
+            equipment: null,    // full, gym, minimal, bodyweight
+            sprintSpace: null,  // field, treadmill, none
+            currentWeek: 1
+        };
+
+        // ==================== UI FUNCTIONS ====================
+        function startOnboarding() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('contextScreen').classList.remove('hidden');
+            document.getElementById('contextScreen').classList.add('fade-in');
         }
 
-        // Enhanced Equipment Configuration Function
-        function showEquipmentConfiguration() {
-            // Create modal backdrop
-            const backdrop = document.createElement('div');
-            backdrop.className = 'modal-backdrop';
-            backdrop.onclick = () => closeEquipmentModal();
+        function selectContext(context) {
+            userData.context = context;
             
-            // Create modal
-            const modal = document.createElement('div');
-            modal.className = 'modal';
-            
-            const equipmentOptions = [
-                { id: 'gym', title: 'Full Gym', desc: 'Barbells, dumbbells, machines, cables' },
-                { id: 'basic', title: 'Basic Setup', desc: 'Dumbbells, basic equipment, home gym' },
-                { id: 'minimal', title: 'Minimal Equipment', desc: 'Resistance bands, light weights' },
-                { id: 'bodyweight', title: 'Bodyweight Only', desc: 'No equipment needed' }
-            ];
-            
-            modal.innerHTML = `
-                <h3 style="margin-bottom: 20px;">Equipment Configuration</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 20px;">
-                    Select your equipment level. Your workouts will automatically adapt.
-                </p>
-                <div class="equipment-options" style="margin-bottom: 20px;">
-                    ${equipmentOptions.map(opt => `
-                        <div class="equipment-option ${userData.equipment === opt.id ? 'selected' : ''}" 
-                             onclick="selectEquipmentConfig('${opt.id}')"
-                             id="config-${opt.id}">
-                            <div class="equipment-title">${opt.title}</div>
-                            <div class="equipment-desc">${opt.desc}</div>
-                        </div>
-                    `).join('')}
-                </div>
-                <div style="display: flex; gap: 12px; justify-content: flex-end;">
-                    <button class="btn btn-secondary" onclick="closeEquipmentModal()">Cancel</button>
-                    <button class="btn" onclick="applyEquipmentConfig()">Apply Changes</button>
-                </div>
-            `;
-            
-            document.body.appendChild(backdrop);
-            document.body.appendChild(modal);
-            
-            window.equipmentModal = modal;
-            window.equipmentBackdrop = backdrop;
-            window.tempEquipment = userData.equipment;
-        }
-
-        function selectEquipmentConfig(equipment) {
-            window.tempEquipment = equipment;
-            
-            // Update UI selection
-            document.querySelectorAll('.equipment-option').forEach(opt => {
+            // Update UI
+            document.querySelectorAll('.context-option').forEach(opt => {
                 opt.classList.remove('selected');
             });
-            document.getElementById(`config-${equipment}`).classList.add('selected');
-        }
-
-        function applyEquipmentConfig() {
-            userData.equipment = window.tempEquipment;
-            saveData();
-            renderWorkouts();
-            showMessage(`Equipment updated to: ${getEquipmentName(userData.equipment)}`, 'success');
-            closeEquipmentModal();
-        }
-
-        function closeEquipmentModal() {
-            if (window.equipmentModal) document.body.removeChild(window.equipmentModal);
-            if (window.equipmentBackdrop) document.body.removeChild(window.equipmentBackdrop);
-            window.equipmentModal = null;
-            window.equipmentBackdrop = null;
-            window.tempEquipment = null;
-        }
-
-        function getEquipmentName(equipment) {
-            const names = {
-                gym: 'Full Gym',
-                basic: 'Basic Setup',
-                minimal: 'Minimal Equipment',
-                bodyweight: 'Bodyweight Only'
-            };
-            return names[equipment] || 'Unknown';
-        }
-
-        // Enhanced user data storage with real progression tracking
-        let userData = {
-            answers: {},
-            track: null,
-            equipment: null,
-            currentWeek: 1,
-            completedWorkouts: [],
-            totalWorkouts: 0,
-            weekStreak: 0,
-            currentWeekWorkouts: 0,
-            lastWorkoutDate: null,
-            workoutRatings: [],
-            notifications: [],
-            completedExercises: new Set(),
-            startDate: null,
-            exerciseProgress: {},
-            exerciseVersions: {},
-            trackGraduation: {
-                patternToNovice: false,
-                noviceToBase: false
-            },
-            weekCompletionData: {},
-            lastProgressionCheck: null
-        };
-         
-        let currentQuestion = 1;
-
-        // Welcome screen function
-        function startOnboarding() {
-            console.log('Starting onboarding');
-            document.getElementById('welcomeScreen').classList.add('hidden');
-            document.getElementById('onboardingScreen').classList.remove('hidden');
-            document.getElementById('onboardingScreen').classList.add('fade-in');
-        }
-
-        // Question answering
-        function answerQuestion(questionNum, answer) {
-            userData.answers[questionNum] = answer;
+            event.target.closest('.context-option').classList.add('selected');
             
-            const currentCard = document.getElementById(`question${questionNum}`);
-            currentCard.classList.add('answered');
-            
-            const buttons = currentCard.querySelectorAll('.btn-secondary');
-            buttons.forEach(btn => btn.classList.remove('selected'));
-            event.target.classList.add('selected');
-            
-            if (questionNum < 3) {
-                setTimeout(() => {
-                    const nextCard = document.getElementById(`question${questionNum + 1}`);
-                    nextCard.classList.remove('hidden');
-                    nextCard.classList.add('fade-in');
-                    updateProgress((questionNum + 1) / 3 * 100);
-                }, 300);
-            } else {
-                setTimeout(() => {
-                    document.getElementById('startProgramBtn').classList.remove('hidden');
-                    updateProgress(100);
-                }, 300);
-            }
+            document.getElementById('contextContinue').classList.remove('hidden');
         }
 
-        function updateProgress(percentage) {
-            document.getElementById('progressFill').style.width = percentage + '%';
-        }
-
-        function generateProgram() {
-            const q1 = userData.answers[1];
-            const q2 = userData.answers[2];  
-            const q3 = userData.answers[3];
-
-            if (!q1 || !q2) {
-                userData.track = 'pattern';
-            } else if (!q3) {
-                userData.track = 'novice';
-            } else {
-                userData.track = 'base';
-            }
-
-            userData.startDate = new Date().toISOString();
-
-            document.getElementById('onboardingScreen').classList.add('hidden');
+        function showEquipmentScreen() {
+            document.getElementById('contextScreen').classList.add('hidden');
             document.getElementById('equipmentScreen').classList.remove('hidden');
             document.getElementById('equipmentScreen').classList.add('fade-in');
         }
@@ -1512,694 +1050,123 @@
         function selectEquipment(equipment) {
             userData.equipment = equipment;
             
-            document.querySelectorAll('.equipment-option').forEach(option => {
-                option.classList.remove('selected');
+            // Update UI
+            document.querySelectorAll('.equipment-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            event.target.closest('.equipment-option').classList.add('selected');
+            
+            // Show continue button if sprint space also selected
+            if (userData.sprintSpace) {
+                document.getElementById('equipmentContinue').classList.remove('hidden');
+            }
+        }
+
+        function setSprintSpace(space) {
+            userData.sprintSpace = space;
+            
+            // Update UI
+            document.querySelectorAll('#equipmentScreen .btn-secondary').forEach(btn => {
+                btn.classList.remove('selected');
             });
             event.target.classList.add('selected');
             
-            document.getElementById('continueToProgram').classList.remove('hidden');
+            // Show continue button if equipment also selected  
+            if (userData.equipment) {
+                document.getElementById('equipmentContinue').classList.remove('hidden');
+            }
         }
 
-        function showProgram() {
+        function generateProgram() {
             document.getElementById('equipmentScreen').classList.add('hidden');
             document.getElementById('programScreen').classList.remove('hidden');
             document.getElementById('programScreen').classList.add('fade-in');
             
-            const trackNames = {
-                pattern: 'Pattern Track - Movement Foundation',
-                novice: 'Novice Load Track - Safe Loading', 
-                base: 'Base Track - Progressive Strength'
-            };
-            document.getElementById('trackIndicator').textContent = trackNames[userData.track];
+            // Set context-specific notice
+            const contextNotice = document.getElementById('contextNotice');
+            const rules = CONTEXT_RULES[userData.context];
             
-            updateProgressStats();
-            updateProgramTitle();
+            contextNotice.innerHTML = `
+                <h4 style="margin-bottom: 8px;">Your ${userData.context === 'franchise' ? 'Franchise Facility' : 
+                    userData.context === 'remote' ? 'Remote Training' : 'Club Team'} Program</h4>
+                <p style="color: var(--text-secondary); margin-bottom: 8px;">${rules.safetyNote}</p>
+                <ul style="padding-left: 20px; color: var(--text-secondary);">
+                    <li><strong>Sprint adaptation:</strong> ${rules.sprintSub}</li>
+                    <li><strong>Throw adaptation:</strong> ${rules.throwSub}</li>
+                    <li><strong>Training context:</strong> ${rules.groupSize}</li>
+                </ul>
+            `;
+            
             renderWorkouts();
-            saveData();
         }
 
-        function updateProgressStats() {
-            document.getElementById('weekStreak').textContent = userData.weekStreak;
-            document.getElementById('totalWorkouts').textContent = userData.totalWorkouts;
-            document.getElementById('currentWeekProgress').textContent = `${userData.currentWeekWorkouts}/3`;
-            
-            const nextWorkout = userData.currentWeekWorkouts < 3 ? ['Day A', 'Day B', 'Day C'][userData.currentWeekWorkouts] : 'Week Complete!';
-            document.getElementById('nextWorkout').textContent = nextWorkout;
-        }
-
-        function updateProgramTitle() {
-            const trackNames = {
-                pattern: "Pattern Track - Movement Foundation",
-                novice: "Novice Load Track - Safe Loading",
-                base: "Base Track - Progressive Strength"
-            };
-            
-            const blockNames = {
-                1: "Strength Focus", 2: "Strength Building", 3: "Strength Peak",
-                4: "Hypertrophy Focus", 5: "Hypertrophy Building", 6: "Hypertrophy Peak", 
-                7: "Conditioning Focus", 8: "Conditioning Building", 9: "Conditioning Peak"
-            };
-            
-            const title = `Week ${userData.currentWeek} - ${blockNames[userData.currentWeek] || 'Training'}`;
-            const programTitle = document.getElementById('programTitle');
-            
-            if (programTitle) {
-                programTitle.textContent = title;
-            }
-        
-            const trackIndicator = document.getElementById('trackIndicator');
-            if (trackIndicator) {
-                trackIndicator.textContent = trackNames[userData.track] || 'Training Program';
-            }
-        }
-
-        function completeExercise(exerciseId, dayId) {
-            showRepTracker(exerciseId, dayId);
-        }
-
-        function showRepTracker(exerciseId, dayId) {
-            // Extract exercise key safely
-            const parts = exerciseId.split('-');
-            const exerciseIndex = parseInt(parts[parts.length - 1]);
-            
-            // Get the workout day
-            const weekKey = `week${userData.currentWeek}`;
-            const trackWorkouts = WORKOUTS[userData.track + 'Track'];
-            const weekWorkouts = trackWorkouts ? trackWorkouts[weekKey] || trackWorkouts.week1 : null;
-            
-            if (!weekWorkouts) {
-                showMessage('Error loading workout', 'error');
-                return;
-            }
-
-            // Find the day and exercise
-            const dayKeys = Object.keys(weekWorkouts);
-            const dayIndex = Math.floor((parseInt(parts[0]) - 1) / dayKeys.length);
-            const dayWorkout = weekWorkouts[dayKeys[dayIndex % dayKeys.length]];
-            
-            if (!dayWorkout || !dayWorkout.exercises[exerciseIndex]) {
-                showMessage('Exercise not found', 'error');
-                return;
-            }
-
-            const exerciseRef = dayWorkout.exercises[exerciseIndex];
-            const exercise = EXERCISE_DATABASE[exerciseRef.exercise];
-            
-            if (!exercise) {
-                showMessage('Exercise configuration error', 'error');
-                return;
-            }
-
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: white;
-                padding: 24px;
-                border-radius: 12px;
-                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-                z-index: 1000;
-                border: 1px solid var(--border-color);
-                min-width: 300px;
-            `;
-
-            const currentVersion = getCurrentExerciseVersion(exerciseRef.exercise);
-            const targetReps = getTargetReps(exercise, currentVersion);
-
-            modal.innerHTML = `
-                <h3 style="margin-bottom: 16px;">${currentVersion.name}</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 16px;">
-                    How many clean reps did you complete?
-                </p>
-                <div style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
-                    ${Array.from({length: Math.min(targetReps + 8, 20)}, (_, i) => 
-                        `<button class="btn btn-secondary btn-small rep-btn" onclick="selectReps(${i + 1})">${i + 1}</button>`
-                    ).join('')}
-                </div>
-                <div style="margin-bottom: 16px;">
-                    <label style="display: block; margin-bottom: 8px;">Form Quality:</label>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-secondary btn-small form-btn" onclick="selectForm('perfect')">Perfect</button>
-                        <button class="btn btn-secondary btn-small form-btn" onclick="selectForm('good')">Good</button>
-                        <button class="btn btn-secondary btn-small form-btn" onclick="selectForm('poor')">Form Broke Down</button>
-                    </div>
-                </div>
-                <div style="display: flex; gap: 8px; justify-content: flex-end;">
-                    <button class="btn btn-secondary" onclick="closeRepTracker()">Cancel</button>
-                    <button class="btn" onclick="submitExerciseProgress('${exerciseId}', '${dayId}', '${exerciseRef.exercise}')" id="submitReps" disabled>Submit</button>
-                </div>
-            `;
-
-            const backdrop = document.createElement('div');
-            backdrop.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.5);
-                z-index: 999;
-            `;
-            backdrop.onclick = closeRepTracker;
-
-            document.body.appendChild(backdrop);
-            document.body.appendChild(modal);
-
-            window.currentModal = modal;
-            window.currentBackdrop = backdrop;
-            window.selectedReps = null;
-            window.selectedForm = null;
-        }
-
-        function selectReps(reps) {
-            window.selectedReps = reps;
-            
-            document.querySelectorAll('.rep-btn').forEach(btn => btn.classList.remove('selected'));
-            event.target.classList.add('selected');
-            
-            checkSubmitReady();
-        }
-
-        function selectForm(form) {
-            window.selectedForm = form;
-            
-            document.querySelectorAll('.form-btn').forEach(btn => btn.classList.remove('selected'));
-            event.target.classList.add('selected');
-            
-            checkSubmitReady();
-        }
-
-        function checkSubmitReady() {
-            const submitBtn = document.getElementById('submitReps');
-            if (window.selectedReps && window.selectedForm) {
-                submitBtn.disabled = false;
-            }
-        }
-
-        function closeRepTracker() {
-            if (window.currentModal) {
-                document.body.removeChild(window.currentModal);
-                window.currentModal = null;
-            }
-            if (window.currentBackdrop) {
-                document.body.removeChild(window.currentBackdrop);
-                window.currentBackdrop = null;
-            }
-            window.selectedReps = null;
-            window.selectedForm = null;
-        }
-
-        function submitExerciseProgress(exerciseId, dayId, exerciseKey) {
-            const reps = window.selectedReps;
-            const form = window.selectedForm;
-            
-            if (!reps || !form) return;
-
-            const progressKey = `${exerciseKey}-${userData.currentWeek}`;
-            if (!userData.exerciseProgress[progressKey]) {
-                userData.exerciseProgress[progressKey] = [];
-            }
-            
-            userData.exerciseProgress[progressKey].push({
-                reps: reps,
-                form: form,
-                date: new Date().toISOString(),
-                week: userData.currentWeek
-            });
-
-            userData.completedExercises.add(exerciseId);
-
-            const progressionResult = checkProgressionTrigger(exerciseKey, reps, form);
-            
-            const exerciseElement = document.querySelector(`[onclick*="${exerciseId}"]`);
-            if (exerciseElement) {
-                exerciseElement.textContent = '✓ Completed!';
-                exerciseElement.className = 'btn btn-success btn-small';
-                exerciseElement.disabled = true;
-                exerciseElement.parentElement.parentElement.classList.add('completed');
-            }
-
-            if (progressionResult.shouldProgress) {
-                showProgressionNotification(exerciseKey, progressionResult);
-            } else if (progressionResult.message) {
-                showMessage(progressionResult.message, 'info');
-            }
-
-            closeRepTracker();
-            saveData();
-            
-            showMessage(`${reps} reps recorded with ${form} form!`, 'success');
-        }
-
-        function getCurrentExerciseVersion(exerciseKey) {
-            const exercise = EXERCISE_DATABASE[exerciseKey];
-            if (!exercise) {
-                return {
-                    name: "Unknown Exercise",
-                    level: 0,
-                    baseExercise: null
-                };
-            }
-            
-            const currentLevel = userData.exerciseVersions[exerciseKey] || 0;
-            
-            if (exercise.ladder && exercise.ladder.length > currentLevel) {
-                return {
-                    name: exercise.ladder[currentLevel].label,
-                    level: currentLevel,
-                    baseExercise: exercise
-                };
-            }
-            
-            return {
-                name: exercise.name,
-                level: 0,
-                baseExercise: exercise
-            };
-        }
-
-        function getTargetReps(exercise, currentVersion) {
-            if (exercise && exercise.prescription && exercise.prescription.includes('×')) {
-                const repsMatch = exercise.prescription.match(/(\d+)\s*reps/);
-                return repsMatch ? parseInt(repsMatch[1]) : 10;
-            }
-            return 10;
-        }
-
-        function checkProgressionTrigger(exerciseKey, reps, form) {
-            const exercise = EXERCISE_DATABASE[exerciseKey];
-            if (!exercise) return { shouldProgress: false };
-            
-            const currentLevel = userData.exerciseVersions[exerciseKey] || 0;
-            
-            if (form === 'poor') {
-                return {
-                    shouldProgress: false,
-                    message: "Focus on form before adding difficulty. Rest extra between sets."
-                };
-            }
-
-            if (exercise.progression.type === 'REPS') {
-                if (reps >= exercise.progression.target && form === 'perfect') {
-                    return {
-                        shouldProgress: true,
-                        type: 'rep_based',
-                        currentLevel: currentLevel,
-                        nextProgression: exercise.ladder && exercise.ladder[currentLevel + 1] ? 
-                            exercise.ladder[currentLevel + 1].label : 'Max Level Reached',
-                        trigger: exercise.progression.target
-                    };
-                } else {
-                    const needed = exercise.progression.target - reps;
-                    const nextLevel = exercise.ladder && exercise.ladder[currentLevel + 1] ? 
-                        exercise.ladder[currentLevel + 1].label : 'next level';
-                    return {
-                        shouldProgress: false,
-                        message: `${needed} more clean reps needed to progress to ${nextLevel}.`
-                    };
-                }
-            } else if (exercise.progression.type === 'RIR') {
-                if (form === 'perfect' && reps >= getTargetReps(exercise, getCurrentExerciseVersion(exerciseKey))) {
-                    return {
-                        shouldProgress: true,
-                        type: 'RIR_based',
-                        message: 'Great work! Add 2.5-5% more weight next week.',
-                        currentLevel: currentLevel
-                    };
-                }
-                return {
-                    shouldProgress: false,
-                    message: 'Focus on completing all reps with 2-3 left in the tank.'
-                };
-            } else if (exercise.progression.type === 'TIME') {
-                const targetTime = exercise.progression.targetSec || 60;
-                if (reps >= targetTime && form === 'perfect') {
-                    return {
-                        shouldProgress: true,
-                        type: 'time_based',
-                        message: 'Time target hit! Increase difficulty next session.'
-                    };
-                }
-                return {
-                    shouldProgress: false,
-                    message: `Hold for ${targetTime - reps} more seconds to progress.`
-                };
-            }
-
-            return { shouldProgress: false };
-        }
-
-        function showProgressionNotification(exerciseKey, progressionResult) {
-            if (progressionResult.type === 'rep_based') {
-                userData.exerciseVersions[exerciseKey] = (userData.exerciseVersions[exerciseKey] || 0) + 1;
-                
-                showMessage(
-                    `🎉 Progression unlocked! Next week: ${progressionResult.nextProgression}`, 
-                    'success'
-                );
-                
-                addNotification(
-                    `${EXERCISE_DATABASE[exerciseKey].name}: Ready for ${progressionResult.nextProgression}!`,
-                    'success'
-                );
-            } else if (progressionResult.type === 'RIR_based') {
-                showMessage(progressionResult.message, 'success');
-                addNotification(`${EXERCISE_DATABASE[exerciseKey].name}: Add weight next week!`, 'success');
-            }
-
-            checkTrackGraduation();
-        }
-
-        function checkTrackGraduation() {
-            if (userData.track === 'pattern') {
-                const patternExercises = ['bodyweightSquat', 'inclinePushUp', 'hipHingeDrill', 'invertedRowHigh', 'backpackCarry'];
-                const graduationReady = patternExercises.every(exerciseKey => {
-                    const level = userData.exerciseVersions[exerciseKey] || 0;
-                    return level >= 2;
-                });
-
-                if (graduationReady && !userData.trackGraduation.patternToNovice) {
-                    userData.trackGraduation.patternToNovice = true;
-                    showTrackGraduationModal('novice');
-                }
-            } else if (userData.track === 'novice') {
-                const completedWeeks = Math.floor(userData.totalWorkouts / 9);
-                const hasProgressedExercises = Object.keys(userData.exerciseVersions).length >= 5;
-                
-                if (completedWeeks >= 3 && hasProgressedExercises && !userData.trackGraduation.noviceToBase) {
-                    userData.trackGraduation.noviceToBase = true;
-                    showTrackGraduationModal('base');
-                }
-            }
-        }
-
-        function showTrackGraduationModal(newTrack) {
-            const trackNames = {
-                novice: 'Novice Load Track',
-                base: 'Base Track'
-            };
-
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: white;
-                padding: 32px;
-                border-radius: 12px;
-                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-                z-index: 1000;
-                border: 1px solid var(--border-color);
-                max-width: 400px;
-                text-align: center;
-            `;
-
-            modal.innerHTML = `
-                <h2 style="color: var(--success-color); margin-bottom: 16px;">🎉 Congratulations!</h2>
-                <p style="margin-bottom: 20px; font-size: 1.1rem;">
-                    You've mastered the fundamentals and are ready to advance to the <strong>${trackNames[newTrack]}</strong>!
-                </p>
-                <div style="background: var(--bg-tertiary); padding: 16px; border-radius: 8px; margin-bottom: 20px;">
-                    <h4 style="margin-bottom: 8px;">What Changes:</h4>
-                    <ul style="text-align: left; padding-left: 20px; color: var(--text-secondary);">
-                        ${newTrack === 'novice' ? `
-                            <li>Introduction of external load (dumbbells, weights)</li>
-                            <li>More varied exercise selection</li>
-                            <li>Progressive loading system</li>
-                        ` : `
-                            <li>Barbell movements for maximum strength</li>
-                            <li>Periodized training blocks</li>
-                            <li>Advanced progression systems</li>
-                        `}
-                    </ul>
-                </div>
-                <div style="display: flex; gap: 12px; justify-content: center;">
-                    <button class="btn btn-secondary" onclick="declineGraduation()">Stay Current Track</button>
-                    <button class="btn" onclick="acceptGraduation('${newTrack}')">Advance to ${trackNames[newTrack]}</button>
-                </div>
-            `;
-
-            const backdrop = document.createElement('div');
-            backdrop.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.5);
-                z-index: 999;
-            `;
-
-            document.body.appendChild(backdrop);
-            document.body.appendChild(modal);
-
-            window.graduationModal = modal;
-            window.graduationBackdrop = backdrop;
-        }
-
-        function acceptGraduation(newTrack) {
-            userData.track = newTrack;
-            userData.currentWeek = 1;
-            userData.currentWeekWorkouts = 0;
-            
-            userData.exerciseVersions = {};
-            
-            updateProgramTitle();
-            renderWorkouts();
-            
-            showMessage(`Welcome to ${newTrack === 'novice' ? 'Novice Load Track' : 'Base Track'}! 🎉`, 'success');
-            addNotification(`Advanced to new track! Your program has been updated.`, 'success');
-            
-            closeGraduationModal();
-            saveData();
-        }
-
-        function declineGraduation() {
-            showMessage('No problem! You can continue with your current track.', 'info');
-            closeGraduationModal();
-        }
-
-        function closeGraduationModal() {
-            if (window.graduationModal) document.body.removeChild(window.graduationModal);
-            if (window.graduationBackdrop) document.body.removeChild(window.graduationBackdrop);
-            window.graduationModal = null;
-            window.graduationBackdrop = null;
-        }
-
-        function completeWorkout(dayId) {
-            if (!userData.completedWorkouts.includes(dayId)) {
-                userData.completedWorkouts.push(dayId);
-                userData.totalWorkouts++;
-                userData.currentWeekWorkouts++;
-                userData.lastWorkoutDate = new Date().toISOString();
-                
-                const weekKey = `week-${userData.currentWeek}`;
-                if (!userData.weekCompletionData[weekKey]) {
-                    userData.weekCompletionData[weekKey] = { completed: 0, total: 3 };
-                }
-                userData.weekCompletionData[weekKey].completed++;
-                
-                if (userData.currentWeekWorkouts >= 3) {
-                    userData.weekStreak++;
-                    userData.currentWeekWorkouts = 0;
-                    
-                    checkWeekAdvancement();
-                }
-                
-                updateProgressStats();
-                renderWorkouts();
-                showWorkoutFeedback();
-                saveData();
-                
-                showMessage('Workout completed! 🎉', 'success');
-            }
-        }
-
-        function checkWeekAdvancement() {
-            const currentWeekData = userData.weekCompletionData[`week-${userData.currentWeek}`];
-            const completionRate = currentWeekData ? currentWeekData.completed / currentWeekData.total : 0;
-            
-            if (userData.track === 'pattern') {
-                if (completionRate >= 0.67) {
-                    addNotification('Week completed! Continue building movement quality.', 'success');
-                    checkTrackGraduation();
-                } else {
-                    addNotification('Complete more workouts this week to maintain consistency.', 'info');
-                }
-            } else if (userData.track === 'novice') {
-                if (completionRate >= 0.67) {
-                    addNotification('Week completed! Keep building strength safely.', 'success');
-                    checkTrackGraduation();
-                } else {
-                    addNotification('Try to complete all 3 workouts next week for best results.', 'info');
-                }
-            } else if (userData.track === 'base') {
-                if (completionRate >= 0.67 && userData.currentWeek < 3) {
-                    userData.currentWeek++;
-                    userData.currentWeekWorkouts = 0;
-                    
-                    if (userData.currentWeek === 4) {
-                        addNotification('🎉 Strength Block Complete! Starting Hypertrophy Block.', 'success');
-                    } else if (userData.currentWeek === 7) {
-                        addNotification('🎉 Hypertrophy Block Complete! Starting Conditioning Block.', 'success');
-                    } else {
-                        addNotification(`Advanced to Week ${userData.currentWeek}! Keep up the great work.`, 'success');
-                    }
-                    
-                    updateProgramTitle();
-                    renderWorkouts();
-                } else if (userData.currentWeek >= 3) {
-                    addNotification('🎉 3-Week Block Complete! Consider cycling back to Week 1 with heavier weights.', 'success');
-                }
-            }
-        }
-
-        // Enhanced render workouts function with safety checks
         function renderWorkouts() {
-            const workoutContainer = document.getElementById('workoutDays');
-            if (!workoutContainer) return;
-            
-            // Get the appropriate workout template
-            let workouts;
-            let weekKey = `week${userData.currentWeek}`;
-            
-            if (userData.track === 'pattern') {
-                workouts = WORKOUTS.patternTrack.week1;
-            } else if (userData.track === 'novice') {
-                workouts = WORKOUTS.noviceTrack.week1;
-            } else {
-                workouts = WORKOUTS.baseTrack[weekKey] || WORKOUTS.baseTrack.week1;
-            }
-            
-            if (!workouts) {
-                workoutContainer.innerHTML = '<p style="color: var(--error-color);">Error loading workouts. Please refresh the page.</p>';
-                return;
-            }
+            const container = document.getElementById('workoutDays');
+            const workouts = WORKOUT_TEMPLATES[userData.context].week1;
             
             let html = '';
-            Object.entries(workouts).forEach(([dayKey, day], index) => {
-                const dayId = `${userData.currentWeek}-${dayKey}`;
-                const isCompleted = userData.completedWorkouts.includes(dayId);
-                const isCurrent = index === userData.currentWeekWorkouts && !isCompleted;
-                
+            
+            Object.entries(workouts).forEach(([dayKey, day]) => {
                 html += `
-                    <div class="workout-day ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''}">
-                        <div class="day-header">
-                            <div class="day-title">${day.title}</div>
-                            <div class="day-status">
-                                <div class="day-duration">${day.duration}</div>
-                                ${isCompleted ? '<div class="completion-badge">✓ Complete</div>' : ''}
-                            </div>
-                        </div>
-                        <ul class="exercise-list">
+                    <div class="workout-block">
+                        <h3 style="margin-bottom: 12px;">${day.title}</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                            Duration: ${day.duration} | Warm-up: ${day.warmup}
+                        </p>
                 `;
                 
-                // Add warm-up
-                html += `
-                    <li class="exercise-item" style="background: var(--bg-tertiary);">
-                        <div class="exercise-name">Warm-up</div>
-                        <div class="exercise-prescription">5-10 minutes</div>
-                        <div class="exercise-cue">${day.warmup}</div>
-                    </li>
-                `;
-                
-                day.exercises.forEach((exerciseRef, exerciseIndex) => {
-                    const exercise = EXERCISE_DATABASE[exerciseRef.exercise];
-                    if (!exercise) {
-                        console.warn(`Exercise ${exerciseRef.exercise} not found in database`);
-                        // Add placeholder for missing exercise
+                day.blocks.forEach(block => {
+                    if (block.category === 'Circuit' || block.category === 'FINISHER' || 
+                        block.category === 'Team Competition' || block.category === 'CONDITIONING') {
+                        // Special blocks without exercise lookup
                         html += `
-                            <li class="exercise-item" style="border-color: var(--error-color);">
-                                <div class="exercise-name">Exercise Not Found: ${exerciseRef.exercise}</div>
-                                <div class="exercise-cue" style="color: var(--error-color);">
-                                    Please report this issue. Continue with other exercises.
+                            <div style="margin-bottom: 16px;">
+                                <div class="block-header">
+                                    <span class="movement-category category-core">${block.category}</span>
                                 </div>
-                            </li>
+                                <div class="exercise-item">
+                                    <div class="exercise-name">${block.exercises[0]}</div>
+                                    ${block.note ? `<div class="substitution-notice">${block.note}</div>` : ''}
+                                </div>
+                            </div>
                         `;
-                        return;
+                    } else {
+                        // Regular exercise blocks
+                        html += `
+                            <div style="margin-bottom: 16px;">
+                                <div class="block-header">
+                                    <span class="movement-category category-${block.category.toLowerCase()}">${block.category}</span>
+                                </div>
+                        `;
+                        
+                        block.exercises.forEach(exerciseKey => {
+                            const exercise = EXERCISE_DATABASE[exerciseKey];
+                            if (!exercise) return;
+                            
+                            const adaptation = getExerciseAdaptation(exercise);
+                            
+                            html += `
+                                <div class="exercise-item">
+                                    <div class="exercise-name">${adaptation.name}</div>
+                                    <div class="exercise-prescription">${adaptation.prescription || exercise.prescription}</div>
+                                    ${adaptation.isSubstituted ? 
+                                        `<div class="substitution-notice">Adapted: ${adaptation.reason}</div>` : ''}
+                                </div>
+                            `;
+                        });
+                        
+                        if (block.note) {
+                            html += `<div style="padding: 8px; color: var(--text-secondary); font-size: 13px; font-style: italic;">${block.note}</div>`;
+                        }
+                        
+                        html += `</div>`;
                     }
-                    
-                    const currentVersion = getCurrentExerciseVersion(exerciseRef.exercise);
-                    const adaptedExercise = getExerciseForEquipment(currentVersion.baseExercise || exercise, userData.equipment, exerciseRef.exercise);
-                    
-                    const exerciseId = `${dayId}-${exerciseIndex}`;
-                    const isExerciseCompleted = userData.completedExercises.has(exerciseId);
-                    
-                    const prescription = exerciseRef.prescription || adaptedExercise.prescription;
-                    const note = exerciseRef.note || '';
-                    
-                    const progressionInfo = currentVersion.level > 0 ? 
-                        `<div class="exercise-cue" style="color: var(--success-color); font-weight: 600;">
-                            Progression Level ${currentVersion.level + 1}: ${currentVersion.name}
-                        </div>` : '';
-
-                    const substitutionInfo = adaptedExercise.isSubstituted ?
-                        `<div class="exercise-cue" style="color: var(--warning-color); font-weight: 500;">
-                            Substituted for ${userData.equipment}: ${adaptedExercise.originalExercise} → ${adaptedExercise.name}
-                        </div>` : '';
-
-                    const recentProgress = getRecentProgress(exerciseRef.exercise);
-                    const progressDisplay = recentProgress ? 
-                        `<div class="exercise-cue" style="color: var(--primary-color);">
-                            Last session: ${recentProgress.reps} reps (${recentProgress.form} form)
-                        </div>` : '';
-                    
-                    html += `
-                        <li class="exercise-item ${isExerciseCompleted ? 'completed' : ''}">
-                            <div class="exercise-header">
-                                <div class="exercise-name">${adaptedExercise.name}</div>
-                            </div>
-                            <div class="exercise-prescription">${prescription}</div>
-                            <div class="exercise-cue">${adaptedExercise.cue}</div>
-                            ${progressionInfo}
-                            ${substitutionInfo}
-                            ${adaptedExercise.instructions ? `<div class="exercise-cue" style="color: var(--primary-color); font-weight: 500;">${adaptedExercise.instructions}</div>` : ''}
-                            ${adaptedExercise.safetyNotes ? `<div class="exercise-cue" style="color: var(--warning-color); font-weight: 500;">Safety: ${adaptedExercise.safetyNotes}</div>` : ''}
-                            ${note ? `<div class="exercise-cue" style="color: var(--warning-color); font-weight: 500;">Week ${userData.currentWeek}: ${note}</div>` : ''}
-                            ${progressDisplay}
-                            <div class="exercise-actions">
-                                <button class="btn ${isExerciseCompleted ? 'btn-success' : 'btn-secondary'} btn-small" 
-                                        onclick="completeExercise('${exerciseId}', '${dayId}')"
-                                        ${isExerciseCompleted ? 'disabled' : ''}>
-                                    ${isExerciseCompleted ? '✓ Completed!' : 'Track Reps'}
-                                </button>
-                                ${adaptedExercise.hasSubstitution ? `<button class="btn btn-secondary btn-small" onclick="showSubstitution('${exerciseRef.exercise}')">Alternative Options</button>` : ''}
-                            </div>
-                        </li>
-                    `;
                 });
                 
-                html += `</ul>`;
-                
-                // Add conditioning section if present
-                if (day.conditioning) {
+                if (day.cooldown) {
                     html += `
-                        <div style="background: var(--bg-tertiary); padding: 16px; border-radius: 8px; margin-top: 16px;">
-                            <div class="exercise-name" style="margin-bottom: 8px;">Conditioning</div>
-                            <div class="exercise-cue">${day.conditioning}</div>
-                        </div>
-                    `;
-                }
-
-                // Add notes if present
-                if (day.notes) {
-                    html += `
-                        <div style="background: var(--bg-secondary); padding: 12px; border-radius: 6px; margin-top: 12px;">
-                            <div class="exercise-cue" style="font-weight: 500;">${day.notes}</div>
-                        </div>
-                    `;
-                }
-                
-                // Add workout completion button if not completed
-                if (!isCompleted) {
-                    html += `
-                        <div style="margin-top: 16px; text-align: center;">
-                            <button class="btn btn-success" onclick="completeWorkout('${dayId}')">
-                                Finish ${day.title.split(' - ')[0]}
-                            </button>
+                        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-color);">
+                            <strong>Cooldown:</strong> ${day.cooldown}
                         </div>
                     `;
                 }
@@ -2207,214 +1174,80 @@
                 html += `</div>`;
             });
             
-            workoutContainer.innerHTML = html;
+            container.innerHTML = html;
         }
 
-        function getRecentProgress(exerciseKey) {
-            const progressKey = `${exerciseKey}-${userData.currentWeek}`;
-            const progress = userData.exerciseProgress[progressKey];
+        function getExerciseAdaptation(exercise) {
+            const equipmentAdaptation = exercise.equipmentMap[userData.equipment];
             
-            if (progress && progress.length > 0) {
-                return progress[progress.length - 1];
-            }
-            return null;
-        }
-
-        function showSubstitution(exerciseKey) {
-            const exercise = EXERCISE_DATABASE[exerciseKey];
-            if (!exercise || !exercise.equipmentMap) {
-                showMessage('No alternatives available', 'info');
-                return;
-            }
-
-            const modal = document.createElement('div');
-            modal.className = 'modal';
-            
-            const alternatives = Object.entries(exercise.equipmentMap).map(([level, substitute]) => {
-                const isCurrentLevel = level === userData.equipment;
-                return `
-                    <div class="equipment-option ${isCurrentLevel ? 'selected' : ''}" 
-                         style="margin-bottom: 12px; cursor: ${isCurrentLevel ? 'default' : 'pointer'};">
-                        <div class="equipment-title">${getEquipmentName(level)}</div>
-                        <div class="equipment-desc">${substitute}</div>
-                        ${!isCurrentLevel ? `<button class="btn btn-secondary btn-small" style="margin-top: 8px;" 
-                            onclick="changeToAlternative('${level}')">Use This Option</button>` : 
-                            '<div style="color: var(--success-color); margin-top: 8px; font-weight: 600;">Currently Selected</div>'}
-                    </div>
-                `;
-            }).join('');
-
-            modal.innerHTML = `
-                <h3 style="margin-bottom: 20px;">Exercise Alternatives for ${exercise.name}</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 20px;">
-                    Choose an option based on your available equipment:
-                </p>
-                ${alternatives}
-                <div style="margin-top: 20px; text-align: right;">
-                    <button class="btn btn-secondary" onclick="closeAlternativesModal()">Close</button>
-                </div>
-            `;
-
-            const backdrop = document.createElement('div');
-            backdrop.className = 'modal-backdrop';
-            backdrop.onclick = closeAlternativesModal;
-
-            document.body.appendChild(backdrop);
-            document.body.appendChild(modal);
-
-            window.alternativesModal = modal;
-            window.alternativesBackdrop = backdrop;
-        }
-
-        function changeToAlternative(equipmentLevel) {
-            userData.equipment = equipmentLevel;
-            saveData();
-            renderWorkouts();
-            closeAlternativesModal();
-            showMessage(`Switched to ${getEquipmentName(equipmentLevel)} alternatives`, 'success');
-        }
-
-        function closeAlternativesModal() {
-            if (window.alternativesModal) document.body.removeChild(window.alternativesModal);
-            if (window.alternativesBackdrop) document.body.removeChild(window.alternativesBackdrop);
-            window.alternativesModal = null;
-            window.alternativesBackdrop = null;
-        }
-
-        function showMessage(text, type = 'info') {
-            const messageDiv = document.createElement('div');
-            messageDiv.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${type === 'success' ? 'var(--success-color)' : 
-                            type === 'error' ? 'var(--error-color)' : 'var(--primary-color)'};
-                color: white;
-                padding: 12px 20px;
-                border-radius: 6px;
-                z-index: 1000;
-                font-weight: 500;
-                box-shadow: var(--shadow-lg);
-                max-width: 300px;
-            `;
-            messageDiv.textContent = text;
-            document.body.appendChild(messageDiv);
-            
-            setTimeout(() => {
-                if (messageDiv.parentNode) {
-                    messageDiv.parentNode.removeChild(messageDiv);
-                }
-            }, 3000);
-        }
-
-        function addNotification(message, type = 'info') {
-            if (!userData.notifications) userData.notifications = [];
-            
-            userData.notifications.push({
-                message: message,
-                type: type,
-                timestamp: new Date().toISOString()
-            });
-            
-            if (userData.notifications.length > 10) {
-                userData.notifications = userData.notifications.slice(-10);
+            // Handle sprint space limitations
+            if (exercise.category === 'SPRINT' && userData.sprintSpace === 'none') {
+                // Force to most minimal option
+                const minimalOption = exercise.equipmentMap.minimal || exercise.equipmentMap.bodyweight;
+                return {
+                    name: minimalOption.name,
+                    prescription: minimalOption.sub || exercise.prescription,
+                    isSubstituted: true,
+                    reason: "No sprint space - using stationary alternative"
+                };
             }
             
-            showMessage(message, type);
-        }
-
-        function showWorkoutFeedback() {
-            const feedback = [
-                "Outstanding work! Consistency builds champions.",
-                "Another quality session complete! Keep the momentum.", 
-                "Excellent! You're building unstoppable habits.",
-                "Great job! Each workout makes you stronger.",
-                "Well done! Progress happens one rep at a time."
-            ];
-            
-            const randomFeedback = feedback[Math.floor(Math.random() * feedback.length)];
-            showMessage(randomFeedback, 'success');
-            
-            if (userData.totalWorkouts % 5 === 0) {
-                setTimeout(() => {
-                    showMessage(`${userData.totalWorkouts} workouts completed! You're building real strength.`, 'success');
-                }, 2000);
+            if (exercise.category === 'SPRINT' && userData.sprintSpace === 'treadmill') {
+                const treadmillOption = exercise.equipmentMap.gym;
+                return {
+                    name: treadmillOption.name,
+                    prescription: treadmillOption.sub || exercise.prescription,
+                    isSubstituted: true,
+                    reason: "Treadmill adaptation"
+                };
             }
+            
+            // Regular equipment adaptation
+            if (equipmentAdaptation && equipmentAdaptation.name !== exercise.name) {
+                return {
+                    name: equipmentAdaptation.name,
+                    prescription: equipmentAdaptation.sub || exercise.prescription,
+                    isSubstituted: true,
+                    reason: `Adapted for ${userData.equipment} equipment`
+                };
+            }
+            
+            return {
+                name: equipmentAdaptation?.name || exercise.name,
+                prescription: exercise.prescription,
+                isSubstituted: false
+            };
         }
 
         function resetApp() {
-            console.log('Reset button clicked');
-            if (confirm('This will reset your program and progress. Are you sure?')) {
-                localStorage.removeItem('confusionProofTraining');
-                sessionStorage.clear();
-                window.location.reload();
-            }
-        }
-
-        // Enhanced save/load with proper Set serialization
-        function saveData() {
-            try {
-                const dataToSave = {
-                    ...userData,
-                    completedExercises: Array.from(userData.completedExercises || new Set())
+            if (confirm('Reset and start over?')) {
+                userData = {
+                    context: null,
+                    equipment: null,
+                    sprintSpace: null,
+                    currentWeek: 1
                 };
-                localStorage.setItem('confusionProofTraining', JSON.stringify(dataToSave));
-            } catch (e) {
-                console.warn('Could not save data:', e);
+                
+                // Hide all screens except welcome
+                document.getElementById('programScreen').classList.add('hidden');
+                document.getElementById('equipmentScreen').classList.add('hidden');
+                document.getElementById('contextScreen').classList.add('hidden');
+                document.getElementById('welcomeScreen').classList.remove('hidden');
+                
+                // Reset selections
+                document.querySelectorAll('.selected').forEach(el => {
+                    el.classList.remove('selected');
+                });
+                
+                // Hide continue buttons
+                document.getElementById('contextContinue').classList.add('hidden');
+                document.getElementById('equipmentContinue').classList.add('hidden');
             }
         }
 
-        function loadData() {
-            try {
-                const saved = localStorage.getItem('confusionProofTraining');
-                if (saved) {
-                    const loadedData = JSON.parse(saved);
-                    
-                    // Properly reconstruct the Set from array
-                    const completedExercisesArray = loadedData.completedExercises || [];
-                    
-                    userData = { 
-                        ...userData, 
-                        ...loadedData,
-                        completedExercises: new Set(completedExercisesArray)
-                    };
-                    
-                    // Ensure all required properties exist
-                    if (!userData.notifications) userData.notifications = [];
-                    if (!userData.exerciseProgress) userData.exerciseProgress = {};
-                    if (!userData.exerciseVersions) userData.exerciseVersions = {};
-                    if (!userData.trackGraduation) userData.trackGraduation = { patternToNovice: false, noviceToBase: false };
-                    if (!userData.weekCompletionData) userData.weekCompletionData = {};
-                }
-            } catch (e) {
-                console.warn('Could not load data:', e);
-                // Reset to default if load fails
-                userData.completedExercises = new Set();
-            }
-        }
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            loadData();
-            
-            // Show existing program if user has completed setup
-            if (userData.track && userData.equipment) {
-                document.getElementById('welcomeScreen').classList.add('hidden');
-                document.getElementById('programScreen').classList.remove('hidden');
-                
-                const trackNames = {
-                    pattern: 'Pattern Track - Movement Foundation',
-                    novice: 'Novice Load Track - Safe Loading', 
-                    base: 'Base Track - Progressive Strength'
-                };
-                document.getElementById('trackIndicator').textContent = trackNames[userData.track];
-                
-                updateProgressStats();
-                updateProgramTitle();
-                renderWorkouts();
-            }
-            
-            console.log('App initialized successfully');
+        // ==================== INIT ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Athletic Development Training System Ready');
         });
     </script>
 </body>
