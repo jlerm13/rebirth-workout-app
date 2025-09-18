@@ -365,14 +365,14 @@
                 <div class="context-options">
                     <div class="context-option" onclick="selectContext('franchise')">
                         <div class="context-title">Franchise Training Facility</div>
-                        <div class="context-desc">D1, F45, Orange Theory - standardized equipment, group training, limited space</div>
+                        <div class="context-desc">D1, Velocity, Orange Theory - standardized equipment, group training, limited space</div>
                     </div>
                     <div class="context-option" onclick="selectContext('remote')">
                         <div class="context-title">Remote/Individual Athlete</div>
                         <div class="context-desc">Training alone, variable equipment, hotel gyms, home workouts</div>
                     </div>
                     <div class="context-option" onclick="selectContext('club')">
-                        <div class="context-title">Club/Team Sport</div>
+                        <div class="context-title">High School or College Team/Club Sport</div>
                         <div class="context-desc">Youth or amateur team, field access, group training, mixed abilities</div>
                     </div>
                 </div>
@@ -518,7 +518,7 @@
                 equipmentMap: {
                     full: { name: "Broad Jump" },
                     gym: { name: "Broad Jump" },
-                    minimal: { name: "Single Broad Jump + Stick", sub: "Hold landing 2 seconds" },
+                    minimal: { name: "Broad Jump", sub: "Hold landing 2 seconds" },
                     bodyweight: { name: "Frog Jump", sub: "Continuous small jumps × 10" }
                 }
             },
@@ -547,8 +547,8 @@
                 equipmentMap: {
                     full: { name: "10lb MB Slam" },
                     gym: { name: "10lb MB Slam" },
-                    minimal: { name: "Jump + Reach Down", sub: "Explosive squat pattern" },
-                    bodyweight: { name: "Burpee", sub: "Explosive stand up" }
+                    minimal: { name: "5lb DB Snap Down", sub: "Explosive squat pattern" },
+                    bodyweight: { name: "2 Hand Snap Down", sub: "Explosive squat pattern" }
                 }
             },
 
@@ -562,7 +562,7 @@
                     full: { name: "MB Side Throw" },
                     gym: { name: "MB to Wall" },
                     minimal: { name: "Band Rotation", sub: "Explosive tempo" },
-                    bodyweight: { name: "Explosive Cross-Body Reach", sub: "3 × 8 each" }
+                    bodyweight: { name: "Explosive Straight Arm Trunk Twist", sub: "3 × 8 each" }
                 }
             },
 
@@ -615,7 +615,7 @@
                 category: "PULL",
                 prescription: "3 × 8 @ RPE 7",
                 cue: "Hinge at hips, pull to stomach, squeeze shoulder blades",
-                safetyNotes: "Keep back flat, don't jerk weight",
+                safetyNotes: "Keep back flat, don't jerk the weight",
                 equipmentMap: {
                     full: { name: "Barbell Row" },
                     gym: { name: "DB Row" },
@@ -635,7 +635,7 @@
                     full: { name: "Back Squat" },
                     gym: { name: "Goblet Squat" },
                     minimal: { name: "DB/Band Squat" },
-                    bodyweight: { name: "Jump Squat", sub: "4 × 8" }
+                    bodyweight: { name: "Tempo Squat", sub: "4 × 8 (3 down, explode up)" }
                 }
             },
 
@@ -648,8 +648,8 @@
                 equipmentMap: {
                     full: { name: "BB Split Squat" },
                     gym: { name: "DB Split Squat" },
-                    minimal: { name: "BW Split Squat" },
-                    bodyweight: { name: "Split Squat" }
+                    minimal: { name: "Rear Foot Elevated Split Squat" },
+                    bodyweight: { name: "Iso Hold + Split Squat" sub: "Add 15-30 second iso hold to start set" }
                 }
             },
 
@@ -664,7 +664,7 @@
                     full: { name: "Barbell RDL" },
                     gym: { name: "DB RDL" },
                     minimal: { name: "Band Good Morning" },
-                    bodyweight: { name: "Single Leg RDL", sub: "Bodyweight only" }
+                    bodyweight: { name: "Single Leg RDL with reach", sub: "Bodyweight only" }
                 }
             },
 
@@ -678,7 +678,7 @@
                     full: { name: "KB Swing" },
                     gym: { name: "DB Swing" },
                     minimal: { name: "Band Pull-Through" },
-                    bodyweight: { name: "Broad Jump", sub: "4 × 5" }
+                    bodyweight: { name: "Kneeling Hip Jump", sub: "4 × 5" }
                 }
             },
 
@@ -688,7 +688,7 @@
                 category: "CARRY",
                 prescription: "3 × 40 yards",
                 cue: "Tall posture, shoulders back, breathe normally",
-                safetyNotes: "Start with manageable weight, build grip gradually",
+                safetyNotes: "Start with a manageable weight, build grip gradually",
                 equipmentMap: {
                     full: { name: "Heavy Farmer's Walk" },
                     gym: { name: "DB Farmer's Walk" },
@@ -706,9 +706,9 @@
                 safetyNotes: "Control the resistance, don't let it pull you",
                 equipmentMap: {
                     full: { name: "Cable Pallof Press" },
-                    gym: { name: "Band Pallof Press" },
-                    minimal: { name: "Band Anti-Rotation" },
-                    bodyweight: { name: "Bird Dog", sub: "3 × 8 each" }
+                    gym: { name: "Half-Kneeling Band Press" },
+                    minimal: { name: "Dead Bug with Band" },
+                    bodyweight: { name: "Side Plank with Reach or Rotation", sub: "3 × 8 each" }
                 }
             },
 
@@ -719,10 +719,10 @@
                 cue: "Straight line head to heels, breathe normally",
                 safetyNotes: "Stop if back hurts, quality over duration",
                 equipmentMap: {
-                    full: { name: "Plank" },
-                    gym: { name: "Plank" },
-                    minimal: { name: "Plank" },
-                    bodyweight: { name: "Plank" }
+                    full: { name: "RKC Plank", sub: "High-tension progression, more demanding than standard plank" },
+                    gym: { name: "Weighted Plank", sub: "Scalable progression with external load" },
+                    minimal: { name: "Plank with Reach", sub: "Anti-rotation + scapular control; great minimal upgrade" },
+                    bodyweight: { name: "Plank to Push-Up", sub: "Dynamic trunk control; adds challenge without equipment" }
                 }
             }
         };
