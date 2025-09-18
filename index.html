@@ -31,20 +31,20 @@
             --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
             --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
         }
-
+    
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg-secondary);
             color: var(--text-primary);
             line-height: 1.6;
         }
-
+    
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 20px;
         }
-
+    
         .header {
             background: var(--bg-primary);
             padding: 32px;
@@ -54,26 +54,26 @@
             text-align: center;
             border: 1px solid var(--border-color);
         }
-
+    
         .header h1 {
             font-size: 2.2rem;
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 12px;
         }
-
+    
         .header p {
             color: var(--text-secondary);
             font-size: 1.2rem;
             margin-bottom: 8px;
         }
-
+    
         .subtitle {
             color: var(--text-tertiary);
             font-size: 1rem;
             font-style: italic;
         }
-
+    
         .warning-banner {
             background: var(--warning-color);
             color: white;
@@ -83,7 +83,7 @@
             margin-bottom: 20px;
             border-radius: 8px;
         }
-
+    
         .card {
             background: var(--bg-primary);
             border-radius: 12px;
@@ -92,22 +92,83 @@
             border: 1px solid var(--border-color);
             margin-bottom: 24px;
         }
-
+    
         .card h2 {
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 20px;
         }
-
-        .context-options {
+    
+        .progress-tracker {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 32px;
+            position: relative;
+        }
+    
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+        }
+    
+        .progress-step::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: var(--border-color);
+            z-index: -1;
+        }
+    
+        .progress-step:last-child::after {
+            display: none;
+        }
+    
+        .progress-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+    
+        .progress-step.active .progress-circle {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+    
+        .progress-step.completed .progress-circle {
+            background: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+    
+        .progress-label {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            text-align: center;
+        }
+    
+        .options-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 12px;
             margin-top: 20px;
         }
-
-        .context-option {
+    
+        .option-card {
             background: var(--bg-primary);
             border: 2px solid var(--border-color);
             border-radius: 8px;
@@ -116,55 +177,63 @@
             text-align: center;
             transition: all 0.2s ease;
         }
-
-        .context-option:hover {
+    
+        .option-card:hover {
             border-color: var(--primary-color);
             transform: translateY(-2px);
         }
-
-        .context-option.selected {
+    
+        .option-card.selected {
             border-color: var(--primary-color);
             background: rgba(37, 99, 235, 0.05);
         }
-
-        .context-title {
+    
+        .option-title {
             font-weight: 600;
             margin-bottom: 8px;
             font-size: 1.1rem;
         }
-
-        .context-desc {
+    
+        .option-desc {
             font-size: 13px;
             color: var(--text-secondary);
             line-height: 1.4;
         }
-
-        .equipment-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            margin-top: 20px;
+    
+        .template-selector {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
         }
-
-        .equipment-option {
+    
+        .template-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+    
+        .template-tab {
+            padding: 8px 16px;
+            border-radius: 6px;
             background: var(--bg-primary);
             border: 2px solid var(--border-color);
-            border-radius: 6px;
-            padding: 16px;
             cursor: pointer;
-            text-align: center;
+            font-weight: 500;
             transition: all 0.2s ease;
         }
-
-        .equipment-option:hover {
+    
+        .template-tab:hover {
             border-color: var(--primary-color);
         }
-
-        .equipment-option.selected {
+    
+        .template-tab.active {
+            background: var(--primary-color);
+            color: white;
             border-color: var(--primary-color);
-            background: rgba(37, 99, 235, 0.05);
         }
-
+    
         .btn {
             background: var(--primary-color);
             color: white;
@@ -177,46 +246,58 @@
             box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
             transition: all 0.2s ease;
         }
-
+    
         .btn:hover {
             background: #1d4ed8;
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
         }
-
+    
         .btn:disabled {
             background: var(--text-tertiary);
             cursor: not-allowed;
             transform: none;
         }
-
+    
         .btn-secondary {
             background: var(--bg-tertiary);
             color: var(--text-primary);
             border: 2px solid var(--border-color);
             box-shadow: none;
         }
-
+    
         .btn-secondary:hover {
             background: var(--bg-secondary);
             border-color: var(--primary-color);
         }
-
-        .workout-block {
+    
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+    
+        .workout-day {
             background: var(--bg-secondary);
             border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
             border-left: 4px solid var(--primary-color);
         }
-
-        .block-header {
+    
+        .workout-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
-
-        .movement-category {
+    
+        .workout-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+    
+        .workout-badge {
             background: var(--primary-color);
             color: white;
             padding: 4px 12px;
@@ -224,35 +305,40 @@
             font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-right: 12px;
         }
-
-        .block-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .exercise-item {
+    
+        .exercise-block {
             background: var(--bg-primary);
             border-radius: 6px;
             padding: 16px;
             margin-bottom: 12px;
             border: 1px solid var(--border-color);
         }
-
+    
+        .exercise-category {
+            background: var(--primary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+    
         .exercise-name {
             font-weight: 600;
             margin-bottom: 8px;
             color: var(--text-primary);
         }
-
-        .exercise-prescription {
+    
+        .exercise-details {
             font-size: 14px;
             color: var(--text-secondary);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
-
+    
         .substitution-notice {
             background: rgba(234, 88, 12, 0.1);
             color: var(--warning-color);
@@ -262,58 +348,98 @@
             margin-top: 8px;
             font-weight: 500;
         }
-
-        .progress-bar {
-            width: 100%;
-            height: 6px;
+    
+        .info-box {
             background: var(--bg-tertiary);
-            border-radius: 3px;
+            border-left: 4px solid var(--primary-color);
+            padding: 16px;
             margin: 20px 0;
+            border-radius: 4px;
         }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--success-color);
-            border-radius: 3px;
-            transition: width 0.3s ease;
+    
+        .info-box h4 {
+            margin-bottom: 8px;
+            color: var(--text-primary);
         }
-
+    
+        .info-box ul {
+            padding-left: 20px;
+            color: var(--text-secondary);
+        }
+    
+        .week-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 24px 0;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+    
+        .week-nav-btn {
+            padding: 8px 16px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+    
+        .week-nav-btn:hover:not(:disabled) {
+            border-color: var(--primary-color);
+        }
+    
+        .week-nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    
         .hidden {
             display: none;
         }
-
+    
         .fade-in {
             animation: fadeIn 0.3s ease-in;
         }
-
+    
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        .category-sprint { background: #dc2626; }
-        .category-jump { background: #ea580c; }
-        .category-throw { background: #ca8a04; }
-        .category-push { background: #2563eb; }
-        .category-pull { background: #7c3aed; }
-        .category-hinge { background: #c026d3; }
-        .category-carry { background: #0891b2; }
-        .category-core { background: #059669; }
-
+    
+        .category-max-effort { background: #dc2626; }
+        .category-dynamic { background: #ea580c; }
+        .category-repetition { background: #ca8a04; }
+        .category-supplemental { background: #2563eb; }
+        .category-assistance { background: #7c3aed; }
+        .category-sprint { background: #0891b2; }
+        .category-jump { background: #059669; }
+        .category-throw { background: #c026d3; }
+    
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
             }
             
-            .context-options {
+            .options-grid {
                 grid-template-columns: 1fr;
+            }
+    
+            .btn-group {
+                flex-direction: column;
+            }
+    
+            .template-tabs {
+                flex-direction: column;
             }
         }
     </style>
-</head>
-<body>
+    </head>
+    <body>
     <div class="warning-banner">
-        Always consult your doctor before starting any exercise program. Sprint and jump training carries inherent risks.
+        Always consult your doctor before starting any exercise program. Sprint and jump training carries inherent risks. Progressive overload and proper recovery are essential.
     </div>
 
     <div class="container">
@@ -326,7 +452,7 @@
         <!-- Welcome Screen -->
         <div id="welcomeScreen">
             <div class="card">
-                <h2>Scalable Athletic Development</h2>
+                <h2>Complete Athletic Development System</h2>
                 <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 1.1rem;">
                     Complete athletic training that adapts to your space, equipment, and context. 
                     Whether you're in a franchise gym, training remotely, or with a club team - 
@@ -334,13 +460,13 @@
                 </p>
                 
                 <div style="background: var(--bg-tertiary); padding: 20px; border-radius: 8px; margin-bottom: 24px;">
-                    <h3 style="margin-bottom: 12px; color: var(--text-primary);">Every Program Includes:</h3>
+                    <h3 style="margin-bottom: 12px; color: var(--text-primary);">Program Features:</h3>
                     <ul style="padding-left: 20px; color: var(--text-secondary); line-height: 1.8;">
-                        <li><strong>Sprint/Speed:</strong> From 10yd dashes to band-resisted marching</li>
-                        <li><strong>Jump/Power:</strong> Vertical, broad, or scaled plyometrics</li>
-                        <li><strong>Throw/Ballistic:</strong> Medicine ball or explosive alternatives</li>
-                        <li><strong>Strength:</strong> Push, pull, squat, hinge progressions</li>
-                        <li><strong>Carry/Core:</strong> Functional trunk and grip strength</li>
+                        <li><strong>Periodized Strength:</strong> Max-effort, dynamic, and repetition methods</li>
+                        <li><strong>Athletic Movement:</strong> Sprint, jump, and throw progressions</li>
+                        <li><strong>Annual Planning:</strong> Off-season, pre-season, and in-season templates</li>
+                        <li><strong>Experience-Based:</strong> Beginner to advanced progressions</li>
+                        <li><strong>Context Adaptive:</strong> Adjusts to your equipment and space</li>
                     </ul>
                 </div>
 
@@ -354,901 +480,1072 @@
             </div>
         </div>
 
-        <!-- Context Selection -->
-        <div id="contextScreen" class="hidden">
-            <div class="card">
-                <h2>What's Your Training Context?</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 20px;">
-                    This helps us deliver the right program structure for your situation.
-                </p>
-
-                <div class="context-options">
-                    <div class="context-option" onclick="selectContext('franchise')">
-                        <div class="context-title">Franchise Training Facility</div>
-                        <div class="context-desc">D1, Velocity, Orange Theory - standardized equipment, group training, limited space</div>
-                    </div>
-                    <div class="context-option" onclick="selectContext('remote')">
-                        <div class="context-title">Remote/Individual Athlete</div>
-                        <div class="context-desc">Training alone, variable equipment, hotel gyms, home workouts</div>
-                    </div>
-                    <div class="context-option" onclick="selectContext('club')">
-                        <div class="context-title">High School or College Team/Club Sport</div>
-                        <div class="context-desc">Youth or amateur team, field access, group training, mixed abilities</div>
-                    </div>
-                </div>
-
-                <button class="btn hidden" id="contextContinue" onclick="showEquipmentScreen()">
-                    Continue
-                </button>
+        <!-- Progress Tracker (hidden initially) -->
+    <div id="progressTracker" class="hidden">
+        <div class="progress-tracker">
+            <div class="progress-step" id="step1">
+                <div class="progress-circle">1</div>
+                <div class="progress-label">Experience</div>
             </div>
-        </div>
-
-        <!-- Equipment Selection -->
-        <div id="equipmentScreen" class="hidden">
-            <div class="card">
-                <h2>Available Equipment & Space</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 20px;">
-                    We'll adapt exercises based on what you have access to.
-                </p>
-
-                <div class="equipment-options">
-                    <div class="equipment-option" onclick="selectEquipment('full')">
-                        <div style="font-weight: 600;">Full Facility</div>
-                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
-                            Track/turf, barbells, medicine balls, full gym
-                        </div>
-                    </div>
-                    <div class="equipment-option" onclick="selectEquipment('gym')">
-                        <div style="font-weight: 600;">Standard Gym</div>
-                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
-                            Treadmill, dumbbells, limited space
-                        </div>
-                    </div>
-                    <div class="equipment-option" onclick="selectEquipment('minimal')">
-                        <div style="font-weight: 600;">Minimal</div>
-                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
-                            Bands, light DBs, small space
-                        </div>
-                    </div>
-                    <div class="equipment-option" onclick="selectEquipment('bodyweight')">
-                        <div style="font-weight: 600;">Bodyweight Only</div>
-                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
-                            No equipment, limited space
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-top: 20px; padding: 16px; background: var(--bg-tertiary); border-radius: 6px;">
-                    <h4 style="margin-bottom: 8px;">Sprint Space Available?</h4>
-                    <div style="display: flex; gap: 12px;">
-                        <button class="btn btn-secondary" onclick="setSprintSpace('field')">Field/Track (30+ yards)</button>
-                        <button class="btn btn-secondary" onclick="setSprintSpace('treadmill')">Treadmill Only</button>
-                        <button class="btn btn-secondary" onclick="setSprintSpace('none')">No Sprint Space</button>
-                    </div>
-                </div>
-
-                <button class="btn hidden" id="equipmentContinue" onclick="generateProgram()" style="margin-top: 20px; width: 100%;">
-                    Generate My Program
-                </button>
+            <div class="progress-step" id="step2">
+                <div class="progress-circle">2</div>
+                <div class="progress-label">Phase</div>
             </div>
-        </div>
-
-        <!-- Program Display -->
-        <div id="programScreen" class="hidden">
-            <div class="card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <h2 id="programTitle">Week 1 - Athletic Foundation</h2>
-                    <button class="btn btn-secondary" onclick="resetApp()">Change Setup</button>
-                </div>
-
-                <div id="contextNotice" style="background: var(--bg-tertiary); padding: 16px; border-radius: 8px; margin-bottom: 20px;">
-                    <!-- Context-specific notice will be inserted here -->
-                </div>
-
-                <div id="workoutDays">
-                    <!-- Workouts will be rendered here -->
-                </div>
-
-                <div style="background: var(--bg-tertiary); padding: 16px; border-radius: 8px; margin-top: 20px;">
-                    <h3 style="margin-bottom: 12px;">Safety Guidelines</h3>
-                    <ul style="padding-left: 20px; color: var(--text-secondary);">
-                        <li><strong>Sprints:</strong> Always warm up thoroughly. Start at 70% intensity week 1</li>
-                        <li><strong>Jumps:</strong> Focus on landing mechanics before height/distance</li>
-                        <li><strong>Throws:</strong> Use appropriate weight (3-10lbs typically)</li>
-                        <li><strong>All movements:</strong> Stop if form breaks down or pain occurs</li>
-                    </ul>
-                </div>
+            <div class="progress-step" id="step3">
+                <div class="progress-circle">3</div>
+                <div class="progress-label">Context</div>
+            </div>
+            <div class="progress-step" id="step4">
+                <div class="progress-circle">4</div>
+                <div class="progress-label">Equipment</div>
+            </div>
+            <div class="progress-step" id="step5">
+                <div class="progress-circle">5</div>
+                <div class="progress-label">Program</div>
             </div>
         </div>
     </div>
 
-    <script>
-        // ==================== ATHLETIC EXERCISE DATABASE ====================
-        const EXERCISE_DATABASE = {
-            // SPRINT CATEGORY
-            sprint_10yd: {
-                name: "10yd Acceleration Sprint",
-                category: "SPRINT",
-                prescription: "6 × 10 yards, walk back recovery",
-                cue: "Drive knees forward, stay low first 5 yards",
-                safetyNotes: "70% intensity week 1, build to 90% by week 3",
-                equipmentMap: {
-                    full: { name: "10yd Sprint", space: "field" },
-                    gym: { name: "Treadmill Sprint 8% Incline", space: "treadmill", sub: "15 seconds @ high speed" },
-                    minimal: { name: "Band-Resisted High Knees", space: "none", sub: "6 × 20 contacts" },
-                    bodyweight: { name: "Wall Drive", space: "none", sub: "6 × 15 per leg" }
-                }
-            },
+    <!-- Experience Level Selection -->
+    <div id="experienceScreen" class="hidden">
+        <div class="card">
+            <h2>Training Experience Level</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                This determines your training volume, intensity, and exercise selection.
+            </p>
 
-            sprint_20yd: {
-                name: "20yd Build-up",
-                category: "SPRINT",
-                prescription: "6 × 20 yards @ 80% intensity",
-                cue: "Accelerate smoothly, relax at top speed",
-                safetyNotes: "Never go 100% in first 2 weeks",
-                equipmentMap: {
-                    full: { name: "20yd Sprint", space: "field" },
-                    gym: { name: "Treadmill Sprint", space: "treadmill", sub: "20 seconds @ moderate incline" },
-                    minimal: { name: "Band-Resisted Running", space: "none", sub: "6 × 30 seconds" },
-                    bodyweight: { name: "Mountain Climbers", space: "none", sub: "6 × 30 seconds" }
-                }
-            },
+            <div class="options-grid">
+                <div class="option-card" onclick="selectExperience('beginner')">
+                    <div class="option-title">Beginner</div>
+                    <div class="option-desc">Less than 2 years of structured training. Focus on movement quality and building base.</div>
+                </div>
+                <div class="option-card" onclick="selectExperience('intermediate')">
+                    <div class="option-title">Intermediate</div>
+                    <div class="option-desc">2-5 years training. Can handle more volume and intensity variation.</div>
+                </div>
+                <div class="option-card" onclick="selectExperience('advanced')">
+                    <div class="option-title">Advanced</div>
+                    <div class="option-desc">5+ years consistent training. Ready for advanced methods and higher frequencies.</div>
+                </div>
+            </div>
 
-            // JUMP CATEGORY
-            verticalJump: {
-                name: "Vertical Jump",
-                category: "JUMP",
-                prescription: "3 × 5 jumps, stick landing",
-                cue: "Full arm swing, land soft, 2-foot takeoff and landing",
-                safetyNotes: "Master landing before maximizing height",
-                equipmentMap: {
-                    full: { name: "Vertical Jump" },
-                    gym: { name: "Box Jump", sub: "Step down, don't jump down" },
-                    minimal: { name: "Jump in Place", sub: "Focus on landing position" },
-                    bodyweight: { name: "Squat Jump", sub: "Pause in landing position" }
-                }
-            },
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="goBack('welcome')">Back</button>
+                <button class="btn hidden" id="experienceContinue" onclick="showPhaseScreen()">Continue</button>
+            </div>
+        </div>
+    </div>
 
-            broadJump: {
-                name: "Broad Jump",
-                category: "JUMP",
-                prescription: "4 × 3 jumps, walk back recovery",
-                cue: "Swing arms back to front, project hips forward",
-                safetyNotes: "Land in athletic position, don't fall backward",
-                equipmentMap: {
-                    full: { name: "Broad Jump" },
-                    gym: { name: "Broad Jump" },
-                    minimal: { name: "Broad Jump", sub: "Hold landing 2 seconds" },
-                    bodyweight: { name: "Frog Jump", sub: "Continuous small jumps × 10" }
-                }
-            },
+    <!-- Training Phase Selection -->
+    <div id="phaseScreen" class="hidden">
+        <div class="card">
+            <h2>Current Training Phase</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                Where are you in your annual training cycle?
+            </p>
 
-            // THROW CATEGORY
-            mbChestPass: {
-                name: "MB Chest Pass",
-                category: "THROW",
-                prescription: "4 × 6 explosive passes",
-                cue: "Throw from chest, extend arms fully, snap wrists",
-                safetyNotes: "Start with 6-8lb ball, progress slowly",
-                equipmentMap: {
-                    full: { name: "6lb MB Chest Pass" },
-                    gym: { name: "6lb MB Chest Pass" },
-                    minimal: { name: "Explosive Push-ups", sub: "Hands leave ground" },
-                    bodyweight: { name: "Clap Push-ups", sub: "Or fastest regular push-ups" }
-                }
-            },
+            <div class="options-grid">
+                <div class="option-card" onclick="selectPhase('early-offseason')">
+                    <div class="option-title">Early Off-Season</div>
+                    <div class="option-desc">4-8 weeks post-competition. Recovery focus, building base, addressing imbalances.</div>
+                </div>
+                <div class="option-card" onclick="selectPhase('mid-offseason')">
+                    <div class="option-title">Mid Off-Season</div>
+                    <div class="option-desc">8-12 weeks. Maximum strength and muscle building phase. Highest volume.</div>
+                </div>
+                <div class="option-card" onclick="selectPhase('preseason')">
+                    <div class="option-title">Pre-Season</div>
+                    <div class="option-desc">4-6 weeks before competition. Converting strength to power, sport-specific.</div>
+                </div>
+                <div class="option-card" onclick="selectPhase('inseason')">
+                    <div class="option-title">In-Season</div>
+                    <div class="option-desc">During competition. Maintenance focus, managing fatigue, staying sharp.</div>
+                </div>
+            </div>
 
-            mbSlam: {
-                name: "MB Overhead Slam",
-                category: "THROW",
-                prescription: "4 × 6 slams",
-                cue: "Reach tall, slam down hard, use whole body",
-                safetyNotes: "Non-bounce ball preferred, watch rebound",
-                equipmentMap: {
-                    full: { name: "10lb MB Slam" },
-                    gym: { name: "10lb MB Slam" },
-                    minimal: { name: "5lb DB Snap Down", sub: "Explosive squat pattern" },
-                    bodyweight: { name: "2 Hand Snap Down", sub: "Explosive squat pattern" }
-                }
-            },
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="goBack('experience')">Back</button>
+                <button class="btn hidden" id="phaseContinue" onclick="showContextScreen()">Continue</button>
+            </div>
+        </div>
+    </div>
 
-            mbRotational: {
-                name: "MB Rotational Throw",
-                category: "THROW",
-                prescription: "3 × 5 each side",
-                cue: "Rotate from hips, release at chest height",
-                safetyNotes: "Start light (6lb), control is key",
-                equipmentMap: {
-                    full: { name: "MB Side Throw" },
-                    gym: { name: "MB to Wall" },
-                    minimal: { name: "Band Rotation", sub: "Explosive tempo" },
-                    bodyweight: { name: "Explosive Straight Arm Trunk Twist", sub: "3 × 8 each" }
-                }
-            },
+    <!-- Context Selection -->
+    <div id="contextScreen" class="hidden">
+        <div class="card">
+            <h2>Training Context</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                This helps us adapt the program structure to your situation.
+            </p>
 
-            // PUSH CATEGORY (Upper)
-            benchPress: {
-                name: "Bench Press",
-                category: "PUSH",
-                prescription: "4 × 5 @ RPE 7-8",
-                cue: "Control down, drive feet into floor, press up strong",
-                safetyNotes: "Always use spotter or safety bars",
-                equipmentMap: {
-                    full: { name: "Barbell Bench Press" },
-                    gym: { name: "DB Bench Press" },
-                    minimal: { name: "Floor Press" },
-                    bodyweight: { name: "Push-ups", sub: "4 × max-3 reps" }
-                }
-            },
+            <div class="options-grid">
+                <div class="option-card" onclick="selectContext('franchise')">
+                    <div class="option-title">Franchise Facility</div>
+                    <div class="option-desc">D1, Velocity, F45 - standardized equipment, group training, time constraints</div>
+                </div>
+                <div class="option-card" onclick="selectContext('remote')">
+                    <div class="option-title">Individual/Remote</div>
+                    <div class="option-desc">Training alone, variable equipment, home gyms, traveling</div>
+                </div>
+                <div class="option-card" onclick="selectContext('team')">
+                    <div class="option-title">Team/Club Sport</div>
+                    <div class="option-desc">School or club team, group training, field access, mixed abilities</div>
+                </div>
+                <div class="option-card" onclick="selectContext('meathead')">
+                    <div class="option-title">Washed-Up Meathead</div>
+                    <div class="option-desc">Former athlete, training for life. Want to stay strong and healthy.</div>
+                </div>
+            </div>
 
-            overheadPress: {
-                name: "Overhead Press",
-                category: "PUSH",
-                prescription: "3 × 6 @ RPE 7-8",
-                cue: "Core tight, press straight up, no back arch",
-                safetyNotes: "Start light, shoulder health is priority",
-                equipmentMap: {
-                    full: { name: "Barbell OHP" },
-                    gym: { name: "DB Overhead Press" },
-                    minimal: { name: "Band Press" },
-                    bodyweight: { name: "Pike Push-ups" }
-                }
-            },
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="goBack('phase')">Back</button>
+                <button class="btn hidden" id="contextContinue" onclick="showEquipmentScreen()">Continue</button>
+            </div>
+        </div>
+    </div>
 
-            // PULL CATEGORY
-            pullUp: {
-                name: "Pull-ups",
-                category: "PULL",
-                prescription: "3 × max-2 reps",
-                cue: "Full hang to chin over bar, control down",
-                safetyNotes: "Use assistance if needed for good form",
-                equipmentMap: {
-                    full: { name: "Pull-ups" },
-                    gym: { name: "Lat Pulldown" },
-                    minimal: { name: "Band Pulldown" },
-                    bodyweight: { name: "Inverted Row", sub: "Use table/TRX" }
-                }
-            },
+    <!-- Equipment Selection -->
+    <div id="equipmentScreen" class="hidden">
+        <div class="card">
+            <h2>Available Equipment & Space</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                We'll adapt exercises based on what you have access to.
+            </p>
 
-            bentRow: {
-                name: "Bent Row",
-                category: "PULL",
-                prescription: "3 × 8 @ RPE 7",
-                cue: "Hinge at hips, pull to stomach, squeeze shoulder blades",
-                safetyNotes: "Keep back flat, don't jerk the weight",
-                equipmentMap: {
-                    full: { name: "Barbell Row" },
-                    gym: { name: "DB Row" },
-                    minimal: { name: "Band Row" },
-                    bodyweight: { name: "Inverted Row" }
-                }
-            },
+            <div class="options-grid">
+                <div class="option-card" onclick="selectEquipment('full')">
+                    <div class="option-title">Full Facility</div>
+                    <div class="option-desc">Barbells, racks, platforms, turf/track, full gym equipment</div>
+                </div>
+                <div class="option-card" onclick="selectEquipment('commercial')">
+                    <div class="option-title">Commercial Gym</div>
+                    <div class="option-desc">Standard gym equipment, dumbbells, machines, limited space</div>
+                </div>
+                <div class="option-card" onclick="selectEquipment('minimal')">
+                    <div class="option-title">Minimal/Home</div>
+                    <div class="option-desc">Bands, adjustable DBs, pull-up bar, limited equipment</div>
+                </div>
+                <div class="option-card" onclick="selectEquipment('bodyweight')">
+                    <div class="option-title">Bodyweight Only</div>
+                    <div class="option-desc">No equipment, parks, hotel rooms, travel situations</div>
+                </div>
+            </div>
 
-            // SQUAT CATEGORY
-            backSquat: {
-                name: "Back Squat",
-                category: "SQUAT",
-                prescription: "4 × 5 @ RPE 7-8",
-                cue: "Chest up, knees out, hip crease below knee",
-                safetyNotes: "Use safety bars, warm up thoroughly",
-                equipmentMap: {
-                    full: { name: "Back Squat" },
-                    gym: { name: "Goblet Squat" },
-                    minimal: { name: "DB/Band Squat" },
-                    bodyweight: { name: "Tempo Squat", sub: "4 × 8 (3 down, explode up)" }
-                }
-            },
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="goBack('context')">Back</button>
+                <button class="btn hidden" id="equipmentContinue" onclick="generateProgram()">Generate Program</button>
+            </div>
+        </div>
+    </div>
 
-            splitSquat: {
-                name: "Split Squat",
-                category: "SQUAT",
-                prescription: "3 × 8 each leg",
-                cue: "Vertical torso, back knee down, drive through front heel",
-                safetyNotes: "Start bodyweight, add load gradually",
-                equipmentMap: {
-                    full: { name: "BB Split Squat" },
-                    gym: { name: "DB Split Squat" },
-                    minimal: { name: "Rear Foot Elevated Split Squat" },
-                    bodyweight: { name: "Iso Sandwhich Split Squat", sub: "Add 15-30 second iso hold to start set" }
-                }
-            },
+    <!-- Program Display -->
+    <div id="programScreen" class="hidden">
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h2 id="programTitle">Your WS4SB3 Program</h2>
+                <button class="btn btn-secondary" onclick="resetApp()">Start Over</button>
+            </div>
 
-            // HINGE CATEGORY
-            romanianDeadlift: {
-                name: "Romanian Deadlift",
-                category: "HINGE",
-                prescription: "3 × 8 @ RPE 7",
-                cue: "Push hips back, feel hamstring stretch, squeeze glutes at top",
-                safetyNotes: "Stop if back rounds, start light",
-                equipmentMap: {
-                    full: { name: "Barbell RDL" },
-                    gym: { name: "DB RDL" },
-                    minimal: { name: "Band Good Morning" },
-                    bodyweight: { name: "Single Leg RDL with reach", sub: "Bodyweight only" }
-                }
-            },
+            <!-- Program Overview -->
+            <div id="programOverview" class="info-box">
+                <!-- Overview content generated dynamically -->
+            </div>
 
-            kettlebellSwing: {
-                name: "KB/DB Swing",
-                category: "HINGE",
-                prescription: "4 × 15",
-                cue: "Hinge not squat, explosive hip drive, float the weight",
-                safetyNotes: "Master hip hinge first, quality over quantity",
-                equipmentMap: {
-                    full: { name: "KB Swing" },
-                    gym: { name: "DB Swing" },
-                    minimal: { name: "Band Pull-Through" },
-                    bodyweight: { name: "Kneeling Hip Jump", sub: "4 × 5" }
-                }
-            },
+            <!-- Template Selection -->
+            <div class="template-selector">
+                <h3 style="margin-bottom: 12px;">Select Training Week</h3>
+                <div class="template-tabs">
+                    <div class="template-tab active" onclick="selectTemplate('4day')">4-Day Template</div>
+                    <div class="template-tab" onclick="selectTemplate('3day')">3-Day Template</div>
+                    <div class="template-tab" onclick="selectTemplate('speed')">With Speed Work</div>
+                    <div class="template-tab" onclick="selectTemplate('inseason')">In-Season</div>
+                </div>
+                <p style="color: var(--text-tertiary); font-size: 0.9rem; margin-top: 8px;">
+                    Select the template that best fits your current schedule and goals
+                </p>
+            </div>
 
-            // CARRY CATEGORY
-            farmersCarry: {
-                name: "Farmer's Carry",
-                category: "CARRY",
-                prescription: "3 × 40 yards",
-                cue: "Tall posture, shoulders back, breathe normally",
-                safetyNotes: "Start with a manageable weight, build grip gradually",
-                equipmentMap: {
-                    full: { name: "Heavy Farmer's Walk" },
-                    gym: { name: "DB Farmer's Walk" },
-                    minimal: { name: "Suitcase Carry", sub: "One side at a time" },
-                    bodyweight: { name: "Bear Crawl", sub: "3 × 20 yards" }
-                }
-            },
+            <!-- Week Navigation -->
+            <div class="week-navigation">
+                <button class="week-nav-btn" onclick="previousWeek()" id="prevWeekBtn">← Previous Week</button>
+                <div style="text-align: center;">
+                    <div id="weekDisplay" style="font-weight: 600; font-size: 1.1rem;">Week 1</div>
+                    <div style="color: var(--text-secondary); font-size: 0.9rem;">Accumulation Phase</div>
+                </div>
+                <button class="week-nav-btn" onclick="nextWeek()" id="nextWeekBtn">Next Week →</button>
+            </div>
 
-            // CORE CATEGORY
-            pallofPress: {
-                name: "Pallof Press",
-                category: "CORE",
-                prescription: "3 × 10 each side",
-                cue: "Resist rotation, arms straight, core tight",
-                safetyNotes: "Control the resistance, don't let it pull you",
-                equipmentMap: {
-                    full: { name: "Cable Pallof Press" },
-                    gym: { name: "Half-Kneeling Band Press" },
-                    minimal: { name: "Dead Bug with Band" },
-                    bodyweight: { name: "Side Plank with Reach or Rotation", sub: "3 × 8 each" }
-                }
-            },
+            <!-- Workout Days -->
+            <div id="workoutDays">
+                <!-- Workouts will be rendered here -->
+            </div>
 
-            plank: {
-                name: "Plank",
-                category: "CORE",
-                prescription: "3 × 30-45 seconds",
-                cue: "Straight line head to heels, breathe normally",
-                safetyNotes: "Stop if back hurts, quality over duration",
-                equipmentMap: {
-                    full: { name: "RKC Plank", sub: "High-tension progression, more demanding than standard plank" },
-                    gym: { name: "Weighted Plank", sub: "Scalable progression with external load" },
-                    minimal: { name: "Plank with Reach", sub: "Anti-rotation + scapular control; great minimal upgrade" },
-                    bodyweight: { name: "Plank to Push-Up", sub: "Dynamic trunk control; adds challenge without equipment" }
-                }
-            }
-        };
-
-        // ==================== WORKOUT TEMPLATES ====================
-        const WORKOUT_TEMPLATES = {
-            franchise: {
-                week1: {
-                    dayA: {
-                        title: "Day A - Power & Lower",
-                        duration: "50 minutes",
-                        warmup: "5 min bike + dynamic stretching",
-                        blocks: [
-                            {
-                                category: "SPRINT",
-                                exercises: ["sprint_10yd"],
-                                note: "Use treadmill if no turf space"
-                            },
-                            {
-                                category: "JUMP", 
-                                exercises: ["verticalJump"],
-                                note: "Use box if available"
-                            },
-                            {
-                                category: "SQUAT",
-                                exercises: ["backSquat", "splitSquat"]
-                            },
-                            {
-                                category: "HINGE",
-                                exercises: ["romanianDeadlift"]
-                            },
-                            {
-                                category: "CARRY",
-                                exercises: ["farmersCarry"]
-                            }
-                        ],
-                        cooldown: "5 min walk + stretch"
-                    },
-                    dayB: {
-                        title: "Day B - Ballistic & Upper",
-                        duration: "50 minutes",
-                        warmup: "5 min row + arm circles",
-                        blocks: [
-                            {
-                                category: "THROW",
-                                exercises: ["mbChestPass", "mbSlam"],
-                                note: "Use explosive push-ups if no MB"
-                            },
-                            {
-                                category: "PUSH",
-                                exercises: ["benchPress", "overheadPress"]
-                            },
-                            {
-                                category: "PULL",
-                                exercises: ["pullUp", "bentRow"]
-                            },
-                            {
-                                category: "CORE",
-                                exercises: ["pallofPress", "plank"]
-                            }
-                        ],
-                        cooldown: "5 min stretch"
-                    },
-                    dayC: {
-                        title: "Day C - Total Athletic",
-                        duration: "45 minutes",
-                        warmup: "5 min general movement",
-                        blocks: [
-                            {
-                                category: "SPRINT",
-                                exercises: ["sprint_20yd"],
-                                note: "Can use bike sprints"
-                            },
-                            {
-                                category: "JUMP",
-                                exercises: ["broadJump"]
-                            },
-                            {
-                                category: "THROW",
-                                exercises: ["mbRotational"]
-                            },
-                            {
-                                category: "HINGE",
-                                exercises: ["kettlebellSwing"]
-                            },
-                            {
-                                category: "Circuit",
-                                exercises: ["3 rounds: 30s each station"],
-                                note: "Customize based on class size"
-                            }
-                        ],
-                        cooldown: "Group stretch"
-                    }
-                }
-            },
-
-            remote: {
-                week1: {
-                    dayA: {
-                        title: "Day A - Athletic Power",
-                        duration: "40-50 minutes",
-                        warmup: "5 min dynamic warm-up",
-                        blocks: [
-                            {
-                                category: "SPRINT",
-                                exercises: ["sprint_10yd"],
-                                note: "Adapt to available space"
-                            },
-                            {
-                                category: "JUMP",
-                                exercises: ["verticalJump", "broadJump"]
-                            },
-                            {
-                                category: "SQUAT",
-                                exercises: ["backSquat"]
-                            },
-                            {
-                                category: "HINGE",
-                                exercises: ["romanianDeadlift"]
-                            },
-                            {
-                                category: "CORE",
-                                exercises: ["plank"]
-                            }
-                        ]
-                    },
-                    dayB: {
-                        title: "Day B - Upper & Ballistic",
-                        duration: "40-50 minutes",
-                        warmup: "Arm swings, push-ups",
-                        blocks: [
-                            {
-                                category: "THROW",
-                                exercises: ["mbChestPass"],
-                                note: "Use explosive push-ups if needed"
-                            },
-                            {
-                                category: "PUSH",
-                                exercises: ["benchPress", "overheadPress"]
-                            },
-                            {
-                                category: "PULL",
-                                exercises: ["pullUp", "bentRow"]
-                            },
-                            {
-                                category: "CARRY",
-                                exercises: ["farmersCarry"]
-                            }
-                        ]
-                    },
-                    dayC: {
-                        title: "Day C - Conditioning",
-                        duration: "30-40 minutes",
-                        warmup: "Light movement prep",
-                        blocks: [
-                            {
-                                category: "SPRINT",
-                                exercises: ["sprint_20yd"]
-                            },
-                            {
-                                category: "THROW",
-                                exercises: ["mbSlam"]
-                            },
-                            {
-                                category: "HINGE",
-                                exercises: ["kettlebellSwing"]
-                            },
-                            {
-                                category: "FINISHER",
-                                exercises: ["5 rounds: 30s work/30s rest"],
-                                note: "Pick 3 movements, rotate"
-                            }
-                        ]
-                    }
-                }
-            },
-
-            club: {
-                week1: {
-                    dayA: {
-                        title: "Day A - Field Speed & Power",
-                        duration: "60 minutes",
-                        warmup: "10 min team dynamic warm-up",
-                        blocks: [
-                            {
-                                category: "SPRINT",
-                                exercises: ["sprint_10yd", "sprint_20yd"],
-                                note: "Full field sprints - use cones"
-                            },
-                            {
-                                category: "JUMP",
-                                exercises: ["verticalJump", "broadJump"],
-                                note: "Test and track progress"
-                            },
-                            {
-                                category: "THROW",
-                                exercises: ["mbChestPass", "mbRotational"],
-                                note: "Partner drills"
-                            },
-                            {
-                                category: "SQUAT",
-                                exercises: ["backSquat"]
-                            },
-                            {
-                                category: "Team Competition",
-                                exercises: ["Relay races or team challenges"]
-                            }
-                        ]
-                    },
-                    dayB: {
-                        title: "Day B - Gym Strength",
-                        duration: "50 minutes",
-                        warmup: "5 min general prep",
-                        blocks: [
-                            {
-                                category: "PUSH",
-                                exercises: ["benchPress", "overheadPress"]
-                            },
-                            {
-                                category: "PULL",
-                                exercises: ["pullUp", "bentRow"]
-                            },
-                            {
-                                category: "HINGE",
-                                exercises: ["romanianDeadlift"]
-                            },
-                            {
-                                category: "CARRY",
-                                exercises: ["farmersCarry"],
-                                note: "Can be relay format"
-                            },
-                            {
-                                category: "CORE",
-                                exercises: ["pallofPress", "plank"]
-                            }
-                        ]
-                    },
-                    dayC: {
-                        title: "Day C - Game Speed",
-                        duration: "45 minutes",
-                        warmup: "Sport-specific warm-up",
-                        blocks: [
-                            {
-                                category: "SPRINT",
-                                exercises: ["sprint_20yd"],
-                                note: "Sport-specific patterns"
-                            },
-                            {
-                                category: "JUMP",
-                                exercises: ["verticalJump"]
-                            },
-                            {
-                                category: "THROW",
-                                exercises: ["mbSlam"]
-                            },
-                            {
-                                category: "CONDITIONING",
-                                exercises: ["Sport-specific drills"],
-                                note: "Small-sided games"
-                            }
-                        ]
-                    }
-                }
-            }
-        };
-
-        // ==================== CONTEXT & SAFETY RULES ====================
-        const CONTEXT_RULES = {
-            franchise: {
-                sprintSub: "Treadmill sprints at 8-10% incline",
-                throwSub: "Medicine ball at designated area or explosive push-ups",
-                spaceLimitations: true,
-                groupSize: "10-20 athletes",
-                safetyNote: "Follow facility protocols, use designated areas only"
-            },
-            remote: {
-                sprintSub: "Hill sprints, parking lot, or band-resisted marching",
-                throwSub: "Any explosive movement if no ball available",
-                spaceLimitations: "variable",
-                groupSize: "Individual",
-                safetyNote: "Assess your space, start conservative, progress slowly"
-            },
-            club: {
-                sprintSub: "Full field sprints available",
-                throwSub: "Partner medicine ball drills",
-                spaceLimitations: false,
-                groupSize: "20-40 athletes",
-                safetyNote: "Proper warm-up critical, monitor fatigue in young athletes"
-            }
-        };
-
-        // ==================== USER STATE ====================
-        let userData = {
-            context: null,      // franchise, remote, club
-            equipment: null,    // full, gym, minimal, bodyweight
-            sprintSpace: null,  // field, treadmill, none
-            currentWeek: 1
-        };
-
-        // ==================== UI FUNCTIONS ====================
-        function startOnboarding() {
-            document.getElementById('welcomeScreen').classList.add('hidden');
-            document.getElementById('contextScreen').classList.remove('hidden');
-            document.getElementById('contextScreen').classList.add('fade-in');
-        }
-
-        function selectContext(context) {
-            userData.context = context;
-            
-            // Update UI
-            document.querySelectorAll('.context-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            event.target.closest('.context-option').classList.add('selected');
-            
-            document.getElementById('contextContinue').classList.remove('hidden');
-        }
-
-        function showEquipmentScreen() {
-            document.getElementById('contextScreen').classList.add('hidden');
-            document.getElementById('equipmentScreen').classList.remove('hidden');
-            document.getElementById('equipmentScreen').classList.add('fade-in');
-        }
-
-        function selectEquipment(equipment) {
-            userData.equipment = equipment;
-            
-            // Update UI
-            document.querySelectorAll('.equipment-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            event.target.closest('.equipment-option').classList.add('selected');
-            
-            // Show continue button if sprint space also selected
-            if (userData.sprintSpace) {
-                document.getElementById('equipmentContinue').classList.remove('hidden');
-            }
-        }
-
-        function setSprintSpace(space) {
-            userData.sprintSpace = space;
-            
-            // Update UI
-            document.querySelectorAll('#equipmentScreen .btn-secondary').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            event.target.classList.add('selected');
-            
-            // Show continue button if equipment also selected  
-            if (userData.equipment) {
-                document.getElementById('equipmentContinue').classList.remove('hidden');
-            }
-        }
-
-        function generateProgram() {
-            document.getElementById('equipmentScreen').classList.add('hidden');
-            document.getElementById('programScreen').classList.remove('hidden');
-            document.getElementById('programScreen').classList.add('fade-in');
-            
-            // Set context-specific notice
-            const contextNotice = document.getElementById('contextNotice');
-            const rules = CONTEXT_RULES[userData.context];
-            
-            contextNotice.innerHTML = `
-                <h4 style="margin-bottom: 8px;">Your ${userData.context === 'franchise' ? 'Franchise Facility' : 
-                    userData.context === 'remote' ? 'Remote Training' : 'Club Team'} Program</h4>
-                <p style="color: var(--text-secondary); margin-bottom: 8px;">${rules.safetyNote}</p>
-                <ul style="padding-left: 20px; color: var(--text-secondary);">
-                    <li><strong>Sprint adaptation:</strong> ${rules.sprintSub}</li>
-                    <li><strong>Throw adaptation:</strong> ${rules.throwSub}</li>
-                    <li><strong>Training context:</strong> ${rules.groupSize}</li>
+            <!-- Important Notes -->
+            <div class="info-box" style="margin-top: 24px;">
+                <h4>Important Guidelines</h4>
+                <ul>
+                    <li><strong>Warm-Up:</strong> Always perform 5-15 minutes of general warm-up before training</li>
+                    <li><strong>Max-Effort:</strong> Work up to a heavy set, not necessarily a true max</li>
+                    <li><strong>Recovery:</strong> Separate similar training days by at least 48 hours</li>
+                    <li><strong>Indicator Exercises:</strong> Track your box squat, bench press, vertical jump, and chin-ups</li>
+                    <li><strong>Adaptation:</strong> Modify volume and intensity based on how you feel</li>
                 </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ==================== STATE MANAGEMENT ====================
+    let userData = {
+        experience: null,      // beginner, intermediate, advanced
+        phase: null,          // early-offseason, mid-offseason, preseason, inseason
+        context: null,        // franchise, remote, team, meathead
+        equipment: null,      // full, commercial, minimal, bodyweight
+        currentWeek: 1,
+        currentTemplate: '4day'
+    };
+
+    // ==================== EXERCISE DATABASE ====================
+    const exerciseDatabase = {
+        // Max-Effort Upper Body Exercises
+        benchPress: {
+            name: "Bench Press",
+            category: "max-effort",
+            equipmentMap: {
+                full: "Barbell Bench Press",
+                commercial: "Dumbbell Bench Press",
+                minimal: "Floor Press with DBs",
+                bodyweight: "Weighted Push-ups"
+            }
+        },
+        inclineBench: {
+            name: "Incline Bench Press",
+            category: "max-effort",
+            equipmentMap: {
+                full: "Barbell Incline Press",
+                commercial: "DB Incline Press",
+                minimal: "Incline DB Press (adjustable bench)",
+                bodyweight: "Pike Push-ups"
+            }
+        },
+        closeGripBench: {
+            name: "Close-Grip Bench Press",
+            category: "max-effort",
+            equipmentMap: {
+                full: "Close-Grip Barbell Press",
+                commercial: "Close-Grip DB Press",
+                minimal: "Diamond Push-ups",
+                bodyweight: "Diamond Push-ups"
+            }
+        },
+        
+        // Max-Effort Lower Body Exercises
+        boxSquat: {
+            name: "Box Squat",
+            category: "max-effort",
+            equipmentMap: {
+                full: "Box Squat",
+                commercial: "Goblet Box Squat",
+                minimal: "DB Box Squat",
+                bodyweight: "Pause Squat to Box"
+            }
+        },
+        deadlift: {
+            name: "Deadlift",
+            category: "max-effort",
+            equipmentMap: {
+                full: "Conventional Deadlift",
+                commercial: "Trap Bar Deadlift",
+                minimal: "DB Romanian Deadlift",
+                bodyweight: "Single-Leg RDL"
+            }
+        },
+        frontSquat: {
+            name: "Front Squat",
+            category: "max-effort",
+            equipmentMap: {
+                full: "Barbell Front Squat",
+                commercial: "Goblet Squat",
+                minimal: "DB Goblet Squat",
+                bodyweight: "Jump Squat"
+            }
+        },
+        
+        // Dynamic-Effort Exercises (Jumps)
+        boxJump: {
+            name: "Box Jump",
+            category: "dynamic",
+            equipmentMap: {
+                full: "Box Jump",
+                commercial: "Box Jump",
+                minimal: "Jump to Low Platform",
+                bodyweight: "Vertical Jump"
+            }
+        },
+        broadJump: {
+            name: "Broad Jump",
+            category: "dynamic",
+            equipmentMap: {
+                full: "Broad Jump",
+                commercial: "Broad Jump",
+                minimal: "Broad Jump",
+                bodyweight: "Broad Jump"
+            }
+        },
+        verticalJump: {
+            name: "Vertical Jump",
+            category: "dynamic",
+            equipmentMap: {
+                full: "Vertical Jump",
+                commercial: "Vertical Jump",
+                minimal: "Vertical Jump",
+                bodyweight: "Squat Jump"
+            }
+        },
+        
+        // Supplemental Exercises
+        dbBenchPress: {
+            name: "DB Bench Press",
+            category: "supplemental",
+            equipmentMap: {
+                full: "DB Bench Press",
+                commercial: "DB Bench Press",
+                minimal: "Floor Press",
+                bodyweight: "Push-ups"
+            }
+        },
+        dbIncline: {
+            name: "DB Incline Press",
+            category: "supplemental",
+            equipmentMap: {
+                full: "DB Incline Press",
+                commercial: "DB Incline Press",
+                minimal: "Incline Push-ups",
+                bodyweight: "Incline Push-ups"
+            }
+        },
+        
+        // Assistance Exercises
+        pullups: {
+            name: "Pull-ups/Chin-ups",
+            category: "assistance",
+            equipmentMap: {
+                full: "Weighted Chin-ups",
+                commercial: "Pull-ups",
+                minimal: "Band-Assisted Pull-ups",
+                bodyweight: "Inverted Rows"
+            }
+        },
+        rows: {
+            name: "Rows",
+            category: "assistance",
+            equipmentMap: {
+                full: "Barbell Rows",
+                commercial: "DB Rows",
+                minimal: "Band Rows",
+                bodyweight: "Inverted Rows"
+            }
+        },
+        facePulls: {
+            name: "Face Pulls",
+            category: "assistance",
+            equipmentMap: {
+                full: "Cable Face Pulls",
+                commercial: "Band Face Pulls",
+                minimal: "Band Pull-Aparts",
+                bodyweight: "YTW Raises"
+            }
+        },
+        rearDelts: {
+            name: "Rear Delts",
+            category: "assistance",
+            equipmentMap: {
+                full: "Rear Delt Flyes",
+                commercial: "DB Rear Delt Flyes",
+                minimal: "Band Pull-Aparts",
+                bodyweight: "Prone Y-Raises"
+            }
+        },
+        shrugs: {
+            name: "Shrugs",
+            category: "assistance",
+            equipmentMap: {
+                full: "Barbell Shrugs",
+                commercial: "DB Shrugs",
+                minimal: "Band Shrugs",
+                bodyweight: "Handstand Shrugs"
+            }
+        },
+        curls: {
+            name: "Bicep Curls",
+            category: "assistance",
+            equipmentMap: {
+                full: "Barbell Curls",
+                commercial: "DB Curls",
+                minimal: "Band Curls",
+                bodyweight: "Chin-up Holds"
+            }
+        },
+        
+        // Lower Body Assistance
+        bulgarianSplitSquat: {
+            name: "Bulgarian Split Squat",
+            category: "assistance",
+            equipmentMap: {
+                full: "Barbell Bulgarian Split Squat",
+                commercial: "DB Bulgarian Split Squat",
+                minimal: "Bodyweight Bulgarian Split Squat",
+                bodyweight: "Rear-Foot Elevated Split Squat"
+            }
+        },
+        lunges: {
+            name: "Lunges",
+            category: "assistance",
+            equipmentMap: {
+                full: "Walking Lunges with Barbell",
+                commercial: "DB Walking Lunges",
+                minimal: "Reverse Lunges",
+                bodyweight: "Jump Lunges"
+            }
+        },
+        rdl: {
+            name: "Romanian Deadlift",
+            category: "assistance",
+            equipmentMap: {
+                full: "Barbell RDL",
+                commercial: "DB RDL",
+                minimal: "Single DB RDL",
+                bodyweight: "Single-Leg RDL"
+            }
+        },
+        hyperextensions: {
+            name: "Back Extensions",
+            category: "assistance",
+            equipmentMap: {
+                full: "45-Degree Hyperextensions",
+                commercial: "Back Extensions",
+                minimal: "Superman",
+                bodyweight: "Superman"
+            }
+        },
+        sledDrag: {
+            name: "Sled Work",
+            category: "assistance",
+            equipmentMap: {
+                full: "Sled Drags",
+                commercial: "Farmer's Walks",
+                minimal: "Band Walks",
+                bodyweight: "Bear Crawls"
+            }
+        },
+        
+        // Core
+        abs: {
+            name: "Weighted Abs",
+            category: "assistance",
+            equipmentMap: {
+                full: "Cable Crunches",
+                commercial: "Weighted Sit-ups",
+                minimal: "Band Crunches",
+                bodyweight: "V-Ups"
+            }
+        }
+    };
+
+    // ==================== WS4SB3 TEMPLATES ====================
+    const ws4sb3Templates = {
+        '4day': {
+            beginner: {
+                'early-offseason': {
+                    monday: {
+                        title: "Max-Effort Upper Body",
+                        exercises: [
+                            { type: "max-effort", exercise: "benchPress", sets: "Work up to 5RM", note: "Leave 1-2 reps in tank" },
+                            { type: "supplemental", exercise: "dbBenchPress", sets: "2 × 15-20", note: "Same weight both sets" },
+                            { type: "assistance", exercise: "rows", sets: "3 × 8-12" },
+                            { type: "assistance", exercise: "rearDelts", sets: "3 × 8-12" },
+                            { type: "assistance", exercise: "shrugs", sets: "3 × 8-15" },
+                            { type: "assistance", exercise: "curls", sets: "3 × 8-15" }
+                        ]
+                    },
+                    tuesday: {
+                        title: "Dynamic-Effort Lower Body",
+                        exercises: [
+                            { type: "dynamic", exercise: "boxJump", sets: "5 × 3", note: "Focus on landing mechanics" },
+                            { type: "assistance", exercise: "bulgarianSplitSquat", sets: "2 × 8-10 each" },
+                            { type: "assistance", exercise: "rdl", sets: "3 × 8-12" },
+                            { type: "assistance", exercise: "abs", sets: "4 × 10-15" }
+                        ]
+                    },
+                    thursday: {
+                        title: "Repetition Upper Body",
+                        exercises: [
+                            { type: "repetition", exercise: "dbIncline", sets: "3 × max reps", note: "90 sec rest" },
+                            { type: "assistance", exercise: "pullups", sets: "3 × 8-12" },
+                            { type: "assistance", exercise: "facePulls", sets: "3 × 8-12" },
+                            { type: "assistance", exercise: "shrugs", sets: "3 × 8-10" },
+                            { type: "assistance", exercise: "curls", sets: "3 × 8-10" }
+                        ]
+                    },
+                    friday: {
+                        title: "Max-Effort Lower Body",
+                        exercises: [
+                            { type: "max-effort", exercise: "boxSquat", sets: "Work up to 5RM", note: "Conservative loading" },
+                            { type: "assistance", exercise: "lunges", sets: "3 × 8-12 each" },
+                            { type: "assistance", exercise: "hyperextensions", sets: "3 × 8-12" },
+                            { type: "assistance", exercise: "abs", sets: "2-3 circuits" }
+                        ]
+                    }
+                },
+                'mid-offseason': {
+                    monday: {
+                        title: "Max-Effort Upper Body",
+                        exercises: [
+                            { type: "max-effort", exercise: "benchPress", sets: "Work up to 3RM", note: "True 3RM attempt" },
+                            { type: "supplemental", exercise: "dbBenchPress", sets: "2 × max reps", note: "15-20 rep range" },
+                            { type: "assistance", exercise: "rows", sets: "4 × 8-12" },
+                            { type: "assistance", exercise: "rearDelts", sets: "4 × 8-12" },
+                            { type: "assistance", exercise: "shrugs", sets: "4 × 8-15" },
+                            { type: "assistance", exercise: "curls", sets: "4 × 8-15" }
+                        ]
+                    },
+                    tuesday: {
+                        title: "Dynamic-Effort Lower Body",
+                        exercises: [
+                            { type: "dynamic", exercise: "boxJump", sets: "6 × 3", note: "Increase box height" },
+                            { type: "dynamic", exercise: "broadJump", sets: "4 × 2", note: "Max effort jumps" },
+                            { type: "assistance", exercise: "bulgarianSplitSquat", sets: "3 × 8-10 each" },
+                            { type: "assistance", exercise: "rdl", sets: "3 × 8-12" },
+                            { type: "assistance", exercise: "sledDrag", sets: "3 × 40 yards" },
+                            { type: "assistance", exercise: "abs", sets: "4 × 10-15" }
+                        ]
+                    },
+                    thursday: {
+                        title: "Repetition Upper Body",
+                        exercises: [
+                            { type: "repetition", exercise: "dbIncline", sets: "3 × max reps", note: "3 min rest" },
+                            { type: "assistance", exercise: "pullups", sets: "4 × 8-12" },
+                            { type: "assistance", exercise: "facePulls", sets: "4 × 8-12" },
+                            { type: "assistance", exercise: "shrugs", sets: "3 × 8-10" },
+                            { type: "assistance", exercise: "curls", sets: "3 × 8-10" }
+                        ]
+                    },
+                    friday: {
+                        title: "Max-Effort Lower Body",
+                        exercises: [
+                            { type: "max-effort", exercise: "deadlift", sets: "Work up to 3RM", note: "True 3RM attempt" },
+                            { type: "assistance", exercise: "lunges", sets: "3 × 6-12 each" },
+                            { type: "assistance", exercise: "hyperextensions", sets: "3 × 8-12" },
+                            { type: "assistance", exercise: "abs", sets: "3 circuits" }
+                        ]
+                    }
+                }
+            },
+            intermediate: {
+                'mid-offseason': {
+                    monday: {
+                        title: "Max-Effort Upper Body",
+                        exercises: [
+                            { type: "max-effort", exercise: "inclineBench", sets: "Work up to 3RM", note: "Rotate weekly" },
+                            { type: "supplemental", exercise: "dbBenchPress", sets: "2 × max reps", note: "Heavy weight" },
+                            { type: "assistance", exercise: "rows", sets: "4 × 6-10" },
+                            { type: "assistance", exercise: "rearDelts", sets: "4 × 10-15" },
+                            { type: "assistance", exercise: "shrugs", sets: "4 × 8-12" },
+                            { type: "assistance", exercise: "curls", sets: "4 × 8-12" }
+                        ]
+                    },
+                    tuesday: {
+                        title: "Dynamic-Effort Lower Body",
+                        exercises: [
+                            { type: "dynamic", exercise: "boxJump", sets: "8 × 3", note: "Max height" },
+                            { type: "dynamic", exercise: "broadJump", sets: "5 × 2", note: "Full recovery" },
+                            { type: "assistance", exercise: "bulgarianSplitSquat", sets: "3 × 6-10 each" },
+                            { type: "assistance", exercise: "rdl", sets: "3 × 6-10" },
+                            { type: "assistance", exercise: "sledDrag", sets: "4 × 40 yards" },
+                            { type: "assistance", exercise: "abs", sets: "4 × 10-20" }
+                        ]
+                    },
+                    thursday: {
+                        title: "Repetition Upper Body",
+                        exercises: [
+                            { type: "repetition", exercise: "dbBenchPress", sets: "4 × 12-15", note: "Bodybuilding style" },
+                            { type: "assistance", exercise: "pullups", sets: "4 × max-2" },
+                            { type: "assistance", exercise: "facePulls", sets: "4 × 12-15" },
+                            { type: "assistance", exercise: "shrugs", sets: "4 × 8-10" },
+                            { type: "assistance", exercise: "curls", sets: "4 × 8-10" }
+                        ]
+                    },
+                    friday: {
+                        title: "Max-Effort Lower Body",
+                        exercises: [
+                            { type: "max-effort", exercise: "frontSquat", sets: "Work up to 3RM", note: "Full depth" },
+                            { type: "assistance", exercise: "lunges", sets: "3 × 6-10 each" },
+                            { type: "assistance", exercise: "hyperextensions", sets: "3 × 10-15" },
+                            { type: "assistance", exercise: "abs", sets: "3-4 circuits" }
+                        ]
+                    }
+                },
+                'preseason': {
+                    monday: {
+                        title: "Max-Effort Upper Body",
+                        exercises: [
+                            { type: "max-effort", exercise: "benchPress", sets: "2 × 3 @ 80-85%", note: "Not true max" },
+                            { type: "supplemental", exercise: "dbBenchPress", sets: "2 × 12-15", note: "Moderate weight" },
+                            { type: "assistance", exercise: "rows", sets: "3 × 8-12" },
+                            { type: "assistance", exercise: "rearDelts", sets: "3 × 10-12" },
+                            { type: "assistance", exercise: "curls", sets: "2 × 10-12" }
+                        ]
+                    },
+                    tuesday: {
+                        title: "Speed & Jump Training",
+                        exercises: [
+                            { type: "sprint", exercise: "10yd sprints", sets: "8 × 10 yards", note: "Full recovery" },
+                            { type: "dynamic", exercise: "verticalJump", sets: "5 × 3", note: "Max effort" },
+                            { type: "assistance", exercise: "bulgarianSplitSquat", sets: "2 × 8 each" },
+                            { type: "assistance", exercise: "abs", sets: "3 × 15-20" }
+                        ]
+                    },
+                    thursday: {
+                        title: "Max-Effort Lower Body & Conditioning",
+                        exercises: [
+                            { type: "max-effort", exercise: "boxSquat", sets: "2 × 3 @ 75-80%", note: "Speed focus" },
+                            { type: "assistance", exercise: "hyperextensions", sets: "3 × 10" },
+                            { type: "conditioning", exercise: "prowler", sets: "6 × 30 yards", note: "Or sled drags" }
+                        ]
+                    },
+                    friday: {
+                        title: "Repetition Upper Body",
+                        exercises: [
+                            { type: "repetition", exercise: "dbIncline", sets: "3 × 10-12", note: "Not to failure" },
+                            { type: "assistance", exercise: "pullups", sets: "3 × 8-10" },
+                            { type: "assistance", exercise: "facePulls", sets: "3 × 12-15" },
+                            { type: "assistance", exercise: "abs", sets: "3 × 15-20" }
+                        ]
+                    }
+                }
+            },
+            advanced: {
+                'mid-offseason': {
+                    monday: {
+                        title: "Max-Effort Upper Body",
+                        exercises: [
+                            { type: "max-effort", exercise: "closeGripBench", sets: "Work up to 1RM", note: "Weekly rotation" },
+                            { type: "supplemental", exercise: "dbBenchPress", sets: "2 × max reps", note: "Heavy DBs" },
+                            { type: "assistance", exercise: "rows", sets: "5 × 5-8" },
+                            { type: "assistance", exercise: "rearDelts", sets: "4 × 12-15" },
+                            { type: "assistance", exercise: "shrugs", sets: "4 × 8-10" },
+                            { type: "assistance", exercise: "curls", sets: "4 × 8-10" }
+                        ]
+                    },
+                    tuesday: {
+                        title: "Dynamic-Effort Lower Body",
+                        exercises: [
+                            { type: "dynamic", exercise: "boxJump", sets: "10 × 1", note: "Max height attempts" },
+                            { type: "dynamic", exercise: "broadJump", sets: "6 × 1", note: "Max distance" },
+                            { type: "assistance", exercise: "bulgarianSplitSquat", sets: "3 × 5-8 each" },
+                            { type: "assistance", exercise: "rdl", sets: "3 × 5-8" },
+                            { type: "assistance", exercise: "sledDrag", sets: "5 × 40 yards" },
+                            { type: "assistance", exercise: "abs", sets: "4 × 15-25" }
+                        ]
+                    },
+                    thursday: {
+                        title: "Repetition Upper Body",
+                        exercises: [
+                            { type: "repetition", exercise: "dbBenchPress", sets: "5 × 10", note: "Heavy volume" },
+                            { type: "assistance", exercise: "pullups", sets: "5 × max-1" },
+                            { type: "assistance", exercise: "facePulls", sets: "5 × 15-20" },
+                            { type: "assistance", exercise: "shrugs", sets: "4 × 8-10" },
+                            { type: "assistance", exercise: "curls", sets: "4 × 8-10" }
+                        ]
+                    },
+                    friday: {
+                        title: "Max-Effort Lower Body",
+                        exercises: [
+                            { type: "max-effort", exercise: "deadlift", sets: "Singles up to 90-95%", note: "Competition stance" },
+                            { type: "assistance", exercise: "lunges", sets: "3 × 5-8 each" },
+                            { type: "assistance", exercise: "hyperextensions", sets: "3 × 12-15" },
+                            { type: "assistance", exercise: "abs", sets: "4 circuits" }
+                        ]
+                    }
+                }
+            }
+        },
+        '3day': {
+            beginner: {
+                'early-offseason': {
+                    monday: {
+                        title: "Max-Effort Upper Body",
+                        exercises: [
+                            { type: "max-effort", exercise: "benchPress", sets: "Work up to 5RM", note: "Focus on form" },
+                            { type: "supplemental", exercise: "dbBenchPress", sets: "3 × 12-15" },
+                            { type: "assistance", exercise: "rows", sets: "4 × 10-12" },
+                            { type: "assistance", exercise: "facePulls", sets: "3 × 12-15" },
+                            { type: "assistance", exercise: "curls", sets: "3 × 10-12" }
+                        ]
+                    },
+                    wednesday: {
+                        title: "Max-Effort Lower Body",
+                        exercises: [
+                            { type: "max-effort", exercise: "boxSquat", sets: "Work up to 5RM", note: "Proper depth" },
+                            { type: "assistance", exercise: "lunges", sets: "3 × 10 each" },
+                            { type: "assistance", exercise: "rdl", sets: "3 × 10-12" },
+                            { type: "assistance", exercise: "abs", sets: "3 × 15-20" }
+                        ]
+                    },
+                    friday: {
+                        title: "Repetition Upper Body",
+                        exercises: [
+                            { type: "repetition", exercise: "dbIncline", sets: "3 × max reps", note: "Leave 1-2 in tank" },
+                            { type: "assistance", exercise: "pullups", sets: "3 × 8-12" },
+                            { type: "assistance", exercise: "rearDelts", sets: "3 × 12-15" },
+                            { type: "assistance", exercise: "shrugs", sets: "3 × 10-12" }
+                        ]
+                    }
+                }
+            }
+        },
+        'inseason': {
+            all: {
+                'inseason': {
+                    monday: {
+                        title: "In-Season Maintenance A",
+                        exercises: [
+                            { type: "max-effort", exercise: "benchPress", sets: "Work up to 5RM", note: "Conservative load" },
+                            { type: "assistance", exercise: "bulgarianSplitSquat", sets: "3 × 8" },
+                            { type: "assistance", exercise: "rows", sets: "3 × 10-12" },
+                            { type: "assistance", exercise: "shrugs", sets: "3 × 10-12" },
+                            { type: "assistance", exercise: "abs", sets: "2 circuits" }
+                        ]
+                    },
+                    wednesday: {
+                        title: "In-Season Maintenance B",
+                        exercises: [
+                            { type: "dynamic", exercise: "boxJump", sets: "3 × 3", note: "Neural activation" },
+                            { type: "max-effort", exercise: "boxSquat", sets: "6 × 2 @ 60%", note: "Speed work" },
+                            { type: "supplemental", exercise: "dbBenchPress", sets: "3 × 8-12" },
+                            { type: "assistance", exercise: "facePulls", sets: "3 × 12-15" },
+                            { type: "assistance", exercise: "abs", sets: "2 × 10-15" }
+                        ]
+                    }
+                }
+            }
+        }
+    };
+
+    // ==================== UI FUNCTIONS ====================
+    function startOnboarding() {
+        document.getElementById('welcomeScreen').classList.add('hidden');
+        document.getElementById('progressTracker').classList.remove('hidden');
+        document.getElementById('experienceScreen').classList.remove('hidden');
+        document.getElementById('experienceScreen').classList.add('fade-in');
+        updateProgressTracker(1);
+    }
+
+    function updateProgressTracker(step) {
+        // Reset all steps
+        document.querySelectorAll('.progress-step').forEach((el, idx) => {
+            if (idx < step - 1) {
+                el.classList.add('completed');
+                el.classList.remove('active');
+            } else if (idx === step - 1) {
+                el.classList.add('active');
+                el.classList.remove('completed');
+            } else {
+                el.classList.remove('active', 'completed');
+            }
+        });
+    }
+
+    function selectExperience(level) {
+        userData.experience = level;
+        document.querySelectorAll('#experienceScreen .option-card').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        event.target.closest('.option-card').classList.add('selected');
+        document.getElementById('experienceContinue').classList.remove('hidden');
+    }
+
+    function showPhaseScreen() {
+        document.getElementById('experienceScreen').classList.add('hidden');
+        document.getElementById('phaseScreen').classList.remove('hidden');
+        document.getElementById('phaseScreen').classList.add('fade-in');
+        updateProgressTracker(2);
+    }
+
+    function selectPhase(phase) {
+        userData.phase = phase;
+        document.querySelectorAll('#phaseScreen .option-card').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        event.target.closest('.option-card').classList.add('selected');
+        document.getElementById('phaseContinue').classList.remove('hidden');
+    }
+
+    function showContextScreen() {
+        document.getElementById('phaseScreen').classList.add('hidden');
+        document.getElementById('contextScreen').classList.remove('hidden');
+        document.getElementById('contextScreen').classList.add('fade-in');
+        updateProgressTracker(3);
+    }
+
+    function selectContext(context) {
+        userData.context = context;
+        document.querySelectorAll('#contextScreen .option-card').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        event.target.closest('.option-card').classList.add('selected');
+        document.getElementById('contextContinue').classList.remove('hidden');
+    }
+
+    function showEquipmentScreen() {
+        document.getElementById('contextScreen').classList.add('hidden');
+        document.getElementById('equipmentScreen').classList.remove('hidden');
+        document.getElementById('equipmentScreen').classList.add('fade-in');
+        updateProgressTracker(4);
+    }
+
+    function selectEquipment(equipment) {
+        userData.equipment = equipment;
+        document.querySelectorAll('#equipmentScreen .option-card').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        event.target.closest('.option-card').classList.add('selected');
+        document.getElementById('equipmentContinue').classList.remove('hidden');
+    }
+
+    function goBack(screen) {
+        document.querySelectorAll('.card').forEach(card => {
+            card.parentElement.classList.add('hidden');
+        });
+        
+        switch(screen) {
+            case 'welcome':
+                document.getElementById('welcomeScreen').classList.remove('hidden');
+                document.getElementById('progressTracker').classList.add('hidden');
+                break;
+            case 'experience':
+                document.getElementById('experienceScreen').classList.remove('hidden');
+                updateProgressTracker(1);
+                break;
+            case 'phase':
+                document.getElementById('phaseScreen').classList.remove('hidden');
+                updateProgressTracker(2);
+                break;
+            case 'context':
+                document.getElementById('contextScreen').classList.remove('hidden');
+                updateProgressTracker(3);
+                break;
+        }
+    }
+
+    function generateProgram() {
+        document.getElementById('equipmentScreen').classList.add('hidden');
+        document.getElementById('progressTracker').classList.add('hidden');
+        document.getElementById('programScreen').classList.remove('hidden');
+        document.getElementById('programScreen').classList.add('fade-in');
+        updateProgressTracker(5);
+        
+        // Set program title
+        const phaseNames = {
+            'early-offseason': 'Early Off-Season',
+            'mid-offseason': 'Mid Off-Season',
+            'preseason': 'Pre-Season',
+            'inseason': 'In-Season'
+        };
+        
+        const experienceNames = {
+            'beginner': 'Beginner',
+            'intermediate': 'Intermediate',
+            'advanced': 'Advanced'
+        };
+        
+        document.getElementById('programTitle').textContent = 
+            `${experienceNames[userData.experience]} - ${phaseNames[userData.phase]} Program`;
+        
+        // Generate overview
+        generateProgramOverview();
+        
+        // Select appropriate template
+        if (userData.phase === 'inseason') {
+            userData.currentTemplate = 'inseason';
+        } else if (userData.context === 'meathead') {
+            userData.currentTemplate = '3day';
+        } else {
+            userData.currentTemplate = '4day';
+        }
+        
+        // Render workouts
+        renderWorkouts();
+    }
+
+    function generateProgramOverview() {
+        const overview = document.getElementById('programOverview');
+        
+        const phaseGuidelines = {
+            'early-offseason': 'Focus on recovery, movement quality, and building base strength. Conservative loading.',
+            'mid-offseason': 'Maximum strength and muscle building phase. Highest training volumes.',
+            'preseason': 'Converting strength to power. Sport-specific preparation.',
+            'inseason': 'Maintenance focus. Managing fatigue while staying game-ready.'
+        };
+        
+        const contextNotes = {
+            'franchise': 'Adapted for group training environment with time constraints',
+            'remote': 'Flexible programming for variable equipment access',
+            'team': 'Designed for team training with mixed ability levels',
+            'meathead': 'Former athlete focus - strength with health consideration'
+        };
+        
+        overview.innerHTML = `
+            <h4>Your Program Overview</h4>
+            <ul>
+                <li><strong>Phase Focus:</strong> ${phaseGuidelines[userData.phase]}</li>
+                <li><strong>Context:</strong> ${contextNotes[userData.context]}</li>
+                <li><strong>Equipment Level:</strong> ${userData.equipment.charAt(0).toUpperCase() + userData.equipment.slice(1)} gym setup</li>
+                <li><strong>Weekly Volume:</strong> ${userData.currentTemplate === '4day' ? '4 training days' : 
+                    userData.currentTemplate === '3day' ? '3 training days' : '2-3 flexible days'}</li>
+                <li><strong>Key Focus:</strong> ${userData.phase === 'inseason' ? 'Maintain strength, prevent injury' : 
+                    'Progressive overload, track indicator lifts'}</li>
+            </ul>
+        `;
+    }
+
+    function selectTemplate(template) {
+        userData.currentTemplate = template;
+        
+        // Update UI
+        document.querySelectorAll('.template-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        
+        renderWorkouts();
+    }
+
+    function renderWorkouts() {
+        const container = document.getElementById('workoutDays');
+        
+        // Get appropriate template
+        let workouts;
+        if (userData.currentTemplate === 'inseason') {
+            workouts = ws4sb3Templates.inseason.all.inseason;
+        } else {
+            // Try to get experience-phase specific, fallback to available
+            const templateSet = ws4sb3Templates[userData.currentTemplate];
+            const experienceSet = templateSet[userData.experience] || templateSet.beginner;
+            workouts = experienceSet[userData.phase] || experienceSet['early-offseason'] || experienceSet['mid-offseason'];
+        }
+        
+        if (!workouts) {
+            container.innerHTML = '<p>Template not yet available for this combination. Using default 4-day template.</p>';
+            workouts = ws4sb3Templates['4day'].beginner['early-offseason'];
+        }
+        
+        let html = '';
+        
+        Object.entries(workouts).forEach(([day, workout]) => {
+            html += `
+                <div class="workout-day">
+                    <div class="workout-header">
+                        <div class="workout-title">${day.charAt(0).toUpperCase() + day.slice(1)}: ${workout.title}</div>
+                        <div class="workout-badge">${day}</div>
+                    </div>
             `;
             
-            renderWorkouts();
-        }
-
-        function renderWorkouts() {
-            const container = document.getElementById('workoutDays');
-            const workouts = WORKOUT_TEMPLATES[userData.context].week1;
-            
-            let html = '';
-            
-            Object.entries(workouts).forEach(([dayKey, day]) => {
-                html += `
-                    <div class="workout-block">
-                        <h3 style="margin-bottom: 12px;">${day.title}</h3>
-                        <p style="color: var(--text-secondary); margin-bottom: 16px;">
-                            Duration: ${day.duration} | Warm-up: ${day.warmup}
-                        </p>
-                `;
+            workout.exercises.forEach(exercise => {
+                const exerciseData = exerciseDatabase[exercise.exercise];
+                let exerciseName = exercise.exercise;
+                let isSubstituted = false;
                 
-                day.blocks.forEach(block => {
-                    if (block.category === 'Circuit' || block.category === 'FINISHER' || 
-                        block.category === 'Team Competition' || block.category === 'CONDITIONING') {
-                        // Special blocks without exercise lookup
-                        html += `
-                            <div style="margin-bottom: 16px;">
-                                <div class="block-header">
-                                    <span class="movement-category category-core">${block.category}</span>
-                                </div>
-                                <div class="exercise-item">
-                                    <div class="exercise-name">${block.exercises[0]}</div>
-                                    ${block.note ? `<div class="substitution-notice">${block.note}</div>` : ''}
-                                </div>
-                            </div>
-                        `;
-                    } else {
-                        // Regular exercise blocks
-                        html += `
-                            <div style="margin-bottom: 16px;">
-                                <div class="block-header">
-                                    <span class="movement-category category-${block.category.toLowerCase()}">${block.category}</span>
-                                </div>
-                        `;
-                        
-                        block.exercises.forEach(exerciseKey => {
-                            const exercise = EXERCISE_DATABASE[exerciseKey];
-                            if (!exercise) return;
-                            
-                            const adaptation = getExerciseAdaptation(exercise);
-                            
-                            html += `
-                                <div class="exercise-item">
-                                    <div class="exercise-name">${adaptation.name}</div>
-                                    <div class="exercise-prescription">${adaptation.prescription || exercise.prescription}</div>
-                                    ${adaptation.isSubstituted ? 
-                                        `<div class="substitution-notice">Adapted: ${adaptation.reason}</div>` : ''}
-                                </div>
-                            `;
-                        });
-                        
-                        if (block.note) {
-                            html += `<div style="padding: 8px; color: var(--text-secondary); font-size: 13px; font-style: italic;">${block.note}</div>`;
-                        }
-                        
-                        html += `</div>`;
+                if (exerciseData && exerciseData.equipmentMap) {
+                    exerciseName = exerciseData.equipmentMap[userData.equipment];
+                    if (exerciseName !== exerciseData.name) {
+                        isSubstituted = true;
                     }
-                });
-                
-                if (day.cooldown) {
-                    html += `
-                        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-color);">
-                            <strong>Cooldown:</strong> ${day.cooldown}
-                        </div>
-                    `;
                 }
                 
-                html += `</div>`;
+                let categoryClass = 'category-assistance';
+                if (exercise.type === 'max-effort') categoryClass = 'category-max-effort';
+                else if (exercise.type === 'dynamic') categoryClass = 'category-dynamic';
+                else if (exercise.type === 'repetition') categoryClass = 'category-repetition';
+                else if (exercise.type === 'supplemental') categoryClass = 'category-supplemental';
+                else if (exercise.type === 'sprint') categoryClass = 'category-sprint';
+                else if (exercise.type === 'conditioning') categoryClass = 'category-jump';
+                
+                html += `
+                    <div class="exercise-block">
+                        <span class="exercise-category ${categoryClass}">${exercise.type}</span>
+                        <div class="exercise-name">${exerciseName || exercise.exercise}</div>
+                        <div class="exercise-details">Sets/Reps: ${exercise.sets}</div>
+                        ${exercise.note ? `<div class="exercise-details">Note: ${exercise.note}</div>` : ''}
+                        ${isSubstituted ? `<div class="substitution-notice">Adapted for ${userData.equipment} equipment</div>` : ''}
+                    </div>
+                `;
             });
             
-            container.innerHTML = html;
-        }
-
-        function getExerciseAdaptation(exercise) {
-            const equipmentAdaptation = exercise.equipmentMap[userData.equipment];
-            
-            // Handle sprint space limitations
-            if (exercise.category === 'SPRINT' && userData.sprintSpace === 'none') {
-                // Force to most minimal option
-                const minimalOption = exercise.equipmentMap.minimal || exercise.equipmentMap.bodyweight;
-                return {
-                    name: minimalOption.name,
-                    prescription: minimalOption.sub || exercise.prescription,
-                    isSubstituted: true,
-                    reason: "No sprint space - using stationary alternative"
-                };
-            }
-            
-            if (exercise.category === 'SPRINT' && userData.sprintSpace === 'treadmill') {
-                const treadmillOption = exercise.equipmentMap.gym;
-                return {
-                    name: treadmillOption.name,
-                    prescription: treadmillOption.sub || exercise.prescription,
-                    isSubstituted: true,
-                    reason: "Treadmill adaptation"
-                };
-            }
-            
-            // Regular equipment adaptation
-            if (equipmentAdaptation && equipmentAdaptation.name !== exercise.name) {
-                return {
-                    name: equipmentAdaptation.name,
-                    prescription: equipmentAdaptation.sub || exercise.prescription,
-                    isSubstituted: true,
-                    reason: `Adapted for ${userData.equipment} equipment`
-                };
-            }
-            
-            return {
-                name: equipmentAdaptation?.name || exercise.name,
-                prescription: exercise.prescription,
-                isSubstituted: false
-            };
-        }
-
-        function resetApp() {
-            if (confirm('Reset and start over?')) {
-                userData = {
-                    context: null,
-                    equipment: null,
-                    sprintSpace: null,
-                    currentWeek: 1
-                };
-                
-                // Hide all screens except welcome
-                document.getElementById('programScreen').classList.add('hidden');
-                document.getElementById('equipmentScreen').classList.add('hidden');
-                document.getElementById('contextScreen').classList.add('hidden');
-                document.getElementById('welcomeScreen').classList.remove('hidden');
-                
-                // Reset selections
-                document.querySelectorAll('.selected').forEach(el => {
-                    el.classList.remove('selected');
-                });
-                
-                // Hide continue buttons
-                document.getElementById('contextContinue').classList.add('hidden');
-                document.getElementById('equipmentContinue').classList.add('hidden');
-            }
-        }
-
-        // ==================== INIT ====================
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('Athletic Development Training System Ready');
+            html += `</div>`;
         });
-    </script>
+        
+        container.innerHTML = html;
+    }
+
+    function previousWeek() {
+        if (userData.currentWeek > 1) {
+            userData.currentWeek--;
+            document.getElementById('weekDisplay').textContent = `Week ${userData.currentWeek}`;
+            // In a real implementation, this would load different workout variations
+        }
+    }
+
+    function nextWeek() {
+        if (userData.currentWeek < 12) {
+            userData.currentWeek++;
+            document.getElementById('weekDisplay').textContent = `Week ${userData.currentWeek}`;
+            // In a real implementation, this would load different workout variations
+        }
+    }
+
+    function resetApp() {
+        if (confirm('Start over with a new program setup?')) {
+            userData = {
+                experience: null,
+                phase: null,
+                context: null,
+                equipment: null,
+                currentWeek: 1,
+                currentTemplate: '4day'
+            };
+            
+            // Hide all screens
+            document.querySelectorAll('.card').forEach(card => {
+                card.parentElement.classList.add('hidden');
+            });
+            
+            // Show welcome
+            document.getElementById('welcomeScreen').classList.remove('hidden');
+            document.getElementById('progressTracker').classList.add('hidden');
+            
+            // Reset selections
+            document.querySelectorAll('.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // Hide continue buttons
+            document.querySelectorAll('.btn').forEach(btn => {
+                if (btn.textContent.includes('Continue')) {
+                    btn.classList.add('hidden');
+                }
+            });
+        }
+    }
+
+    // ==================== INITIALIZATION ====================
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('WS4SB3 Athletic Development System Loaded');
+        
+        // Set up week navigation
+        document.getElementById('prevWeekBtn').disabled = true;
+    });
+</script>
 </body>
 </html>
