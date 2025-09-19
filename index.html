@@ -642,7 +642,7 @@
     <div id="programScreen" class="hidden">
         <div class="card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                <h2 id="programTitle">Your WS4SB3 Program</h2>
+                <h2 id="programTitle">Your Program</h2>
                 <button class="btn btn-secondary" onclick="resetApp()">Start Over</button>
             </div>
 
@@ -953,8 +953,8 @@
         }
     };
 
-    // ==================== WS4SB3 TEMPLATES ====================
-    const ws4sb3Templates = {
+    // ==================== TEMPLATES ====================
+    const Templates = {
         '4day': {
             beginner: {
                 'early-offseason': {
@@ -1428,17 +1428,17 @@
         // Get appropriate template
         let workouts;
         if (userData.currentTemplate === 'inseason') {
-            workouts = ws4sb3Templates.inseason.all.inseason;
+            workouts = Templates.inseason.all.inseason;
         } else {
             // Try to get experience-phase specific, fallback to available
-            const templateSet = ws4sb3Templates[userData.currentTemplate];
+            const templateSet = Templates[userData.currentTemplate];
             const experienceSet = templateSet[userData.experience] || templateSet.beginner;
             workouts = experienceSet[userData.phase] || experienceSet['early-offseason'] || experienceSet['mid-offseason'];
         }
         
         if (!workouts) {
             container.innerHTML = '<p>Template not yet available for this combination. Using default 4-day template.</p>';
-            workouts = ws4sb3Templates['4day'].beginner['early-offseason'];
+            workouts = Templates['4day'].beginner['early-offseason'];
         }
         
         let html = '';
@@ -1541,7 +1541,7 @@
 
     // ==================== INITIALIZATION ====================
     document.addEventListener('DOMContentLoaded', () => {
-        console.log('WS4SB3 Athletic Development System Loaded');
+        console.log('Athletic Development System Loaded');
         
         // Set up week navigation
         document.getElementById('prevWeekBtn').disabled = true;
