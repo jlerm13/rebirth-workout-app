@@ -1,7 +1,7 @@
 /**
- * exercises.js - Complete Exercise Database for WS4SB3 Athletic Development System
+ * exercises.js - Complete Exercise Database for Complete Athletic Development System
  * 
- * This module contains all exercises used in the WS4SB3 system, including:
+ * This module contains all exercises used in the Complete Training System, including:
  * - Equipment adaptations for different training contexts
  * - Exercise variations for progression
  * - Warm-up protocol references
