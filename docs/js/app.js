@@ -1,16 +1,23 @@
 // ==================== STATE MANAGEMENT ====================
 let userData = {
-    experience: null,      // beginner, intermediate, advanced
-    phase: null,           // early-offseason, mid-offseason, preseason, inseason
-    context: null,         // franchise, remote, team, meathead
-    equipment: null,       // full, commercial, minimal, bodyweight
+    experience: null,
+    phase: null,
+    context: null,
+    equipment: null,
     currentWeek: 1,
     currentTemplate: '4day'
 };
 
-// ==================== UI FUNCTIONS ====================
+// Utility: log and display errors
+def showError(message) {
+    console.error(message);
+    const box = document.getElementById('errorBox');
+    if (box) box.innerHTML += `<div class="error-message">⚠️ ${message}</div>`;
+}
+
+// ==================== UI FLOW ====================
 function startOnboarding() {
-    document.getElementById('welcomeScreen').classList.add('hidden');
+    hideAllScreens();
     document.getElementById('progressTracker').classList.remove('hidden');
     document.getElementById('experienceScreen').classList.remove('hidden');
     updateProgressTracker(1);
@@ -30,11 +37,14 @@ function updateProgressTracker(step) {
     });
 }
 
-function goBack(screen) {
+function hideAllScreens() {
     document.querySelectorAll('.card').forEach(card => {
         card.parentElement.classList.add('hidden');
     });
+}
 
+function goBack(screen) {
+    hideAllScreens();
     switch (screen) {
         case 'welcome':
             document.getElementById('welcomeScreen').classList.remove('hidden');
@@ -55,57 +65,36 @@ function goBack(screen) {
     }
 }
 
-// ==================== SELECTION FUNCTIONS ====================
+// ==================== SELECTORS ====================
 function selectExperience(level) {
     userData.experience = level;
-    document.querySelectorAll('#experienceScreen .option-card').forEach(opt => opt.classList.remove('selected'));
-    event.target.closest('.option-card').classList.add('selected');
-    document.getElementById('experienceContinue').classList.remove('hidden');
-}
-
-function showPhaseScreen() {
-    document.getElementById('experienceScreen').classList.add('hidden');
-    document.getElementById('phaseScreen').classList.remove('hidden');
-    updateProgressTracker(2);
+    selectCard('#experienceScreen', 'experienceContinue');
 }
 
 function selectPhase(phase) {
     userData.phase = phase;
-    document.querySelectorAll('#phaseScreen .option-card').forEach(opt => opt.classList.remove('selected'));
-    event.target.closest('.option-card').classList.add('selected');
-    document.getElementById('phaseContinue').classList.remove('hidden');
-}
-
-function showContextScreen() {
-    document.getElementById('phaseScreen').classList.add('hidden');
-    document.getElementById('contextScreen').classList.remove('hidden');
-    updateProgressTracker(3);
+    selectCard('#phaseScreen', 'phaseContinue');
 }
 
 function selectContext(context) {
     userData.context = context;
-    document.querySelectorAll('#contextScreen .option-card').forEach(opt => opt.classList.remove('selected'));
-    event.target.closest('.option-card').classList.add('selected');
-    document.getElementById('contextContinue').classList.remove('hidden');
-}
-
-function showEquipmentScreen() {
-    document.getElementById('contextScreen').classList.add('hidden');
-    document.getElementById('equipmentScreen').classList.remove('hidden');
-    updateProgressTracker(4);
+    selectCard('#contextScreen', 'contextContinue');
 }
 
 function selectEquipment(equipment) {
     userData.equipment = equipment;
-    document.querySelectorAll('#equipmentScreen .option-card').forEach(opt => opt.classList.remove('selected'));
+    selectCard('#equipmentScreen', 'equipmentContinue');
+}
+
+function selectCard(screenSelector, continueBtnId) {
+    document.querySelectorAll(`${screenSelector} .option-card`).forEach(opt => opt.classList.remove('selected'));
     event.target.closest('.option-card').classList.add('selected');
-    document.getElementById('equipmentContinue').classList.remove('hidden');
+    document.getElementById(continueBtnId).classList.remove('hidden');
 }
 
 // ==================== PROGRAM GENERATION ====================
 function generateProgram() {
-    document.getElementById('equipmentScreen').classList.add('hidden');
-    document.getElementById('progressTracker').classList.add('hidden');
+    hideAllScreens();
     document.getElementById('programScreen').classList.remove('hidden');
     updateProgressTracker(5);
 
@@ -115,7 +104,6 @@ function generateProgram() {
         'preseason': 'Pre-Season',
         'inseason': 'In-Season'
     };
-
     const experienceNames = {
         'beginner': 'Beginner',
         'intermediate': 'Intermediate',
@@ -123,7 +111,7 @@ function generateProgram() {
     };
 
     document.getElementById('programTitle').textContent =
-        `${experienceNames[userData.experience]} - ${phaseNames[userData.phase]} Program`;
+        `${experienceNames[userData.experience] || 'Unknown'} - ${phaseNames[userData.phase] || 'Phase'} Program`;
 
     generateProgramOverview();
 
@@ -140,42 +128,46 @@ function generateProgram() {
 
 function generateProgramOverview() {
     const overview = document.getElementById('programOverview');
-
     const phaseGuidelines = {
         'early-offseason': 'Focus on recovery, movement quality, and building base strength.',
-        'mid-offseason': 'Maximum strength and muscle building phase. Highest volume.',
-        'preseason': 'Convert strength to power, sport-specific.',
-        'inseason': 'Maintenance focus, staying sharp.'
+        'mid-offseason': 'Maximum strength and muscle building. High training volume.',
+        'preseason': 'Convert strength to power. Sport-specific prep.',
+        'inseason': 'Maintenance, manage fatigue, stay game-ready.'
     };
-
     const contextNotes = {
-        'franchise': 'Adapted for group training with time constraints',
-        'remote': 'Flexible programming for variable equipment',
-        'team': 'Designed for team training with mixed abilities',
-        'meathead': 'Former athlete focus - strength with health consideration'
+        'franchise': 'Adapted for group training environment.',
+        'remote': 'Flexible for variable equipment access.',
+        'team': 'Designed for teams with mixed ability levels.',
+        'meathead': 'Strength-focused with health consideration.'
     };
 
     overview.innerHTML = `
         <h4>Your Program Overview</h4>
         <ul>
-            <li><strong>Phase Focus:</strong> ${phaseGuidelines[userData.phase]}</li>
-            <li><strong>Context:</strong> ${contextNotes[userData.context]}</li>
-            <li><strong>Equipment Level:</strong> ${userData.equipment}</li>
-            <li><strong>Weekly Volume:</strong> ${userData.currentTemplate === '4day' ? '4 training days' :
-        userData.currentTemplate === '3day' ? '3 training days' : '2-3 flexible days'}</li>
+            <li><strong>Phase Focus:</strong> ${phaseGuidelines[userData.phase] || 'N/A'}</li>
+            <li><strong>Context:</strong> ${contextNotes[userData.context] || 'N/A'}</li>
+            <li><strong>Equipment Level:</strong> ${userData.equipment || 'N/A'}</li>
+            <li><strong>Weekly Volume:</strong> ${userData.currentTemplate}</li>
         </ul>
     `;
 }
 
-// ==================== RENDER WORKOUTS ====================
+function selectTemplate(template) {
+    userData.currentTemplate = template;
+    document.querySelectorAll('.template-tab').forEach(tab => tab.classList.remove('active'));
+    event.target.classList.add('active');
+    renderWorkouts();
+}
+
 function renderWorkouts() {
     const container = document.getElementById('workoutDays');
     const weekKey = `week${userData.currentWeek}`;
 
-    const templates = workoutTemplates[userData.experience]?.[userData.phase]?.[userData.currentTemplate];
+    const templates = workoutTemplates?.[userData.experience]?.[userData.phase]?.[userData.currentTemplate];
     const currentWeek = templates?.[weekKey];
 
     if (!currentWeek) {
+        showError(`No workouts found for ${weekKey}.`);
         container.innerHTML = `<p>No workouts found for ${weekKey}. Try Week 1.</p>`;
         return;
     }
@@ -185,13 +177,12 @@ function renderWorkouts() {
         html += `
             <div class="workout-day">
                 <div class="workout-header">
-                    <div class="workout-title">${dayKey.charAt(0).toUpperCase() + dayKey.slice(1)}: ${workoutDay.title}</div>
+                    <div class="workout-title">${dayKey}: ${workoutDay.title || ''}</div>
                     <div class="workout-badge">${dayKey}</div>
                 </div>
         `;
-
         workoutDay.exercises.forEach(exercise => {
-            const exerciseData = exerciseDatabase[exercise.exercise];
+            const exerciseData = exerciseDatabase?.[exercise.exercise];
             let exerciseName = exercise.exercise;
             let isSubstituted = false;
 
@@ -199,6 +190,8 @@ function renderWorkouts() {
                 exerciseName = exerciseData.equipmentMap[userData.equipment] || exerciseData.name;
                 if (exerciseName !== exerciseData.name) isSubstituted = true;
             }
+
+            if (!exerciseData) showError(`Missing exercise: ${exercise.exercise}`);
 
             html += `
                 <div class="exercise-block">
@@ -210,21 +203,12 @@ function renderWorkouts() {
                 </div>
             `;
         });
-
-        html += `</div>`; // close workout-day
+        html += `</div>`;
     });
-
     container.innerHTML = html;
 }
 
-// ==================== TEMPLATE / WEEK CONTROLS ====================
-function selectTemplate(template) {
-    userData.currentTemplate = template;
-    document.querySelectorAll('.template-tab').forEach(tab => tab.classList.remove('active'));
-    event.target.classList.add('active');
-    renderWorkouts();
-}
-
+// ==================== WEEK NAVIGATION ====================
 function previousWeek() {
     if (userData.currentWeek > 1) {
         userData.currentWeek--;
@@ -243,24 +227,21 @@ function nextWeek() {
 
 // ==================== RESET ====================
 function resetApp() {
-    if (confirm('Start over with a new program setup?')) {
-        userData = {
-            experience: null,
-            phase: null,
-            context: null,
-            equipment: null,
-            currentWeek: 1,
-            currentTemplate: '4day'
-        };
-
-        document.querySelectorAll('.card').forEach(card => card.parentElement.classList.add('hidden'));
-        document.getElementById('welcomeScreen').classList.remove('hidden');
-        document.getElementById('progressTracker').classList.add('hidden');
-    }
+    if (!confirm('Start over with a new program setup?')) return;
+    userData = { experience: null, phase: null, context: null, equipment: null, currentWeek: 1, currentTemplate: '4day' };
+    hideAllScreens();
+    document.getElementById('welcomeScreen').classList.remove('hidden');
+    document.getElementById('progressTracker').classList.add('hidden');
+    document.getElementById('programOverview').innerHTML = '';
+    document.getElementById('workoutDays').innerHTML = '';
+    document.getElementById('errorBox').innerHTML = '';
 }
 
 // ==================== INIT ====================
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Athletic Development System Loaded');
-    document.getElementById('prevWeekBtn').disabled = true;
+    const box = document.createElement('div');
+    box.id = 'errorBox';
+    box.style.color = 'red';
+    document.body.appendChild(box);
 });
