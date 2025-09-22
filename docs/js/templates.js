@@ -1,5 +1,5 @@
 /**
- * templates.js - Complete WS4SB3 Training Templates Module
+ * templates.js - Complete Training Templates Module
  * 
  * Provides comprehensive workout templates for:
  * - 3 experience levels: beginner, intermediate, advanced
