@@ -249,6 +249,7 @@ function generateProgram() {
 
     generateProgramOverview();
 
+    // Set default template based on phase and context
     if (userData.phase === 'inseason') {
         userData.currentTemplate = '2day';
     } else if (userData.context === 'meathead') {
@@ -257,7 +258,52 @@ function generateProgram() {
         userData.currentTemplate = '4day';
     }
 
+    // Generate appropriate template tabs
+    generateTemplateTabs();
+    
     renderWorkouts();
+}
+
+function generateTemplateTabs() {
+    const container = document.getElementById('templateTabs');
+    const availableTemplates = getAvailableTemplatesForPhase(userData.phase);
+    
+    let tabsHTML = '';
+    availableTemplates.forEach((template, index) => {
+        const isActive = template.key === userData.currentTemplate ? 'active' : '';
+        tabsHTML += `<div class="template-tab ${isActive}" onclick="selectTemplate('${template.key}')">${template.name}</div>`;
+    });
+    
+    container.innerHTML = tabsHTML;
+}
+
+function getAvailableTemplatesForPhase(phase) {
+    // Special case for washed-up meathead
+    if (userData.context === 'meathead') {
+        return [{ key: '3day', name: 'Meathead 3-Day' }];
+    }
+    
+    const templateOptions = {
+        'early-offseason': [
+            { key: '4day', name: '4-Day' },
+            { key: '3day', name: '3-Day' }
+        ],
+        'mid-offseason': [
+            { key: '4day', name: '4-Day' },
+            { key: '3day', name: '3-Day' },
+            { key: 'speed', name: 'With Speed' }
+        ],
+        'preseason': [
+            { key: '4day', name: '4-Day' },
+            { key: '3day', name: '3-Day' },
+            { key: 'speed', name: 'With Speed' }
+        ],
+        'inseason': [
+            { key: '2day', name: 'In-Season (2-Day)' }
+        ]
+    };
+    
+    return templateOptions[phase] || templateOptions['early-offseason'];
 }
 
 function generateProgramOverview() {
@@ -288,8 +334,7 @@ function generateProgramOverview() {
 
 function selectTemplate(template) {
     userData.currentTemplate = template;
-    document.querySelectorAll('.template-tab').forEach(tab => tab.classList.remove('active'));
-    event.target.classList.add('active');
+    generateTemplateTabs(); // Regenerate tabs to update active state
     renderWorkouts();
 }
 
