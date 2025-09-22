@@ -273,6 +273,13 @@
     // Connect to the exercise database
     const { exerciseDatabase, adaptExerciseForEquipment } = window.ExerciseDB;
 </script>
+
+<!-- Load the templates database -->
+<script src="js/templates.js"></script>
+<script>
+    // Connect to the templates database
+    const { workoutTemplates, getWorkoutTemplate } = window.TemplateDB;
+</script>
         
 <script>
     // ==================== STATE MANAGEMENT ====================
@@ -284,13 +291,7 @@
         currentWeek: 1,
         currentTemplate: '4day'
     };
-
-<!-- Load the templates database -->
-<script src="js/templates.js"></script>
-<script>
-    // Connect to the templates database
-    const { workoutTemplates, getWorkoutTemplate } = window.TemplateDB;
-</script>
+    
 
     // ==================== UI FUNCTIONS ====================
     function startOnboarding() {
