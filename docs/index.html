@@ -486,71 +486,67 @@
         renderWorkouts();
     }
 
-    function renderWorkouts() {
-        const container = document.getElementById('workoutDays');
-        
-        // Get appropriate template
-        let workouts;
-        if (userData.currentTemplate === 'inseason') {
-            workouts = workoutTemplates.inseason['2day'].week1;
-        } else {
-            // Try to get experience-phase specific, fallback to available
-            const templateSet = Templates[userData.currentTemplate];
-            const experienceSet = templateSet[userData.experience] || templateSet.beginner;
-            workouts = experienceSet[userData.phase] || experienceSet['early-offseason'] || experienceSet['mid-offseason'];
-        }
-        
-        if (!workouts) {
-            container.innerHTML = '<p>Template not yet available for this combination. Using default 4-day template.</p>';
-            workouts = workoutsTemplates['4day'].beginner['early-offseason'];
-        }
-        
-        let html = '';
-        
-        Object.entries(workouts).forEach(([day, workout]) => {
-            html += `
-                <div class="workout-day">
-                    <div class="workout-header">
-                        <div class="workout-title">${day.charAt(0).toUpperCase() + day.slice(1)}: ${workout.title}</div>
-                        <div class="workout-badge">${day}</div>
-                    </div>
-            `;
-            
-            workout.exercises.forEach(exercise => {
-                const exerciseData = exerciseDatabase[exercise.exercise];
-                let exerciseName = exercise.exercise;
-                let isSubstituted = false;
-                
-                if (exerciseData && exerciseData.equipmentMap) {
-                    exerciseName = exerciseData.equipmentMap[userData.equipment];
-                    if (exerciseName !== exerciseData.name) {
-                        isSubstituted = true;
-                    }
+function renderWorkouts() {
+    const container = document.getElementById('workoutDays');
+    const weekKey = `week${userData.currentWeek}`;
+
+    const templates = workoutTemplates[userData.experience]?.[userData.phase]?.[userData.currentTemplate];
+    const currentWeek = templates?.[weekKey];
+
+    if (!currentWeek) {
+        container.innerHTML = `<p>No workouts found for ${weekKey}. Please check your setup or try Week 1.</p>`;
+        return;
+    }
+
+    let html = '';
+
+    // Loop through each day (monday, tuesday, etc.)
+    Object.entries(currentWeek).forEach(([dayKey, workoutDay]) => {
+        html += `
+            <div class="workout-day">
+                <div class="workout-header">
+                    <div class="workout-title">${dayKey.charAt(0).toUpperCase() + dayKey.slice(1)}: ${workoutDay.title}</div>
+                    <div class="workout-badge">${dayKey}</div>
+                </div>
+        `;
+
+        workoutDay.exercises.forEach(exercise => {
+            const exerciseData = exerciseDatabase[exercise.exercise];
+            let exerciseName = exercise.exercise;
+            let isSubstituted = false;
+
+            if (exerciseData && exerciseData.equipmentMap) {
+                exerciseName = exerciseData.equipmentMap[userData.equipment] || exerciseData.name;
+                if (exerciseName !== exerciseData.name) {
+                    isSubstituted = true;
                 }
-                
-                let categoryClass = 'category-assistance';
-                if (exercise.type === 'max-effort') categoryClass = 'category-max-effort';
-                else if (exercise.type === 'dynamic') categoryClass = 'category-dynamic';
-                else if (exercise.type === 'repetition') categoryClass = 'category-repetition';
-                else if (exercise.type === 'supplemental') categoryClass = 'category-supplemental';
-                else if (exercise.type === 'sprint') categoryClass = 'category-sprint';
-                else if (exercise.type === 'conditioning') categoryClass = 'category-jump';
-                
-                html += `
-                    <div class="exercise-block">
-                        <span class="exercise-category ${categoryClass}">${exercise.type}</span>
-                        <div class="exercise-name">${exerciseName || exercise.exercise}</div>
-                        <div class="exercise-details">Sets/Reps: ${exercise.sets}</div>
-                        ${exercise.note ? `<div class="exercise-details">Note: ${exercise.note}</div>` : ''}
-                        ${isSubstituted ? `<div class="substitution-notice">Adapted for ${userData.equipment} equipment</div>` : ''}
-                    </div>
-                `;
-            });
-            
-            html += `</div>`;
+            }
+
+            // Handle categories
+            let categoryClass = 'category-assistance';
+            if (exercise.type === 'max-effort') categoryClass = 'category-max-effort';
+            else if (exercise.type === 'dynamic') categoryClass = 'category-dynamic';
+            else if (exercise.type === 'repetition') categoryClass = 'category-repetition';
+            else if (exercise.type === 'supplemental') categoryClass = 'category-supplemental';
+            else if (exercise.type === 'sprint') categoryClass = 'category-sprint';
+            else if (exercise.type === 'conditioning') categoryClass = 'category-conditioning';
+            else if (exercise.type === 'core') categoryClass = 'category-core';
+
+            html += `
+                <div class="exercise-block">
+                    <span class="exercise-category ${categoryClass}">${exercise.type}</span>
+                    <div class="exercise-name">${exerciseName}</div>
+                    <div class="exercise-details">Sets/Reps: ${exercise.sets}</div>
+                    ${exercise.note ? `<div class="exercise-details">Note: ${exercise.note}</div>` : ''}
+                    ${isSubstituted ? `<div class="substitution-notice">Adapted for ${userData.equipment}</div>` : ''}
+                </div>
+            `;
         });
-        
-        container.innerHTML = html;
+
+        html += `</div>`; // Close workout-day
+    });
+
+    container.innerHTML = html;
     }
 
     function previousWeek() {
