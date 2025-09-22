@@ -9,18 +9,151 @@ let userData = {
 };
 
 // Utility: log and display errors
-def showError(message) {
+function showError(message) {
     console.error(message);
     const box = document.getElementById('errorBox');
-    if (box) box.innerHTML += `<div class="error-message">⚠️ ${message}</div>`;
+    if (box) {
+        box.classList.remove('hidden');
+        box.innerHTML += `<div class="error-message">⚠️ ${message}</div>`;
+    }
 }
 
 // ==================== UI FLOW ====================
 function startOnboarding() {
     hideAllScreens();
     document.getElementById('progressTracker').classList.remove('hidden');
-    document.getElementById('experienceScreen').classList.remove('hidden');
+    showExperienceScreen();
     updateProgressTracker(1);
+}
+
+function showExperienceScreen() {
+    const screen = document.getElementById('experienceScreen');
+    screen.innerHTML = `
+        <div class="card">
+            <h2>What's your training experience?</h2>
+            <div class="options-grid">
+                <div class="option-card" onclick="selectExperience('beginner')">
+                    <div class="option-title">Beginner</div>
+                    <div class="option-desc">Less than 2 years of structured training</div>
+                </div>
+                <div class="option-card" onclick="selectExperience('intermediate')">
+                    <div class="option-title">Intermediate</div>
+                    <div class="option-desc">2-5 years of consistent training</div>
+                </div>
+                <div class="option-card" onclick="selectExperience('advanced')">
+                    <div class="option-title">Advanced</div>
+                    <div class="option-desc">5+ years, competitive background</div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="goBack('welcome')">Back</button>
+                <button class="btn hidden" id="experienceContinue" onclick="showPhaseScreen()">Continue</button>
+            </div>
+        </div>
+    `;
+    screen.classList.remove('hidden');
+}
+
+function showPhaseScreen() {
+    hideAllScreens();
+    const screen = document.getElementById('phaseScreen');
+    screen.innerHTML = `
+        <div class="card">
+            <h2>What training phase are you in?</h2>
+            <div class="options-grid">
+                <div class="option-card" onclick="selectPhase('early-offseason')">
+                    <div class="option-title">Early Off-Season</div>
+                    <div class="option-desc">Recovery & base building</div>
+                </div>
+                <div class="option-card" onclick="selectPhase('mid-offseason')">
+                    <div class="option-title">Mid Off-Season</div>
+                    <div class="option-desc">Maximum strength & muscle building</div>
+                </div>
+                <div class="option-card" onclick="selectPhase('preseason')">
+                    <div class="option-title">Pre-Season</div>
+                    <div class="option-desc">Convert strength to power</div>
+                </div>
+                <div class="option-card" onclick="selectPhase('inseason')">
+                    <div class="option-title">In-Season</div>
+                    <div class="option-desc">Maintain & perform</div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="goBack('experience')">Back</button>
+                <button class="btn hidden" id="phaseContinue" onclick="showContextScreen()">Continue</button>
+            </div>
+        </div>
+    `;
+    screen.classList.remove('hidden');
+    updateProgressTracker(2);
+}
+
+function showContextScreen() {
+    hideAllScreens();
+    const screen = document.getElementById('contextScreen');
+    screen.innerHTML = `
+        <div class="card">
+            <h2>What's your training context?</h2>
+            <div class="options-grid">
+                <div class="option-card" onclick="selectContext('franchise')">
+                    <div class="option-title">Franchise Gym</div>
+                    <div class="option-desc">Commercial gym with group training</div>
+                </div>
+                <div class="option-card" onclick="selectContext('remote')">
+                    <div class="option-title">Remote/Traveling</div>
+                    <div class="option-desc">Variable equipment access</div>
+                </div>
+                <div class="option-card" onclick="selectContext('team')">
+                    <div class="option-title">Team Setting</div>
+                    <div class="option-desc">Coaching athletes with mixed abilities</div>
+                </div>
+                <div class="option-card" onclick="selectContext('meathead')">
+                    <div class="option-title">Washed-Up Meathead</div>
+                    <div class="option-desc">Former athlete, health-conscious</div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="goBack('phase')">Back</button>
+                <button class="btn hidden" id="contextContinue" onclick="showEquipmentScreen()">Continue</button>
+            </div>
+        </div>
+    `;
+    screen.classList.remove('hidden');
+    updateProgressTracker(3);
+}
+
+function showEquipmentScreen() {
+    hideAllScreens();
+    const screen = document.getElementById('equipmentScreen');
+    screen.innerHTML = `
+        <div class="card">
+            <h2>What equipment do you have access to?</h2>
+            <div class="options-grid">
+                <div class="option-card" onclick="selectEquipment('full')">
+                    <div class="option-title">Full Facility</div>
+                    <div class="option-desc">Power racks, specialty bars, sleds, etc.</div>
+                </div>
+                <div class="option-card" onclick="selectEquipment('commercial')">
+                    <div class="option-title">Commercial Gym</div>
+                    <div class="option-desc">Standard equipment, machines</div>
+                </div>
+                <div class="option-card" onclick="selectEquipment('minimal')">
+                    <div class="option-title">Minimal Equipment</div>
+                    <div class="option-desc">Dumbbells, bands, basic setup</div>
+                </div>
+                <div class="option-card" onclick="selectEquipment('bodyweight')">
+                    <div class="option-title">Bodyweight Only</div>
+                    <div class="option-desc">No equipment, creativity required</div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="goBack('context')">Back</button>
+                <button class="btn hidden" id="equipmentContinue" onclick="generateProgram()">Generate Program</button>
+            </div>
+        </div>
+    `;
+    screen.classList.remove('hidden');
+    updateProgressTracker(4);
 }
 
 function updateProgressTracker(step) {
@@ -38,8 +171,9 @@ function updateProgressTracker(step) {
 }
 
 function hideAllScreens() {
-    document.querySelectorAll('.card').forEach(card => {
-        card.parentElement.classList.add('hidden');
+    const screens = ['welcomeScreen', 'experienceScreen', 'phaseScreen', 'contextScreen', 'equipmentScreen', 'programScreen'];
+    screens.forEach(screenId => {
+        document.getElementById(screenId).classList.add('hidden');
     });
 }
 
@@ -51,15 +185,15 @@ function goBack(screen) {
             document.getElementById('progressTracker').classList.add('hidden');
             break;
         case 'experience':
-            document.getElementById('experienceScreen').classList.remove('hidden');
+            showExperienceScreen();
             updateProgressTracker(1);
             break;
         case 'phase':
-            document.getElementById('phaseScreen').classList.remove('hidden');
+            showPhaseScreen();
             updateProgressTracker(2);
             break;
         case 'context':
-            document.getElementById('contextScreen').classList.remove('hidden');
+            showContextScreen();
             updateProgressTracker(3);
             break;
     }
@@ -116,7 +250,7 @@ function generateProgram() {
     generateProgramOverview();
 
     if (userData.phase === 'inseason') {
-        userData.currentTemplate = 'inseason';
+        userData.currentTemplate = '2day';
     } else if (userData.context === 'meathead') {
         userData.currentTemplate = '3day';
     } else {
@@ -163,48 +297,68 @@ function renderWorkouts() {
     const container = document.getElementById('workoutDays');
     const weekKey = `week${userData.currentWeek}`;
 
-    const templates = workoutTemplates?.[userData.experience]?.[userData.phase]?.[userData.currentTemplate];
+    // Check for washed-up-meathead special case
+    let templates;
+    if (userData.context === 'meathead') {
+        templates = workoutTemplates?.['washed-up-meathead']?.['3day'];
+    } else {
+        templates = workoutTemplates?.[userData.experience]?.[userData.phase]?.[userData.currentTemplate];
+    }
+
     const currentWeek = templates?.[weekKey];
 
     if (!currentWeek) {
-        showError(`No workouts found for ${weekKey}.`);
-        container.innerHTML = `<p>No workouts found for ${weekKey}. Try Week 1.</p>`;
+        showError(`No workouts found for ${weekKey} in ${userData.currentTemplate} template.`);
+        container.innerHTML = `<div class="workout-day"><p>No workouts found for ${weekKey}. Try Week 1 or a different template.</p></div>`;
         return;
     }
 
     let html = '';
     Object.entries(currentWeek).forEach(([dayKey, workoutDay]) => {
+        // Skip metadata like "title" and "notes"
+        if (dayKey === 'title' || dayKey === 'notes') return;
+        
         html += `
             <div class="workout-day">
                 <div class="workout-header">
-                    <div class="workout-title">${dayKey}: ${workoutDay.title || ''}</div>
+                    <div class="workout-title">${dayKey.charAt(0).toUpperCase() + dayKey.slice(1)}: ${workoutDay.title || ''}</div>
                     <div class="workout-badge">${dayKey}</div>
                 </div>
         `;
-        workoutDay.exercises.forEach(exercise => {
-            const exerciseData = exerciseDatabase?.[exercise.exercise];
-            let exerciseName = exercise.exercise;
-            let isSubstituted = false;
+        
+        if (workoutDay.exercises) {
+            workoutDay.exercises.forEach(exercise => {
+                const exerciseData = exerciseDatabase?.[exercise.exercise];
+                let exerciseName = exercise.exercise;
+                let isSubstituted = false;
 
-            if (exerciseData && exerciseData.equipmentMap) {
-                exerciseName = exerciseData.equipmentMap[userData.equipment] || exerciseData.name;
-                if (exerciseName !== exerciseData.name) isSubstituted = true;
-            }
+                if (exerciseData && exerciseData.equipmentMap) {
+                    exerciseName = exerciseData.equipmentMap[userData.equipment] || exerciseData.name;
+                    if (exerciseName !== exerciseData.name) isSubstituted = true;
+                } else if (exerciseData) {
+                    exerciseName = exerciseData.name;
+                }
 
-            if (!exerciseData) showError(`Missing exercise: ${exercise.exercise}`);
+                if (!exerciseData) {
+                    showError(`Missing exercise data: ${exercise.exercise}`);
+                    exerciseName = exercise.exercise; // Use the key as fallback
+                }
 
-            html += `
-                <div class="exercise-block">
-                    <span class="exercise-category">${exercise.type}</span>
-                    <div class="exercise-name">${exerciseName}</div>
-                    <div class="exercise-details">Sets/Reps: ${exercise.sets}</div>
-                    ${exercise.note ? `<div class="exercise-details">Note: ${exercise.note}</div>` : ''}
-                    ${isSubstituted ? `<div class="substitution-notice">Adapted for ${userData.equipment}</div>` : ''}
-                </div>
-            `;
-        });
+                html += `
+                    <div class="exercise-block">
+                        <span class="exercise-category category-${exercise.type}">${exercise.type.toUpperCase()}</span>
+                        <div class="exercise-name">${exerciseName}</div>
+                        <div class="exercise-details">Sets/Reps: ${exercise.sets}</div>
+                        ${exercise.intensity ? `<div class="exercise-details">Intensity: ${exercise.intensity}</div>` : ''}
+                        ${exercise.note ? `<div class="exercise-details">Note: ${exercise.note}</div>` : ''}
+                        ${isSubstituted ? `<div class="substitution-notice">Adapted for ${userData.equipment} equipment</div>` : ''}
+                    </div>
+                `;
+            });
+        }
         html += `</div>`;
     });
+    
     container.innerHTML = html;
 }
 
@@ -234,14 +388,16 @@ function resetApp() {
     document.getElementById('progressTracker').classList.add('hidden');
     document.getElementById('programOverview').innerHTML = '';
     document.getElementById('workoutDays').innerHTML = '';
-    document.getElementById('errorBox').innerHTML = '';
+    const errorBox = document.getElementById('errorBox');
+    if (errorBox) {
+        errorBox.innerHTML = '';
+        errorBox.classList.add('hidden');
+    }
 }
 
 // ==================== INIT ====================
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Athletic Development System Loaded');
-    const box = document.createElement('div');
-    box.id = 'errorBox';
-    box.style.color = 'red';
-    document.body.appendChild(box);
+    console.log('Exercise Database:', typeof exerciseDatabase !== 'undefined' ? 'Loaded' : 'Not Found');
+    console.log('Workout Templates:', typeof workoutTemplates !== 'undefined' ? 'Loaded' : 'Not Found');
 });
