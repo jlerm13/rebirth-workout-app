@@ -752,7 +752,7 @@ const workoutTemplates = {
             ]
           }
         }
-      }
+      },
      '3day': {
       week1: {
         monday: {
@@ -817,9 +817,6 @@ const workoutTemplates = {
         }
       }
     },
-    
-    // 2. Add to intermediate -> 'mid-offseason' (after the '3day' section):
-    
     'speed': {
       week1: {
         monday: {
