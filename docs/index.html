@@ -492,7 +492,7 @@
         // Get appropriate template
         let workouts;
         if (userData.currentTemplate === 'inseason') {
-            workouts = Templates.inseason.all.inseason;
+            workouts = workoutTemplates.inseason['2day'].week1;
         } else {
             // Try to get experience-phase specific, fallback to available
             const templateSet = Templates[userData.currentTemplate];
@@ -502,7 +502,7 @@
         
         if (!workouts) {
             container.innerHTML = '<p>Template not yet available for this combination. Using default 4-day template.</p>';
-            workouts = Templates['4day'].beginner['early-offseason'];
+            workouts = workoutsTemplates['4day'].beginner['early-offseason'];
         }
         
         let html = '';
