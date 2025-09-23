@@ -46,5 +46,5 @@
             }      // closes '3day'
           };        // closes 'washed-up-meathead'
     
-    safeLoadTemplates('beginner', specialTemplates);
+    loadTemplateModule('beginner', specialTemplates);
 })();
