@@ -1537,7 +1537,7 @@ function getWorkoutTemplate(experience, phase, templateType, week) {
       // Try fallback to 4day template
       if (workoutTemplates[experience][phase]['4day']) {
         return workoutTemplates[experience][phase]['4day'][weekKey];
-      }
+      },
       return null;
     }
     
