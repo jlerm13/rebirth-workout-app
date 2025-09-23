@@ -265,7 +265,7 @@ function generateProgram() {
 }
 
 function generateTemplateTabs() {
-    const container = document.getElementById('templateTabs');
+    const container = document.querySelector('.template-tabs');
     const availableTemplates = getAvailableTemplatesForPhase(userData.phase);
     
     let tabsHTML = '';
