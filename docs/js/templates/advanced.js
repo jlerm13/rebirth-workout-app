@@ -366,5 +366,5 @@
             }
           };
     
-    safeLoadTemplates('advanced', advancedTemplates);
+    loadTemplateModule('advanced', advancedTemplates);
 })();
