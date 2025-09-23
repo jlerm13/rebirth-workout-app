@@ -1500,7 +1500,7 @@ const workoutTemplates = {
       }    // closes week1
     }      // closes '3day'
   }        // closes 'washed-up-meathead'
-},         // closes workoutTemplates - CRITICAL LINE!
+};          // closes workoutTemplates - CRITICAL LINE!
 
 /* ======================== TEMPLATE HELPERS ======================== */
 
@@ -1621,7 +1621,7 @@ function getAvailableTemplates(phase) {
     'mid-offseason': ['4day', '3day'],
     'preseason': ['4day', '3day', 'speed'],
     'inseason': ['2day']
-  },
+  };
   
   return templateAvailability[phase] || ['4day', '3day'];
 }
@@ -1634,7 +1634,7 @@ if (typeof module !== "undefined" && module.exports) {
     getExerciseRotationSchedule,
     getLoadingParameters,
     getAvailableTemplates
-  },
+  };
 }
 
 if (typeof window !== "undefined") {
@@ -1644,5 +1644,5 @@ if (typeof window !== "undefined") {
     getExerciseRotationSchedule,
     getLoadingParameters,
     getAvailableTemplates
-  },
+  };
 }
