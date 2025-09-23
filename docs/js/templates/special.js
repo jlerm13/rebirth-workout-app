@@ -46,5 +46,5 @@
             }
           }
     
-    loadTemplateModule('beginner', specialTemplates);
+    loadTemplateModule('special', specialTemplates);
 })();
