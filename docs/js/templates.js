@@ -1500,7 +1500,7 @@ const workoutTemplates = {
       }
     }
   }
-};
+},
 
 /* ======================== TEMPLATE HELPERS ======================== */
 
@@ -1572,7 +1572,7 @@ function getExerciseRotationSchedule(experience) {
       dynamic: 1,    // Weekly variation
       repetition: 2  // Bi-weekly changes
     }
-  };
+  },
   
   return rotationSchedules[experience] || rotationSchedules.beginner;
 }
@@ -1605,7 +1605,7 @@ function getLoadingParameters(phase, experience) {
       intermediate: { intensity: '75-87%', volume: 'low', focus: 'maintenance' },
       advanced: { intensity: '80-90%', volume: 'minimal', focus: 'neural' }
     }
-  };
+  },
   
   return loadingParams[phase]?.[experience] || loadingParams['early-offseason']['beginner'];
 }
@@ -1621,7 +1621,7 @@ function getAvailableTemplates(phase) {
     'mid-offseason': ['4day', '3day'],
     'preseason': ['4day', '3day', 'speed'],
     'inseason': ['2day']
-  };
+  },
   
   return templateAvailability[phase] || ['4day', '3day'];
 }
@@ -1634,7 +1634,7 @@ if (typeof module !== "undefined" && module.exports) {
     getExerciseRotationSchedule,
     getLoadingParameters,
     getAvailableTemplates
-  };
+  },
 }
 
 if (typeof window !== "undefined") {
@@ -1644,5 +1644,5 @@ if (typeof window !== "undefined") {
     getExerciseRotationSchedule,
     getLoadingParameters,
     getAvailableTemplates
-  };
+  },
 }
