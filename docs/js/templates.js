@@ -1500,7 +1500,7 @@ const workoutTemplates = {
       }    // closes week1
     }      // closes '3day'
   }        // closes 'washed-up-meathead'
-};         // closes workoutTemplates - CRITICAL LINE!
+}          // closes workoutTemplates - CRITICAL LINE!
 
 /* ======================== TEMPLATE HELPERS ======================== */
 
