@@ -99,14 +99,26 @@
         </div>
     </div>
 
-    <!-- Script Loading - FIXED PATHS -->
+    <!-- Script Loading - Updated for modular templates -->
     <script src="js/exercises.js"></script>
-    <script src="js/app.js" defer></script>
-    <script src="js/templates/loader.js"></script>
+    
+    <!-- Template System - Load in correct order -->
+    <script src="js/templates/template-loader.js"></script>
     <script src="js/templates/beginner.js"></script>
     <script src="js/templates/intermediate.js"></script>
     <script src="js/templates/advanced.js"></script>
     <script src="js/templates/special.js"></script>
+    
+    <!-- Initialize templates after all are loaded -->
+    <script>
+        // Initialize the template system
+        if (typeof initializeTemplates === 'function') {
+            initializeTemplates();
+        }
+    </script>
+    
+    <!-- Main app logic -->
+    <script src="js/app.js" defer></script>
 
 </body>
 </html>
