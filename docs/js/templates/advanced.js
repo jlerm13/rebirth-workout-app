@@ -364,7 +364,7 @@
                 }
               }
             }
-          };
+          }
     
     loadTemplateModule('advanced', advancedTemplates);
 })();
