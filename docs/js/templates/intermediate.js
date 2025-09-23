@@ -627,19 +627,7 @@
               }
             }
           }
-        },
+        };
     
     safeLoadTemplates('intermediate', intermediateTemplates);
 })();
-
-
-
-
-
-
-
-
-
-const workoutTemplates = {
-  // ======================== INTERMEDIATE TEMPLATES ========================
-  
