@@ -444,7 +444,6 @@
                 }
               }
             }
-          },
-    
+          }
     safeLoadTemplates('beginner', beginnerTemplates);
 })();
