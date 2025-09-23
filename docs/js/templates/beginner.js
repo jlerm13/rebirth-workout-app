@@ -446,5 +446,5 @@
             }
           };
     
-    safeLoadTemplates('beginner', beginnerTemplates);
+    loadTemplateModule('beginner', beginnerTemplates);
 })();
