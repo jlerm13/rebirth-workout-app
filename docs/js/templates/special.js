@@ -44,7 +44,7 @@
                 }  // closes saturday_optional
               }    // closes week1
             }      // closes '3day'
-          }        // closes 'washed-up-meathead'
+          };        // closes 'washed-up-meathead'
     
     safeLoadTemplates('beginner', specialTemplates);
 })();
