@@ -339,8 +339,13 @@ function selectTemplate(template) {
 }
 
 function renderWorkouts() {
-    const container = document.getElementById('workoutDays');
-    const weekKey = `week${userData.currentWeek}`;
+    // Safety check
+    if (!window.workoutTemplates || Object.keys(window.workoutTemplates).length === 0) {
+        console.error('Templates not loaded!');
+        const container = document.getElementById('workoutDays');
+        container.innerHTML = '<div class="workout-day"><p style="color: red;">Error loading templates. Please refresh.</p></div>';
+        return;
+    }
 
     // Check for washed-up-meathead special case
     let templates;
