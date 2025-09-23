@@ -200,7 +200,6 @@ const workoutTemplates = {
             ]
           }
         }
-      }
     },
     'mid-offseason': {
       '4day': {
