@@ -1496,11 +1496,11 @@ const workoutTemplates = {
             { type: "abs", exercise: "ab circuit", sets: "10 minutes" },
             { type: "conditioning", exercise: "walk", sets: "20-30 minutes" }
           ]
-        }
-      }
-    }
-  }
-},
+        }  // closes saturday_optional
+      }    // closes week1
+    }      // closes '3day'
+  }        // closes 'washed-up-meathead'
+};        // closes workoutTemplates - CRITICAL LINE!
 
 /* ======================== TEMPLATE HELPERS ======================== */
 
