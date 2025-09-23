@@ -629,5 +629,5 @@
           }
         };
     
-    safeLoadTemplates('intermediate', intermediateTemplates);
+    loadTemplateModule('intermediate', intermediateTemplates);
 })();
