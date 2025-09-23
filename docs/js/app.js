@@ -1,3 +1,34 @@
+// At the top of app.js, add error checking
+function checkTemplatesLoaded() {
+    if (!window.workoutTemplates || Object.keys(window.workoutTemplates).length === 0) {
+        console.error('Templates not loaded!');
+        showError('Workout templates failed to load. Please refresh the page.');
+        return false;
+    }
+    return true;
+}
+
+// In renderWorkouts function, add safety check:
+function renderWorkouts() {
+    if (!checkTemplatesLoaded()) {
+        const container = document.getElementById('workoutDays');
+        container.innerHTML = `
+            <div class="workout-day">
+                <p style="color: red;">Error: Templates not loaded. Please refresh the page.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Rest of your existing renderWorkouts code...
+    const container = document.getElementById('workoutDays');
+    const weekKey = `week${userData.currentWeek}`;
+    
+    // Use the new TemplateHelpers if available
+    const getTemplate = window.TemplateHelpers?.getWorkoutTemplate || getWorkoutTemplate;
+    
+    // Continue with existing logic...
+}
 // ==================== STATE MANAGEMENT ====================
 let userData = {
     experience: null,
