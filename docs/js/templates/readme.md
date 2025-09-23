@@ -1,5 +1,5 @@
-/**
- * templates.js - Complete Training Templates Module
+
+templates.js - Complete Training Templates Module
  * 
  * Provides comprehensive workout templates for:
  * - 3 experience levels: beginner, intermediate, advanced
@@ -7,4 +7,3 @@
  * - Multiple template types: 4-day, 3-day, speed-integration, inseason-maintenance
  * 
  * Each template includes weekly progressions and exercise rotations
- */
