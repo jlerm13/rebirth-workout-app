@@ -446,5 +446,10 @@
             }
         },
                 
-    loadTemplateModule('beginner', beginnerTemplates);
-})();
+        // Properly call the loading function
+        if (typeof loadTemplateModule === 'function') {
+            loadTemplateModule('beginner', beginnerTemplates);
+        } else {
+            console.error('loadTemplateModule function not available');
+        }
+    })();
