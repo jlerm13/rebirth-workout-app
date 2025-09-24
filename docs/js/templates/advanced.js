@@ -325,42 +325,116 @@
                 '2day': {
                     week1: {
                         monday: {
-                            title: "Strength Maintenance",
+                            title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "benchPress", sets: "Singles @ 85-90%", note: "3 singles max" },
-                                { type: "assistance", exercise: "bulgarianSplitSquat", sets: "2 × 5 each" },
-                                { type: "assistance", exercise: "rows", sets: "3 × 6" },
-                                { type: "core", exercise: "plank", sets: "2 × 30 seconds" }
+                                { type: "max-effort", exercise: "benchPress", sets: "Work up to heavy 5RM", intensity: "85-90%", note: "Weeks 1-2: Standard bench press" },
+                                { type: "assistance", exercise: "shoulderCircuit", sets: "2 × 15-20", note: "Y's, T's, W's, A's circuit - 1 min rest between sets" },
+                                { type: "assistance", exercise: "bulgarianSplitSquat", sets: "3 × 8 each", note: "Unilateral lower body movement" },
+                                { type: "assistance", exercise: "barbellRows", sets: "3 × 10-12", note: "Rowing variation" },
+                                { type: "assistance", exercise: "shrugs", sets: "3 × 10-12", note: "Dumbbell shrugs for trap development" },
+                                { type: "core", exercise: "abCircuit", sets: "2 circuits", note: "3-4 exercises, minimal rest between" }
                             ]
                         },
                         wednesday: {
-                            title: "Power Maintenance",
+                            title: "Dynamic-Effort Lower Body",
                             exercises: [
-                                { type: "dynamic", exercise: "boxJump", sets: "5 × 1" },
-                                { type: "speed", exercise: "boxSquat", sets: "5 × 2 @ 70%" },
-                                { type: "supplemental", exercise: "pushups", sets: "2 × 15" },
-                                { type: "assistance", exercise: "band work", sets: "100 reps" }
+                                { type: "dynamic", exercise: "boxJump", sets: "3 × 3", note: "Explosive, step down between reps" },
+                                { type: "speed", exercise: "boxSquat", sets: "6 × 2 @ 60%", intensity: "60% of 1RM", note: "1-minute rest between sets" },
+                                { type: "supplemental", exercise: "dbBenchPress", sets: "3 × 8-12", note: "DB bench variation" },
+                                { type: "assistance", exercise: "facePulls", sets: "3 × 8-12", note: "Rear deltoid/upper back" },
+                                { type: "assistance", exercise: "lateralRaises", sets: "2 × 12-15", note: "Lateral raise variation" },
+                                { type: "core", exercise: "absLowerBackSuperset", sets: "2-3 supersets × 10-20", note: "Abs + back extensions" }
                             ]
                         }
                     },
                     week2: {
                         monday: {
-                            title: "Cluster Sets",
+                            title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "cluster", exercise: "benchPress", sets: "3×(3×1) @ 87%", note: "15 sec between reps" },
-                                { type: "assistance", exercise: "lunges", sets: "2 × 6 each" },
-                                { type: "assistance", exercise: "pullups", sets: "3 × 5" },
-                                { type: "recovery", exercise: "light arms", sets: "2 × 15" }
+                                { type: "max-effort", exercise: "benchPress", sets: "Work up to heavy 3RM", intensity: "87-92%", note: "Weeks 1-2: Standard bench, progress from week 1" },
+                                { type: "assistance", exercise: "shoulderCircuit", sets: "2 × 15-20", note: "Y's, T's, W's, A's - focus on activation" },
+                                { type: "assistance", exercise: "walkingLunges", sets: "3 × 8 each", note: "Unilateral lower body" },
+                                { type: "assistance", exercise: "dbRows", sets: "3 × 10-12", note: "Single-arm or chest-supported" },
+                                { type: "assistance", exercise: "shrugs", sets: "3 × 10-12", note: "Can use barbell or DBs" },
+                                { type: "core", exercise: "abCircuit", sets: "2 circuits", note: "Higher intensity than week 1" }
                             ]
                         },
                         wednesday: {
-                            title: "Neural Activation",
+                            title: "Dynamic-Effort Lower Body",
                             exercises: [
-                                { type: "dynamic", exercise: "verticalJump", sets: "5 × 1", note: "Max intent" },
-                                { type: "cluster", exercise: "boxSquat", sets: "3×(3×1) @ 85%", note: "15 sec rest" },
-                                { type: "assistance", exercise: "facePulls", sets: "2 × 20" }
+                                { type: "dynamic", exercise: "boxJump", sets: "3 × 3", note: "Maintain explosiveness, don't increase height" },
+                                { type: "speed", exercise: "boxSquat", sets: "5 × 2 @ 70%", intensity: "70% of 1RM", note: "1-minute rest, increased intensity" },
+                                { type: "supplemental", exercise: "dbInclinePress", sets: "3 × 8-12", note: "Different angle from week 1" },
+                                { type: "assistance", exercise: "rearDeltFlyes", sets: "3 × 8-12", note: "Rear delt flies or scarecrows" },
+                                { type: "assistance", exercise: "lateralRaises", sets: "3 × 12-15", note: "Cable or DB lateral raises" },
+                                { type: "core", exercise: "absLowerBackSuperset", sets: "3 supersets × 10-20", note: "Weighted abs + hyperextensions" }
                             ]
                         }
+                    },
+                    week3: {
+                        monday: {
+                            title: "Max-Effort Upper Body",
+                            exercises: [
+                                { type: "max-effort", exercise: "boardPress", sets: "Work up to 3RM", intensity: "90-95%", note: "Weeks 3-4: 3-board press rotation" },
+                                { type: "assistance", exercise: "shoulderCircuit", sets: "2 × 15-20", note: "Y's, T's, W's, A's - maintain quality" },
+                                { type: "assistance", exercise: "stepUps", sets: "3 × 8 each", note: "High box step-ups" },
+                                { type: "assistance", exercise: "cableRows", sets: "3 × 10-12", note: "Seated cable rows" },
+                                { type: "assistance", exercise: "shrugs", sets: "3 × 10-12", note: "Focus on contraction quality" },
+                                { type: "core", exercise: "abCircuit", sets: "2 circuits", note: "Conservative volume" }
+                            ]
+                        },
+                        wednesday: {
+                            title: "Dynamic-Effort Lower Body",
+                            exercises: [
+                                { type: "dynamic", exercise: "boxJump", sets: "3 × 3", note: "Neural activation, not max height" },
+                                { type: "speed", exercise: "boxSquat", sets: "3 singles @ 80-85%", intensity: "80-85% of 1RM", note: "2-3 min rest, max force production" },
+                                { type: "supplemental", exercise: "dbFloorPress", sets: "3 × 8-12", note: "Different stimulus" },
+                                { type: "assistance", exercise: "bandPullAparts", sets: "3 × 8-12", note: "High reps, shoulder health focus" },
+                                { type: "assistance", exercise: "cableLateralRaises", sets: "2 × 12-15", note: "Constant tension" },
+                                { type: "core", exercise: "absLowerBackSuperset", sets: "2 supersets × 10-20", note: "Focus on quality over quantity" }
+                            ]
+                        }
+                    },
+                    week4: {
+                        title: "Rotation Week",
+                        notes: "Begin 4-week cycle with new exercises. Week 4 becomes new Week 1 with exercise rotation.",
+                        monday: {
+                            title: "Max-Effort Upper Body",
+                            exercises: [
+                                { type: "max-effort", exercise: "boardPress", sets: "Work up to heavy 5RM", intensity: "85-90%", note: "Weeks 3-4: 3-board press, building phase" },
+                                { type: "assistance", exercise: "shoulderCircuit", sets: "2 × 15-20", note: "Y's, T's, W's, A's maintenance" },
+                                { type: "assistance", exercise: "bulgarianSplitSquat", sets: "3 × 8 each", note: "Return to week 1 movement" },
+                                { type: "assistance", exercise: "tBarRows", sets: "3 × 10-12", note: "Row variation change" },
+                                { type: "assistance", exercise: "shrugs", sets: "3 × 10-12", note: "Consistent trap work" },
+                                { type: "core", exercise: "abCircuit", sets: "2 circuits", note: "Maintain core strength" }
+                            ]
+                        },
+                        wednesday: {
+                            title: "Dynamic-Effort Lower Body", 
+                            exercises: [
+                                { type: "dynamic", exercise: "boxJump", sets: "3 × 3", note: "Reset cycle, focus on technique" },
+                                { type: "speed", exercise: "safetySquatBarBoxSquat", sets: "6 × 2 @ 60%", intensity: "60% of SSB 1RM", note: "Equipment rotation every 3 weeks" },
+                                { type: "supplemental", exercise: "dbBenchPress", sets: "3 × 8-12", note: "Return to standard DB work" },
+                                { type: "assistance", exercise: "facePulls", sets: "3 × 8-12", note: "Rear delt health" },
+                                { type: "assistance", exercise: "lateralRaises", sets: "2 × 12-15", note: "Shoulder width maintenance" },
+                                { type: "core", exercise: "absLowerBackSuperset", sets: "2-3 supersets × 10-20", note: "Core/back balance" }
+                            ]
+                        }
+                    },
+                    autoRegulationNotes: [
+                        "Assess competition intensity before each session",
+                        "Reduce loads 10-20% after high-intensity games", 
+                        "Skip max effort work within 48hrs of competition",
+                        "Prioritize sleep and nutrition during heavy competition phases",
+                        "Week 3 should be most conservative as stakes increase"
+                    ],
+                    exerciseRotationSchedule: {
+                        "weeks1-2": "Standard bench press",
+                        "weeks3-4": "3-board press", 
+                        "weeks5-6": "Incline bench press",
+                        "weeks7-8": "Floor press",
+                        "weeks9-10": "Close-grip bench press",
+                        "weeks11-12": "4-board press"
                     }
                 }
             }
