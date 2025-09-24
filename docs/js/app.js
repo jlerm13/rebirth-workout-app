@@ -1,4 +1,4 @@
-// At the top of app.js, add error checking
+// ==================== ERROR CHECKING AND UTILITIES ====================
 function checkTemplatesLoaded() {
     if (!window.workoutTemplates || Object.keys(window.workoutTemplates).length === 0) {
         console.error('Templates not loaded!');
@@ -7,38 +7,6 @@ function checkTemplatesLoaded() {
     }
     return true;
 }
-
-// In renderWorkouts function, add safety check:
-function renderWorkouts() {
-    if (!checkTemplatesLoaded()) {
-        const container = document.getElementById('workoutDays');
-        container.innerHTML = `
-            <div class="workout-day">
-                <p style="color: red;">Error: Templates not loaded. Please refresh the page.</p>
-            </div>
-        `;
-        return;
-    }
-    
-    // Rest of your existing renderWorkouts code...
-    const container = document.getElementById('workoutDays');
-    const weekKey = `week${userData.currentWeek}`;
-    const currentWeek = templates?.[weekKey];
-    
-    // Use the new TemplateHelpers if available
-    const getTemplate = window.TemplateHelpers?.getWorkoutTemplate || getWorkoutTemplate;
-    
-    // Continue with existing logic...
-}
-// ==================== STATE MANAGEMENT ====================
-let userData = {
-    experience: null,
-    phase: null,
-    context: null,
-    equipment: null,
-    currentWeek: 1,
-    currentTemplate: '4day'
-};
 
 // Utility: log and display errors
 function showError(message) {
@@ -49,6 +17,16 @@ function showError(message) {
         box.innerHTML += `<div class="error-message">⚠️ ${message}</div>`;
     }
 }
+
+// ==================== STATE MANAGEMENT ====================
+let userData = {
+    experience: null,
+    phase: null,
+    context: null,
+    equipment: null,
+    currentWeek: 1,
+    currentTemplate: '4day'
+};
 
 // ==================== UI FLOW ====================
 function startOnboarding() {
@@ -371,22 +349,37 @@ function selectTemplate(template) {
 }
 
 function renderWorkouts() {
-    // Safety check
-    if (!window.workoutTemplates || Object.keys(window.workoutTemplates).length === 0) {
-        console.error('Templates not loaded!');
+    // Initial safety check for template loading
+    if (!checkTemplatesLoaded()) {
         const container = document.getElementById('workoutDays');
-        container.innerHTML = '<div class="workout-day"><p style="color: red;">Error loading templates. Please refresh.</p></div>';
+        container.innerHTML = `
+            <div class="workout-day">
+                <p style="color: red;">Error: Templates not loaded. Please refresh the page.</p>
+            </div>
+        `;
         return;
     }
 
-    // Check for washed-up-meathead special case
+    // Declare all variables at the beginning
+    const container = document.getElementById('workoutDays');
+    const weekKey = `week${userData.currentWeek}`;
     let templates;
+
+    // Check for washed-up-meathead special case first
     if (userData.context === 'meathead') {
-        templates = workoutTemplates?.['washed-up-meathead']?.['3day'];
+        templates = window.workoutTemplates?.['washed-up-meathead']?.['3day'];
     } else {
-        templates = workoutTemplates?.[userData.experience]?.[userData.phase]?.[userData.currentTemplate];
+        templates = window.workoutTemplates?.[userData.experience]?.[userData.phase]?.[userData.currentTemplate];
     }
 
+    // Check if we found the template structure
+    if (!templates) {
+        showError(`No templates found for ${userData.experience} ${userData.phase} ${userData.currentTemplate}`);
+        container.innerHTML = `<div class="workout-day"><p>No templates found. Please try a different combination.</p></div>`;
+        return;
+    }
+
+    // Get the specific week
     const currentWeek = templates?.[weekKey];
 
     if (!currentWeek) {
@@ -395,6 +388,7 @@ function renderWorkouts() {
         return;
     }
 
+    // Build the HTML for the workout days
     let html = '';
     Object.entries(currentWeek).forEach(([dayKey, workoutDay]) => {
         // Skip metadata like "title" and "notes"
@@ -408,12 +402,14 @@ function renderWorkouts() {
                 </div>
         `;
         
+        // Process exercises if they exist
         if (workoutDay.exercises) {
             workoutDay.exercises.forEach(exercise => {
                 const exerciseData = exerciseDatabase?.[exercise.exercise];
                 let exerciseName = exercise.exercise;
                 let isSubstituted = false;
 
+                // Handle equipment adaptation
                 if (exerciseData && exerciseData.equipmentMap) {
                     exerciseName = exerciseData.equipmentMap[userData.equipment] || exerciseData.name;
                     if (exerciseName !== exerciseData.name) isSubstituted = true;
@@ -421,6 +417,7 @@ function renderWorkouts() {
                     exerciseName = exerciseData.name;
                 }
 
+                // Handle missing exercise data
                 if (!exerciseData) {
                     showError(`Missing exercise data: ${exercise.exercise}`);
                     exerciseName = exercise.exercise; // Use the key as fallback
@@ -441,6 +438,7 @@ function renderWorkouts() {
         html += `</div>`;
     });
     
+    // Update the container with the generated HTML
     container.innerHTML = html;
 }
 
@@ -481,5 +479,5 @@ function resetApp() {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Athletic Development System Loaded');
     console.log('Exercise Database:', typeof exerciseDatabase !== 'undefined' ? 'Loaded' : 'Not Found');
-    console.log('Workout Templates:', typeof workoutTemplates !== 'undefined' ? 'Loaded' : 'Not Found');
+    console.log('Workout Templates:', typeof window.workoutTemplates !== 'undefined' ? 'Loaded' : 'Not Found');
 });
