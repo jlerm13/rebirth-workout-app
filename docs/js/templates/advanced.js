@@ -364,7 +364,12 @@
                 }
               }
             }
-          }
+          };
     
-    loadTemplateModule('advanced', advancedTemplates);
-})();
+        // Properly call the loading function
+        if (typeof loadTemplateModule === 'function') {
+            loadTemplateModule('advanced', advancedTemplates);
+        } else {
+            console.error('loadTemplateModule function not available');
+        }
+    })();
