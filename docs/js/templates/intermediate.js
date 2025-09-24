@@ -629,5 +629,10 @@
           }
         };
     
-    loadTemplateModule('intermediate', intermediateTemplates);
-})();
+      // Properly call the loading function
+        if (typeof loadTemplateModule === 'function') {
+            loadTemplateModule('intermediate', intermediateTemplates);
+        } else {
+            console.error('loadTemplateModule function not available');
+        }
+    })();
