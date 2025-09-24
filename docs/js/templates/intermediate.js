@@ -565,76 +565,90 @@
                         monday: {
                             title: "In-Season Maintenance A",
                             exercises: [
-                                { type: "max-effort", exercise: "benchPress", sets: "Work up to 3RM @ 85%", note: "Single set" },
-                                { type: "assistance", exercise: "bulgarianSplitSquat", sets: "3 × 6 each" },
-                                { type: "assistance", exercise: "rows", sets: "3 × 8" },
-                                { type: "assistance", exercise: "facePulls", sets: "2 × 15" },
-                                { type: "core", exercise: "plank", sets: "2 × 45 seconds" }
+                                { type: "max-effort", exercise: "benchPress", sets: "Work up to 5RM", intensity: "85-88%", note: "Weeks 1-2: Standard bench press" },
+                                { type: "assistance", exercise: "facePulls", sets: "3 × 15-20", note: "Shoulder health (substitute for Y's,T's,W's,A's)" },
+                                { type: "assistance", exercise: "bulgarianSplitSquat", sets: "3 × 8 each", note: "Unilateral lower body movement" },
+                                { type: "assistance", exercise: "barbellRows", sets: "3 × 10", note: "Rowing variation" },
+                                { type: "assistance", exercise: "shrugs", sets: "3 × 10-12", note: "Dumbbell shrugs" },
+                                { type: "core", exercise: "weightedAbs", sets: "3 × 15", note: "Weighted ab circuit" }
                             ]
                         },
-                        thursday: {
-                            title: "In-Season Maintenance B",
+                        wednesday: {
+                            title: "Dynamic-Effort Lower Body",
                             exercises: [
-                                { type: "dynamic", exercise: "boxJump", sets: "3 × 3" },
-                                { type: "speed", exercise: "boxSquat", sets: "6 × 2 @ 60%" },
-                                { type: "supplemental", exercise: "dbPress", sets: "3 × 8" },
-                                { type: "assistance", exercise: "pullups", sets: "3 × 5" },
-                                { type: "core", exercise: "abs", sets: "2 × 15" }
+                                { type: "dynamic", exercise: "boxJump", sets: "3 × 3", note: "24-30 inch box, step down" },
+                                { type: "speed", exercise: "boxSquat", sets: "6 × 2 @ 60%", intensity: "60% of 1RM", note: "1-minute rest exactly" },
+                                { type: "supplemental", exercise: "dbBenchPress", sets: "3 × 10", note: "DB bench variation" },
+                                { type: "assistance", exercise: "rearDeltFlyes", sets: "3 × 12", note: "Rear delt flies" },
+                                { type: "assistance", exercise: "lateralRaises", sets: "3 × 12", note: "DB lateral raises" },
+                                { type: "core", exercise: "plankSuperset", sets: "3 × 45 sec + 12 reps", note: "Plank + back extensions" }
                             ]
                         }
                     },
                     week2: {
                         monday: {
-                            title: "In-Season Maintenance A",
+                            title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "inclineBench", sets: "Work up to 5RM @ 85%" },
-                                { type: "assistance", exercise: "lunges", sets: "3 × 6 each" },
-                                { type: "assistance", exercise: "dbRows", sets: "3 × 8 each" },
-                                { type: "assistance", exercise: "bandPullAparts", sets: "2 × 20" },
-                                { type: "core", exercise: "weightedAbs", sets: "2 × 12" }
+                                { type: "max-effort", exercise: "benchPress", sets: "Work up to 3RM", intensity: "88-92%", note: "Standard bench, progress from week 1" },
+                                { type: "assistance", exercise: "facePulls", sets: "3 × 15-20", note: "Focus on rear delt activation" },
+                                { type: "assistance", exercise: "walkingLunges", sets: "3 × 8 each", note: "Unilateral variation change" },
+                                { type: "assistance", exercise: "dbRows", sets: "3 × 8-10 each", note: "Single-arm DB rows" },
+                                { type: "assistance", exercise: "shrugs", sets: "3 × 10-12", note: "Maintain trap strength" },
+                                { type: "core", exercise: "hangingLegRaises", sets: "3 × 10-12", note: "Higher intensity core work" }
                             ]
                         },
-                        thursday: {
-                            title: "In-Season Maintenance B",
+                        wednesday: {
+                            title: "Dynamic-Effort Lower Body", 
                             exercises: [
-                                { type: "dynamic", exercise: "verticalJump", sets: "3 × 3" },
-                                { type: "speed", exercise: "boxSquat", sets: "5 × 2 @ 70%" },
-                                { type: "supplemental", exercise: "dbInclinePress", sets: "3 × 8" },
-                                { type: "assistance", exercise: "latPulldowns", sets: "3 × 10" },
-                                { type: "core", exercise: "plank", sets: "2 × 60 seconds" }
+                                { type: "dynamic", exercise: "boxJump", sets: "3 × 3", note: "Same height, better technique" },
+                                { type: "speed", exercise: "boxSquat", sets: "5 × 2 @ 70%", intensity: "70% of 1RM", note: "1-minute rest, higher intensity" },
+                                { type: "supplemental", exercise: "dbInclinePress", sets: "3 × 8-10", note: "Incline DB press" },
+                                { type: "assistance", exercise: "cableRows", sets: "3 × 10-12", note: "Seated cable rows" },
+                                { type: "assistance", exercise: "lateralRaises", sets: "3 × 10-12", note: "Cable or DB" },
+                                { type: "core", exercise: "weightedAbs", sets: "3 × 12-15", note: "Weighted ab work + back extensions" }
                             ]
                         }
                     },
                     week3: {
-                        title: "Week 3 - Peak/Test",
                         monday: {
-                            title: "In-Season Maintenance A",
+                            title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "benchPress", sets: "Singles @ 80-85%", note: "3-5 singles" },
-                                { type: "assistance", exercise: "stepUps", sets: "3 × 6 each" },
-                                { type: "assistance", exercise: "rows", sets: "3 × 8" },
-                                { type: "recovery", exercise: "light arms", sets: "2 × 12" }
+                                { type: "max-effort", exercise: "boardPress", sets: "Work up to 3RM", intensity: "90-93%", note: "Weeks 3-4: 3-board press (or pin press)" },
+                                { type: "assistance", exercise: "bandPullAparts", sets: "100 reps total", note: "High-rep shoulder health" },
+                                { type: "assistance", exercise: "stepUps", sets: "3 × 8 each", note: "High box step-ups" },
+                                { type: "assistance", exercise: "barbellRows", sets: "3 × 8", note: "Bent-over barbell rows" },
+                                { type: "assistance", exercise: "shrugs", sets: "3 × 8-10", note: "Heavy shrugs" },
+                                { type: "core", exercise: "abCircuit", sets: "2 circuits", note: "Mixed ab exercises" }
                             ]
                         },
-                        thursday: {
-                            title: "In-Season Maintenance B",
+                        wednesday: {
+                            title: "Dynamic-Effort Lower Body",
                             exercises: [
-                                { type: "dynamic", exercise: "boxJump", sets: "5 × 1", note: "Max height" },
-                                { type: "speed", exercise: "boxSquat", sets: "Singles @ 80%", note: "3-5 singles" },
-                                { type: "supplemental", exercise: "pushups", sets: "3 × 15" },
-                                { type: "assistance", exercise: "band work", sets: "100 reps total" }
+                                { type: "dynamic", exercise: "boxJump", sets: "3 × 3", note: "Neural activation focus" },
+                                { type: "speed", exercise: "boxSquat", sets: "3 singles @ 80-83%", intensity: "80-83% of 1RM", note: "2-3 min rest between singles" },
+                                { type: "supplemental", exercise: "dbBenchPress", sets: "3 × 8", note: "Moderate load" },
+                                { type: "assistance", exercise: "facePulls", sets: "3 × 15", note: "Shoulder maintenance" },
+                                { type: "assistance", exercise: "lateralRaises", sets: "2 × 12", note: "Conservative volume" },
+                                { type: "core", exercise: "plank", sets: "3 × 60 seconds", note: "Core stability focus" }
                             ]
                         }
-                    }
+                    },
+                    autoRegulationNotes: [
+                        "Assess game intensity before training",
+                        "Reduce loads 10-20% after high-intensity games",
+                        "Skip max effort work within 36 hours of competition",
+                        "Focus on sleep quality during heavy competition blocks",
+                        "Week 3 becomes more conservative as playoffs approach"
+                    ]
                 }
-            }
-        }
-    };
+            } // closes 'inseason'
+                    } // closes intermediate object  
+                }; // closes intermediateTemplates const
 
-    // Properly call the loading function
-    if (typeof loadTemplateModule === 'function') {
-        loadTemplateModule('intermediate', intermediateTemplates);
-    } else {
-        console.error('loadTemplateModule function not available');
-    }
-})();
+                // Properly call the loading function
+                if (typeof loadTemplateModule === 'function') {
+                    loadTemplateModule('intermediate', intermediateTemplates);
+                } else {
+                    console.error('loadTemplateModule function not available');
+                }
+            })(); // closes the IIFE
