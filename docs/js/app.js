@@ -23,6 +23,7 @@ function renderWorkouts() {
     // Rest of your existing renderWorkouts code...
     const container = document.getElementById('workoutDays');
     const weekKey = `week${userData.currentWeek}`;
+    const currentWeek = templates?.[weekKey];
     
     // Use the new TemplateHelpers if available
     const getTemplate = window.TemplateHelpers?.getWorkoutTemplate || getWorkoutTemplate;
