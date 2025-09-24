@@ -444,7 +444,7 @@
                 }
               }
             }
-          };
-    
+        },
+                
     loadTemplateModule('beginner', beginnerTemplates);
 })();
