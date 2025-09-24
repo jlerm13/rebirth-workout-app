@@ -453,17 +453,17 @@
                         "Miss training if sore or tired from games",
                         "Reduce weights by 10-15% after tough games",
                         "Focus on perfect form over heavy weight",
-                        "Get 8+ hours sleep during competitive season"
+                        "Get 8+ hours of sleep during the competitive season"
                     ]
                 }
             }
-                    }
-                };
-            
-                // Properly call the loading function
-                if (typeof loadTemplateModule === 'function') {
-                    loadTemplateModule('beginner', beginnerTemplates);
-                } else {
-                    console.error('loadTemplateModule function not available');
-                }
-            })();
+        }
+    };
+
+    // Properly call the loading function
+    if (typeof loadTemplateModule === 'function') {
+        loadTemplateModule('beginner', beginnerTemplates);
+    } else {
+        console.error('loadTemplateModule function not available');
+    }
+})();
