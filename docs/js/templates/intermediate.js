@@ -640,15 +640,15 @@
                         "Focus on sleep quality during heavy competition blocks",
                         "Week 3 becomes more conservative as playoffs approach"
                     ]
-                }
+                } // closes '2day'
             } // closes 'inseason'
-                    } // closes intermediate object  
-                }; // closes intermediateTemplates const
+        } // closes 'intermediate' experience level
+    }; // closes 'intermediateTemplates' const
 
-                // Properly call the loading function
-                if (typeof loadTemplateModule === 'function') {
-                    loadTemplateModule('intermediate', intermediateTemplates);
-                } else {
-                    console.error('loadTemplateModule function not available');
-                }
-            })(); // closes the IIFE
+    // Properly call the loading function
+    if (typeof loadTemplateModule === 'function') {
+        loadTemplateModule('intermediate', intermediateTemplates);
+    } else {
+        console.error('loadTemplateModule function not available');
+    }
+})(); // closes the IIFE
