@@ -310,6 +310,13 @@ body {
     border: 1px solid var(--border-color);
 }
 
+.exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
 .exercise-category {
     background: var(--primary-color);
     color: white;
@@ -319,7 +326,24 @@ body {
     font-weight: 600;
     text-transform: uppercase;
     display: inline-block;
-    margin-bottom: 8px;
+}
+
+.variation-btn {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 11px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.variation-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
 }
 
 .exercise-name {
@@ -334,14 +358,64 @@ body {
     margin-bottom: 4px;
 }
 
+.variations-dropdown {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    margin-top: 8px;
+    padding: 8px;
+    box-shadow: var(--shadow-md);
+}
+
+.variations-header {
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.variation-option {
+    padding: 6px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 13px;
+    transition: background 0.2s ease;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.variation-option:last-child {
+    border-bottom: none;
+}
+
+.variation-option:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.variation-option.default-option {
+    font-style: italic;
+    color: var(--text-tertiary);
+    margin-top: 4px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 8px;
+}
+
 .substitution-notice {
     background: rgba(234, 88, 12, 0.1);
     color: var(--warning-color);
-    padding: 8px 12px;
+    padding: 6px 10px;
     border-radius: 4px;
-    font-size: 13px;
-    margin-top: 8px;
+    font-size: 11px;
+    margin-top: 6px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.substitution-notice::before {
+    content: "⚙️";
+    margin-right: 6px;
 }
 
 .info-box {
@@ -428,5 +502,15 @@ body {
 
     .template-tabs {
         flex-direction: column;
+    }
+
+    .exercise-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .variation-btn {
+        align-self: flex-end;
     }
 }
