@@ -25,7 +25,8 @@ let userData = {
     context: null,
     equipment: null,
     currentWeek: 1,
-    currentTemplate: '4day'
+    currentTemplate: '4day',
+    exerciseVariations: {} // Store user's exercise variation selections
 };
 
 // ==================== UI FLOW ====================
@@ -348,8 +349,8 @@ function selectTemplate(template) {
     renderWorkouts();
 }
 
+// ==================== IMPROVED WORKOUT RENDERING WITH VARIATIONS ====================
 function renderWorkouts() {
-    // Initial safety check for template loading
     if (!checkTemplatesLoaded()) {
         const container = document.getElementById('workoutDays');
         container.innerHTML = `
@@ -360,38 +361,31 @@ function renderWorkouts() {
         return;
     }
 
-    // Declare all variables at the beginning
     const container = document.getElementById('workoutDays');
     const weekKey = `week${userData.currentWeek}`;
     let templates;
 
-    // Check for washed-up-meathead special case first
     if (userData.context === 'meathead') {
         templates = window.workoutTemplates?.['washed-up-meathead']?.['3day'];
     } else {
         templates = window.workoutTemplates?.[userData.experience]?.[userData.phase]?.[userData.currentTemplate];
     }
 
-    // Check if we found the template structure
     if (!templates) {
         showError(`No templates found for ${userData.experience} ${userData.phase} ${userData.currentTemplate}`);
         container.innerHTML = `<div class="workout-day"><p>No templates found. Please try a different combination.</p></div>`;
         return;
     }
 
-    // Get the specific week
     const currentWeek = templates?.[weekKey];
-
     if (!currentWeek) {
         showError(`No workouts found for ${weekKey} in ${userData.currentTemplate} template.`);
         container.innerHTML = `<div class="workout-day"><p>No workouts found for ${weekKey}. Try Week 1 or a different template.</p></div>`;
         return;
     }
 
-    // Build the HTML for the workout days
     let html = '';
     Object.entries(currentWeek).forEach(([dayKey, workoutDay]) => {
-        // Skip metadata like "title" and "notes"
         if (dayKey === 'title' || dayKey === 'notes') return;
         
         html += `
@@ -402,35 +396,53 @@ function renderWorkouts() {
                 </div>
         `;
         
-        // Process exercises if they exist
         if (workoutDay.exercises) {
-            workoutDay.exercises.forEach(exercise => {
+            workoutDay.exercises.forEach((exercise, index) => {
                 const exerciseData = exerciseDatabase?.[exercise.exercise];
                 let exerciseName = exercise.exercise;
                 let isSubstituted = false;
 
-                // Handle equipment adaptation
-                if (exerciseData && exerciseData.equipmentMap) {
-                    exerciseName = exerciseData.equipmentMap[userData.equipment] || exerciseData.name;
-                    if (exerciseName !== exerciseData.name) isSubstituted = true;
-                } else if (exerciseData) {
-                    exerciseName = exerciseData.name;
+                // Check if user has selected a variation for this exercise
+                if (userData.exerciseVariations && userData.exerciseVariations[exercise.exercise]) {
+                    exerciseName = userData.exerciseVariations[exercise.exercise];
+                } else {
+                    // Handle equipment adaptation
+                    if (exerciseData && exerciseData.equipmentMap) {
+                        exerciseName = exerciseData.equipmentMap[userData.equipment] || exerciseData.name;
+                        if (exerciseName !== exerciseData.name) isSubstituted = true;
+                    } else if (exerciseData) {
+                        exerciseName = exerciseData.name;
+                    }
                 }
 
-                // Handle missing exercise data
                 if (!exerciseData) {
                     showError(`Missing exercise data: ${exercise.exercise}`);
-                    exerciseName = exercise.exercise; // Use the key as fallback
+                    exerciseName = exercise.exercise;
                 }
+
+                const exerciseId = `${exercise.exercise}-${dayKey}-${index}`;
 
                 html += `
                     <div class="exercise-block">
-                        <span class="exercise-category category-${exercise.type}">${exercise.type.toUpperCase()}</span>
-                        <div class="exercise-name">${exerciseName}</div>
+                        <div class="exercise-header">
+                            <span class="exercise-category category-${exercise.type}">${exercise.type.toUpperCase()}</span>
+                            ${exerciseData?.variations ? `<button class="variation-btn" onclick="showVariations('${exerciseId}', this)">Variations</button>` : ''}
+                        </div>
+                        <div class="exercise-name" id="exercise-${exerciseId}-name">${exerciseName}</div>
                         <div class="exercise-details">Sets/Reps: ${exercise.sets}</div>
                         ${exercise.intensity ? `<div class="exercise-details">Intensity: ${exercise.intensity}</div>` : ''}
                         ${exercise.note ? `<div class="exercise-details">Note: ${exercise.note}</div>` : ''}
-                        ${isSubstituted ? `<div class="substitution-notice">Adapted for ${userData.equipment} equipment</div>` : ''}
+                        ${isSubstituted && userData.equipment !== 'full' ? `<div class="substitution-notice">Equipment adaptation: ${userData.equipment}</div>` : ''}
+                        
+                        ${exerciseData?.variations ? `
+                            <div class="variations-dropdown hidden" id="variations-${exerciseId}">
+                                <div class="variations-header">Choose Variation:</div>
+                                ${exerciseData.variations.map(variation => 
+                                    `<div class="variation-option" onclick="selectVariation('${exercise.exercise}', '${variation}', '${exerciseId}')">${variation}</div>`
+                                ).join('')}
+                                <div class="variation-option default-option" onclick="selectVariation('${exercise.exercise}', '${exerciseData.name}', '${exerciseId}')">← Back to ${exerciseData.name}</div>
+                            </div>
+                        ` : ''}
                     </div>
                 `;
             });
@@ -438,8 +450,56 @@ function renderWorkouts() {
         html += `</div>`;
     });
     
-    // Update the container with the generated HTML
     container.innerHTML = html;
+}
+
+// ==================== VARIATIONS FUNCTIONALITY ====================
+function showVariations(exerciseId, buttonElement) {
+    const dropdown = document.getElementById(`variations-${exerciseId}`);
+    const allDropdowns = document.querySelectorAll('.variations-dropdown');
+    
+    // Close all other dropdowns
+    allDropdowns.forEach(dd => {
+        if (dd.id !== `variations-${exerciseId}`) {
+            dd.classList.add('hidden');
+        }
+    });
+    
+    // Reset all other buttons
+    document.querySelectorAll('.variation-btn').forEach(btn => {
+        if (btn !== buttonElement) {
+            btn.textContent = 'Variations';
+        }
+    });
+    
+    // Toggle current dropdown
+    dropdown.classList.toggle('hidden');
+    
+    // Update button text
+    if (dropdown.classList.contains('hidden')) {
+        buttonElement.textContent = 'Variations';
+    } else {
+        buttonElement.textContent = 'Close';
+    }
+}
+
+function selectVariation(exerciseKey, variationName, exerciseId) {
+    const nameElement = document.getElementById(`exercise-${exerciseId}-name`);
+    const dropdown = document.getElementById(`variations-${exerciseId}`);
+    
+    // Update the displayed exercise name
+    nameElement.textContent = variationName;
+    
+    // Close the dropdown
+    dropdown.classList.add('hidden');
+    
+    // Reset button text
+    const button = dropdown.parentElement.querySelector('.variation-btn');
+    if (button) button.textContent = 'Variations';
+    
+    // Store user's selection
+    if (!userData.exerciseVariations) userData.exerciseVariations = {};
+    userData.exerciseVariations[exerciseKey] = variationName;
 }
 
 // ==================== WEEK NAVIGATION ====================
@@ -462,7 +522,15 @@ function nextWeek() {
 // ==================== RESET ====================
 function resetApp() {
     if (!confirm('Start over with a new program setup?')) return;
-    userData = { experience: null, phase: null, context: null, equipment: null, currentWeek: 1, currentTemplate: '4day' };
+    userData = { 
+        experience: null, 
+        phase: null, 
+        context: null, 
+        equipment: null, 
+        currentWeek: 1, 
+        currentTemplate: '4day',
+        exerciseVariations: {}
+    };
     hideAllScreens();
     document.getElementById('welcomeScreen').classList.remove('hidden');
     document.getElementById('progressTracker').classList.add('hidden');
