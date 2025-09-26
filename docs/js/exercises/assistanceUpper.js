@@ -2,7 +2,59 @@
 (function() {
     const assistanceUpper = {
       // HIGH PHASE SPECIFICITY - These exercises have significant variation in focus/execution across phases
-      
+        barbellRows: {
+            name: "Barbell Rows",
+            classification: "assistance",
+            effort: "RE",
+            category: "assistance",
+            movementPattern: "horizontal-pull",
+            warmupProtocol: "light-rowing",
+        
+        equipmentMap: {
+            'early-offseason': {
+                full: "Barbell Rows (Technique Focus)",
+                commercial: "T-Bar Rows (Volume)",
+                minimal: "One-Arm DB Rows",
+                bodyweight: "Inverted Rows"
+        },
+            'mid-offseason': {
+                full: "Heavy Barbell Rows (Strength)",
+                commercial: "T-Bar Rows (Strength)",
+                minimal: "Heavy DB Rows",
+                bodyweight: "Inverted Rows (Weighted)"
+        },
+            'preseason': {
+                full: "Barbell Rows (Explosive Pull)",
+                commercial: "T-Bar Rows (Controlled)",
+                minimal: "DB Rows (Explosive Intent)",
+                bodyweight: "Dynamic Inverted Rows"
+        },
+        'inseason': {
+            full: "Barbell Rows (Maintenance)",
+            commercial: "Machine Rows (Consistent)",
+            minimal: "DB Rows (Maintenance)",
+            bodyweight: "Inverted Rows (Maintenance)"
+            }
+        },
+        
+        variations: [
+            "Pendlay Row",
+            "Yates Row",
+            "Underhand Barbell Row",
+            "Seal Row"
+        ],
+        features: ["compound", "posterior-chain"],
+        requires: ["barbell"],
+        coachingCues: [
+            "Flat back, hinge at hips",
+            "Pull barbell to torso",
+            "Control eccentric",
+            "Keep elbows tight"
+        ],
+        athleticCarryover: "Builds posterior chain and upper back strength critical for sport performance",
+        indicator: { isIndicator: true, type: "strength" }
+        }
+        },
       facePulls: {
         name: "Face Pulls",
         classification: "assistance",
