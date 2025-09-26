@@ -428,6 +428,8 @@
 
       if (typeof loadExerciseModule === 'function') {
           loadExerciseModule('maxEffortLower', maxEffortLower);
+      }else {
+          console.error('loadExerciseModule function not available when loading maxEffortLower');
       }
   })();
  
