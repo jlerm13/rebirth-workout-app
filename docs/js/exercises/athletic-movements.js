@@ -619,7 +619,7 @@
     };
 
     if (typeof loadExerciseModule === 'function') {
-        loadExerciseModule('athleticMovements', athleticMovemenets);
+        loadExerciseModule('athleticMovements', athleticMovements);
     } else {
         console.error('loadExerciseModule function not available when loading athletic-movements');
     }
