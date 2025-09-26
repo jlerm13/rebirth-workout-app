@@ -8,11 +8,11 @@
                             title: "Max-Effort Upper Body",
                             exercises: [
                                 { type: "max-effort", exercise: "benchPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", note: "${getPhaseNote()}" },
-                                { type: "supplemental", exercise: "dbBenchPress", sets: "2 × 15-20", note: "Same weight both sets" },
-                                { type: "assistance", exercise: "barbellRows", sets: "3 × 8-12", note: "Focus on form" },
-                                { type: "assistance", exercise: "rearDeltFlyes", sets: "3 × 12-15" },
-                                { type: "assistance", exercise: "shrugs", sets: "3 × 8-15" },
-                                { type: "assistance", exercise: "barbellCurls", sets: "3 × 8-12" }
+                                { type: "supplemental", exercise: "dbBenchPress", sets: "2 x 15-20", note: "Same weight both sets" },
+                                { type: "assistance", exercise: "barbellRows", sets: "3 x 8-12", note: "Focus on form" },
+                                { type: "assistance", exercise: "rearDeltFlyes", sets: "3 x 12-15" },
+                                { type: "assistance", exercise: "shrugs", sets: "3 x 8-15" },
+                                { type: "assistance", exercise: "barbellCurls", sets: "3 x 8-12" }
                             ]
                         },
                         tuesday: {
