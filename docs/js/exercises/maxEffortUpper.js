@@ -1,6 +1,6 @@
 // exercises/maxEffortUpper.js - Max-Effort Upper Body Exercises with Phase-Specific Equipment Mapping
 (function() {
-    const maxEffortUpperExercises = {
+    const maxEffortUpper = {
         benchPress: {
           name: "Bench Press",
           classification: "primary",
@@ -427,7 +427,7 @@
       };
 
       if (typeof loadExerciseModule === 'function') {
-        loadExerciseModule('maxEffortUpper', maxEffortUpperExercises);
+        loadExerciseModule('maxEffortUpper', maxEffortUpper);
       } else {
           console.error('loadExerciseModule function not available when loading maxEffortUpper');
       }
