@@ -7,7 +7,7 @@
                         monday: {
                             title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "benchPress", sets: "Work up to 5RM", intensity: "Conservative (RPE 7-8)", note: "Leave 2 reps in tank" },
+                                { type: "type: "max-effort", exercise: "benchPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", note: "${getPhaseNote()}" },
                                 { type: "supplemental", exercise: "dbBenchPress", sets: "2 × 15-20", note: "Same weight both sets" },
                                 { type: "assistance", exercise: "barbellRows", sets: "3 × 8-12", note: "Focus on form" },
                                 { type: "assistance", exercise: "rearDeltFlyes", sets: "3 × 12-15" },
