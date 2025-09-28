@@ -9,6 +9,7 @@ window.exerciseLoadingStatus = {
     repetitionLower: false,
     assistanceUpper: false,
     assistanceLower: false,
+    coreAndGrip: false,
     athleticMovements: false,
     conditioning: false,
     errors: []
