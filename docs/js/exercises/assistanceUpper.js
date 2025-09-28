@@ -53,8 +53,8 @@
         ],
         athleticCarryover: "Builds posterior chain and upper back strength critical for sport performance",
         indicator: { isIndicator: true, type: "strength" }
-        }
         },
+
       facePulls: {
         name: "Face Pulls",
         classification: "assistance",
