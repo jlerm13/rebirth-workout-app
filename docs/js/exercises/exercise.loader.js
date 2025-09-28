@@ -6,6 +6,7 @@ window.exerciseLoadingStatus = {
     dynamicUpper: false,
     dynamicLower: false,
     repetitionUpper: false,
+    repetitionLower: false,
     assistanceUpper: false,
     assistanceLower: false,
     athleticMovements: false,
