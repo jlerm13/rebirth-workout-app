@@ -106,7 +106,7 @@ function getPhaseRM(experience, phase, week) {
     const repRangeMatrix = {
         beginner: {
             volume: { 
-                1: '8-10RM', 2: '8-10RM', 3: '8RM', 4: '10RM',
+                1: '8-10RM', 2: '8-10RM', 3: '8-10RM', 4: '8-10RM',
                 note: 'Building work capacity and movement learning'
             },
             intensity: { 
