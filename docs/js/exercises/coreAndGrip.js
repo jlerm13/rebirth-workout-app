@@ -2,7 +2,73 @@
 (function() {
     const coreAndGrip = {
       // WEIGHTED ABDOMINAL EXERCISES - Phase-specific focus
-      
+
+        weightedAbs: {
+          name: "Weighted Abdominals",
+          classification: "assistance",
+          effort: "RE",
+          category: "core",
+          movementPattern: "weighted-core",
+          warmupProtocol: "core-activation",
+          
+          equipmentMap: {
+            full: "Weighted Ab Exercises",
+            commercial: "DB/Plate Ab Exercises",
+            minimal: "Light Weight Ab Exercises",
+            bodyweight: "Bodyweight Ab Exercises"
+          },
+          
+          variations: [
+            "Weighted Crunches",
+            "Weighted Sit-ups", 
+            "Weighted Russian Twists",
+            "Weighted Leg Raises"
+          ],
+          features: ["weighted", "core-strength"],
+          requires: [],
+          coachingCues: [
+            "Add weight progressively",
+            "Maintain proper form",
+            "Control the movement",
+            "Focus on core engagement"
+          ],
+          athleticCarryover: "Builds weighted core strength for power sports",
+          indicator: { isIndicator: false }
+        },
+        
+        plank: {
+          name: "Plank",
+          classification: "assistance", 
+          effort: "RE",
+          category: "core",
+          movementPattern: "isometric-hold",
+          warmupProtocol: "core-activation",
+          
+          equipmentMap: {
+            full: "Plank Variations",
+            commercial: "Plank Variations",
+            minimal: "Basic Plank",
+            bodyweight: "Standard Plank"
+          },
+          
+          variations: [
+            "Standard Plank",
+            "Side Planks",
+            "Plank Up-Downs",
+            "Weighted Planks"
+          ],
+          features: ["isometric", "core-stability"],
+          requires: [],
+          coachingCues: [
+            "Straight line from head to heels",
+            "Engage core throughout",
+            "Don't let hips sag",
+            "Breathe normally"
+          ],
+          athleticCarryover: "Builds core stability and endurance",
+          indicator: { isIndicator: false }
+        },
+        
       dbSideBends: {
         name: "Dumbbell Side Bends",
         classification: "assistance",
@@ -47,7 +113,7 @@
         features: ["unilateral", "core-stability"],
         requires: [],
         coachingCues: [
-          "Keep one hand on hip",
+          "Keep one hand on your hip",
           "Lean directly to the side",
           "Don't lean forward or back",
           "Control both directions"
