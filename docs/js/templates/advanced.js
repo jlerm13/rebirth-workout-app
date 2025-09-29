@@ -7,7 +7,7 @@
                         monday: {
                             title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "benchPress", sets: "Work up to 5RM @ 85-90%", note: "Week 1 of return" },
+                                { type: "max-effort", exercise: "benchPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "supplemental", exercise: "dbBenchPress", sets: "2 × max reps", note: "50+ reps total" },
                                 { type: "assistance", exercise: "barbellRows", sets: "5 × 5" },
                                 { type: "assistance", exercise: "rearDeltFlyes", sets: "4 × 15" },
@@ -39,7 +39,7 @@
                         friday: {
                             title: "Max-Effort Lower Body",
                             exercises: [
-                                { type: "max-effort", exercise: "boxSquat", sets: "Work up to 5RM @ 85-90%" },
+                                { type: "max-effort", exercise: "boxSquat", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "assistance", exercise: "walkingLunges", sets: "3 × 8 each" },
                                 { type: "assistance", exercise: "gluteHamRaise", sets: "3 × 8" },
                                 { type: "core", exercise: "hangingLegRaises", sets: "4 × 10" }
@@ -50,7 +50,7 @@
                         monday: {
                             title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "floorPress", sets: "Work up to 3RM", note: "Week 2 rotation" },
+                                { type: "max-effort", exercise: "floorPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "supplemental", exercise: "closeGripBench", sets: "3 × 8-10" },
                                 { type: "assistance", exercise: "dbRows", sets: "5 × 6" },
                                 { type: "assistance", exercise: "bandPullAparts", sets: "100 reps" },
@@ -82,7 +82,7 @@
                         friday: {
                             title: "Max-Effort Lower Body",
                             exercises: [
-                                { type: "max-effort", exercise: "deadlift", sets: "Work up to 3RM" },
+                                { type: "max-effort", exercise: "deadlift", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "assistance", exercise: "stepUps", sets: "3 × 6 each" },
                                 { type: "assistance", exercise: "hyperextensions", sets: "3 × 12" },
                                 { type: "core", exercise: "weightedAbs", sets: "4 × 15" }
@@ -97,7 +97,7 @@
                         monday: {
                             title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "closeGripBench", sets: "Work up to 1RM", note: "Weekly rotation", features: ["chains"] },
+                                { type: "max-effort", exercise: "closeGripBench", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "supplemental", exercise: "dbBenchPress", sets: "2 × max reps", note: "Heavy DBs" },
                                 { type: "assistance", exercise: "barbellRows", sets: "5 × 5-8" },
                                 { type: "assistance", exercise: "rearDeltFlyes", sets: "4 × 15" },
@@ -129,7 +129,7 @@
                         friday: {
                             title: "Max-Effort Lower Body",
                             exercises: [
-                                { type: "max-effort", exercise: "deadlift", sets: "Singles up to 90-95%", note: "Competition stance", features: ["bands"] },
+                                { type: "max-effort", exercise: "deadlift", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "assistance", exercise: "walkingLunges", sets: "3 × 5 each", note: "Heavy DBs" },
                                 { type: "assistance", exercise: "hyperextensions", sets: "3 × 15" },
                                 { type: "core", exercise: "hangingLegRaises", sets: "4 × 15" }
@@ -140,7 +140,7 @@
                         monday: {
                             title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "boardPress", sets: "Work up to 1RM", note: "2-board", features: ["chains"] },
+                                { type: "max-effort", exercise: "boardPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "supplemental", exercise: "dbInclinePress", sets: "3 × 8-10" },
                                 { type: "assistance", exercise: "dbRows", sets: "5 × 6 each" },
                                 { type: "assistance", exercise: "bandPullAparts", sets: "150 reps" },
@@ -172,7 +172,7 @@
                         friday: {
                             title: "Max-Effort Lower Body",
                             exercises: [
-                                { type: "max-effort", exercise: "boxSquat", sets: "Singles up to 90%", note: "Wide stance", features: ["bands", "chains"] },
+                                { type: "max-effort", exercise: "boxSquat", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "assistance", exercise: "stepUps", sets: "3 × 5 each" },
                                 { type: "assistance", exercise: "romanianDeadlift", sets: "3 × 6" },
                                 { type: "core", exercise: "weightedAbs", sets: "5 × 12" }
@@ -183,7 +183,7 @@
                         monday: {
                             title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "benchPress", sets: "Singles up to 95%", note: "Competition bench", features: ["bands"] },
+                                { type: "max-effort", exercise: "benchPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "supplemental", exercise: "dbBenchPress", sets: "3 × 8" },
                                 { type: "assistance", exercise: "barbellRows", sets: "5 × 5" },
                                 { type: "assistance", exercise: "facePulls", sets: "100 reps" },
@@ -215,7 +215,7 @@
                         friday: {
                             title: "Max-Effort Lower Body",
                             exercises: [
-                                { type: "max-effort", exercise: "deadlift", sets: "Singles up to 95%+", note: "Test day" },
+                                { type: "max-effort", exercise: "deadlift", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "assistance", exercise: "lunges", sets: "3 × 5 each" },
                                 { type: "assistance", exercise: "hyperextensions", sets: "3 × 20" },
                                 { type: "core", exercise: "abs", sets: "100 reps total" }
@@ -231,7 +231,7 @@
                             title: "Max-Effort Upper (Power Focus)",
                             exercises: [
                                 { type: "throw", exercise: "mbChestPass", sets: "5 × 3", note: "Max velocity" },
-                                { type: "max-effort", exercise: "benchPress", sets: "Singles @ 85-90%", note: "3-5 singles" },
+                                { type: "max-effort", exercise: "benchPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "supplemental", exercise: "dbBenchPress", sets: "2 × 8" },
                                 { type: "assistance", exercise: "rows", sets: "3 × 8" },
                                 { type: "assistance", exercise: "facePulls", sets: "3 × 15" }
@@ -279,7 +279,7 @@
                         monday: {
                             title: "Contrast Training",
                             exercises: [
-                                { type: "max-effort", exercise: "benchPress", sets: "3 × 2 @ 85%" },
+                                { type: "max-effort", exercise: "benchPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "throw", exercise: "mbChestPass", sets: "3 × 3", note: "Immediately after bench" },
                                 { type: "assistance", exercise: "rows", sets: "3 × 8" },
                                 { type: "assistance", exercise: "facePulls", sets: "3 × 15" }
@@ -304,7 +304,7 @@
                         thursday: {
                             title: "French Contrast",
                             exercises: [
-                                { type: "max-effort", exercise: "boxSquat", sets: "3 × 2 @ 85%" },
+                                { type: "max-effort", exercise: "boxSquat", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "dynamic", exercise: "boxJump", sets: "3 × 2" },
                                 { type: "dynamic", exercise: "depthJump", sets: "3 × 2" },
                                 { type: "dynamic", exercise: "verticalJump", sets: "3 × 2", note: "Band assisted" }
@@ -327,7 +327,7 @@
                         monday: {
                             title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "benchPress", sets: "Work up to heavy 5RM", intensity: "85-90%", note: "Weeks 1-2: Standard bench press" },
+                                { type: "max-effort", exercise: "benchPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "assistance", exercise: "shoulderCircuit", sets: "2 × 15-20", note: "Y's, T's, W's, A's circuit - 1 min rest between sets" },
                                 { type: "assistance", exercise: "bulgarianSplitSquat", sets: "3 × 8 each", note: "Unilateral lower body movement" },
                                 { type: "assistance", exercise: "barbellRows", sets: "3 × 10-12", note: "Rowing variation" },
@@ -351,7 +351,7 @@
                         monday: {
                             title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "benchPress", sets: "Work up to heavy 3RM", intensity: "87-92%", note: "Weeks 1-2: Standard bench, progress from week 1" },
+                                { type: "max-effort", exercise: "benchPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "assistance", exercise: "shoulderCircuit", sets: "2 × 15-20", note: "Y's, T's, W's, A's - focus on activation" },
                                 { type: "assistance", exercise: "walkingLunges", sets: "3 × 8 each", note: "Unilateral lower body" },
                                 { type: "assistance", exercise: "dbRows", sets: "3 × 10-12", note: "Single-arm or chest-supported" },
@@ -375,7 +375,7 @@
                         monday: {
                             title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "boardPress", sets: "Work up to 3RM", intensity: "90-95%", note: "Weeks 3-4: 3-board press rotation" },
+                                { type: "max-effort", exercise: "boardPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "assistance", exercise: "shoulderCircuit", sets: "2 × 15-20", note: "Y's, T's, W's, A's - maintain quality" },
                                 { type: "assistance", exercise: "stepUps", sets: "3 × 8 each", note: "High box step-ups" },
                                 { type: "assistance", exercise: "cableRows", sets: "3 × 10-12", note: "Seated cable rows" },
@@ -401,7 +401,7 @@
                         monday: {
                             title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "boardPress", sets: "Work up to heavy 5RM", intensity: "85-90%", note: "Weeks 3-4: 3-board press, building phase" },
+                                { type: "max-effort", exercise: "boardPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", features: ["bands", "chains"], note: "${getPhaseNote()}" }
                                 { type: "assistance", exercise: "shoulderCircuit", sets: "2 × 15-20", note: "Y's, T's, W's, A's maintenance" },
                                 { type: "assistance", exercise: "bulgarianSplitSquat", sets: "3 × 8 each", note: "Return to week 1 movement" },
                                 { type: "assistance", exercise: "tBarRows", sets: "3 × 10-12", note: "Row variation change" },
