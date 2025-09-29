@@ -37,7 +37,7 @@
                         friday: {
                             title: "Max-Effort Lower Body",
                             exercises: [
-                                { type: "max-effort", exercise: "boxSquat", sets: "Work up to 5RM", intensity: "Conservative", note: "12-14 inch box" },
+                                { type: "max-effort", exercise: "boxSquat", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", note: "${getPhaseNote()}" },
                                 { type: "assistance", exercise: "walkingLunges", sets: "3 × 10 each", note: "Bodyweight" },
                                 { type: "assistance", exercise: "hyperextensions", sets: "3 × 10-15" },
                                 { type: "core", exercise: "plank", sets: "3 × 30-45 seconds" }
@@ -78,7 +78,7 @@
                         friday: {
                             title: "Max-Effort Lower Body",
                             exercises: [
-                                { type: "max-effort", exercise: "boxSquat", sets: "Work up to 5RM", intensity: "Heavier than week 1", note: "Better form" },
+                                { type: "max-effort", exercise: "boxSquat", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", note: "${getPhaseNote()}" },
                                 { type: "assistance", exercise: "stepUps", sets: "3 × 8 each", note: "Knee height box" },
                                 { type: "assistance", exercise: "hyperextensions", sets: "3 × 12-15" },
                                 { type: "core", exercise: "weightedAbs", sets: "3 × 15-20" }
@@ -120,7 +120,7 @@
                         friday: {
                             title: "Max-Effort Lower Body",
                             exercises: [
-                                { type: "max-effort", exercise: "deadlift", sets: "Work up to 5RM", intensity: "Conservative", note: "Focus on form" },
+                                { type: "max-effort", exercise: "deadlift", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", note: "${getPhaseNote()}" },
                                 { type: "assistance", exercise: "walkingLunges", sets: "3 × 12 each" },
                                 { type: "assistance", exercise: "gluteHamRaise", sets: "3 × 6-10", note: "Or leg curls" },
                                 { type: "core", exercise: "plank", sets: "3 × 45-60 seconds" }
@@ -173,7 +173,7 @@
                         wednesday: {
                             title: "Max-Effort Lower Body",
                             exercises: [
-                                { type: "max-effort", exercise: "boxSquat", sets: "Work up to 5RM", intensity: "Conservative" },
+                                { type: "max-effort", exercise: "boxSquat", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", note: "${getPhaseNote()}" },
                                 { type: "assistance", exercise: "walkingLunges", sets: "3 × 10 each" },
                                 { type: "assistance", exercise: "romanianDeadlift", sets: "3 × 10-12" },
                                 { type: "core", exercise: "weightedAbs", sets: "3 × 15-20" }
