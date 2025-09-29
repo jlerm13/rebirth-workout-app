@@ -48,7 +48,7 @@
                         monday: {
                             title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "benchPress", sets: "Work up to 5RM", intensity: "Slightly heavier than week 1", note: "Still conservative" },
+                                { type: "max-effort", exercise: "benchPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", note: "${getPhaseNote()}" },
                                 { type: "supplemental", exercise: "dbBenchPress", sets: "2 × max reps", note: "Aim for 18-25 total reps" },
                                 { type: "assistance", exercise: "dbRows", sets: "3 × 10-12 each" },
                                 { type: "assistance", exercise: "bandPullAparts", sets: "3 × 20-30" },
@@ -89,7 +89,7 @@
                         monday: {
                             title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "inclineBench", sets: "Work up to 5RM", intensity: "New exercise", note: "45-degree incline" },
+                                { type: "max-effort", exercise: "inclineBench", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", note: "${getPhaseNote()}" },
                                 { type: "supplemental", exercise: "dbInclinePress", sets: "2 × 15-20" },
                                 { type: "assistance", exercise: "cableRows", sets: "3 × 10-12" },
                                 { type: "assistance", exercise: "facePulls", sets: "3 × 15-20" },
@@ -133,7 +133,7 @@
                         monday: {
                             title: "Upper Body - Light",
                             exercises: [
-                                { type: "main", exercise: "benchPress", sets: "3 × 5 @ 70%", note: "Focus on speed" },
+                                { type: "main", exercise: "benchPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", note: "${getPhaseNote()}" },
                                 { type: "assistance", exercise: "dbBenchPress", sets: "2 × 10" },
                                 { type: "assistance", exercise: "rows", sets: "3 × 10" },
                                 { type: "assistance", exercise: "facePulls", sets: "2 × 15" }
@@ -163,7 +163,7 @@
                         monday: {
                             title: "Max-Effort Upper Body",
                             exercises: [
-                                { type: "max-effort", exercise: "benchPress", sets: "Work up to 5RM", intensity: "Conservative", note: "Focus on form" },
+                                { type: "max-effort", exercise: "benchPress", sets: "Work up to ${getPhaseRM()}", intensity: "${getPhaseIntensity()}", note: "${getPhaseNote()}" },
                                 { type: "supplemental", exercise: "dbBenchPress", sets: "3 × 12-15" },
                                 { type: "assistance", exercise: "barbellRows", sets: "4 × 10-12" },
                                 { type: "assistance", exercise: "facePulls", sets: "3 × 15-20" },
