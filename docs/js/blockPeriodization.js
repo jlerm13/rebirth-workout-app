@@ -104,61 +104,99 @@ function getPhaseRM(experience, phase, week) {
     const waveType = getBlockWaveType(phase);
     
     const repRangeMatrix = {
-        beginner: {
-            volume: { 
-                1: '8-10RM', 2: '8-10RM', 3: '8-10RM', 4: '8-10RM',
-                note: 'Building work capacity and movement learning'
-            },
-            intensity: { 
-                1: '5-8RM', 2: '5RM', 3: '5RM', 4: '8RM',
-                note: 'Strength building with conservative loads'
-            },
-            specificity: { 
-                1: '3-5RM', 2: '3RM', 3: '3RM', 4: '5RM',
-                note: 'Strength expression and power introduction'
-            },
-            maintenance: {
-                1: '5RM', 2: '5RM', 3: '5RM', 4: '5RM',
-                note: 'Neural maintenance without excessive fatigue'
-            }
+    beginner: {
+        'early-offseason': {  // ACCUMULATION BLOCK Hypertrophy 
+            1: '10RM',         // Week 1: Introduction phase
+            2: '10RM',       // Week 2: Build phase
+            3: '10RM',          // Week 3: Overreach phase
+            4: '10RM',      // Week 4: Deload (lighter, higher reps)
+            note: 'Building work capacity and movement learning through higher volume'
         },
-        intermediate: {
-            volume: { 
-                1: '5-8RM', 2: '5RM', 3: '5RM', 4: '8RM',
-                note: 'Strength endurance development'
-            },
-            intensity: { 
-                1: '3-5RM', 2: '3RM', 3: '1-3RM', 4: '5RM',
-                note: 'Maximal strength development'
-            },
-            specificity: { 
-                1: '1-3RM', 2: 'Power PRs', 3: 'Competition Simulation', 4: '3RM',
-                note: 'Strength to power conversion'
-            },
-            maintenance: {
-                1: '3-5RM', 2: '3-5RM', 3: '3-5RM', 4: '3-5RM',
-                note: 'Strength maintenance with moderate loads'
-            }
+        'mid-offseason': {    // TRANSMUTATION BLOCK Basic Strength
+            1: '6RM',          // Week 1: Bridge from volume
+            2: '6RM',        // Week 2: Strength building
+            3: '6RM',          // Week 3: Peak strength phase
+            4: '6RM',          // Week 4: Deload (back to start of range)
+            note: 'Conservative strength building with emphasis on technique'
         },
-        advanced: {
-            volume: { 
-                1: '5RM', 2: '5RM', 3: '5RM', 4: '5RM',
-                note: 'Strength maintenance during base building'
-            },
-            intensity: { 
-                1: '1-3RM', 2: '1RM', 3: 'Max Testing', 4: '3RM',
-                note: 'Maximum strength development and testing'
-            },
-            specificity: { 
-                1: 'Power PRs', 2: 'Competition Performance', 3: 'Peak Performance', 4: 'Maintenance',
-                note: 'Power expression and competition readiness'
-            },
-            maintenance: {
-                1: '3RM', 2: '3RM', 3: '3RM', 4: '3RM',
-                note: 'Strength maintenance with power expression'
-            }
+        'preseason': {        // REALIZATION BLOCK Max Strength
+            1: '3RM',          // Week 1: Strength expression
+            2: '3RM',        // Week 2: Heavy strength
+            3: '3RM',          // Week 3: Peak strength
+            4: '3RM',          // Week 4: Deload
+            note: 'Introducing heavier loads while maintaining movement quality'
+        },
+        'inseason': {         // MAINTENANCE BLOCK
+            1: '5RM',          // Consistent maintenance
+            2: '5RM',
+            3: '5RM',
+            4: '5RM',
+            note: 'Neural maintenance without excessive fatigue'
         }
-    };
+    },
+    
+    intermediate: {
+        'early-offseason': {  // ACCUMULATION BLOCK
+            1: '6-10RM',          // Week 1: Strength-endurance intro
+            2: '6-10RM',        // Week 2: Mixed range
+            3: '6-10RM',          // Week 3: Peak strength-endurance
+            4: '6-10RM',          // Week 4: Deload
+            note: 'Strength endurance development with moderate volume'
+        },
+        'mid-offseason': {    // TRANSMUTATION BLOCK  
+            1: '3-5RM',          // Week 1: Build strength
+            2: '3-5RM',        // Week 2: Heavy strength
+            3: '3-5RM',          // Week 3: Maximal strength
+            4: '3-5RM',          // Week 4: Deload
+            note: 'Maximal strength development - true transmutation phase'
+        },
+        'preseason': {        // REALIZATION BLOCK
+            1: '1-33RM',          // Week 1: Strength expression
+            2: '1-3RM',        // Week 2: Max strength + power intro
+            3: '1-3RM',  // Week 3: Competition simulation
+            4: '1-3RM',          // Week 4: Active recovery
+            note: 'Converting strength to power and sport-specific expression'
+        },
+        'inseason': {         // MAINTENANCE BLOCK
+            1: '3-5RM',        // Moderate maintenance
+            2: '3-5RM',
+            3: '3-5RM',
+            4: '3-5RM',
+            note: 'Strength maintenance with moderate loads'
+        }
+    },
+    
+    advanced: {
+        'early-offseason': {  // ACCUMULATION BLOCK
+            1: '5RM',          // Week 1: Maintain strength
+            2: '5RM',          // Week 2: Maintain strength
+            3: '5RM',          // Week 3: Maintain strength (focus on volume in accessories)
+            4: '5RM',          // Week 4: Consistent
+            note: 'Strength maintenance during base building - volume comes from accessories'
+        },
+        'mid-offseason': {    // TRANSMUTATION BLOCK
+            1: '1-3RM',         // Week 1: Heavy strength
+            2: '1-3RM',        // Week 2: Maximal strength
+            3: '1-3RM',        // Week 3: Testing maxes
+            4: '1-3RM',          // Week 4: Deload
+            note: 'Maximum strength development and performance testing'
+        },
+        'preseason': {        // REALIZATION BLOCK
+            1: 'Power PRs + Singles',      // Week 1: Jump height, velocity tracking
+            2: 'Max Velocity + Plyos',     // Week 2: Peak power output
+            3: 'Competition Performance',   // Week 3: Game simulation
+            4: 'Active Recovery',          // Week 4: Maintain sharpness
+            note: 'Power expression and competition readiness - strength maintained minimally'
+        },
+        'inseason': {         // MAINTENANCE BLOCK
+            1: '3RM + Power', // Light strength + power maintenance
+            2: '3RM + Power',
+            3: '3RM + Power',
+            4: '3RM + Power',
+            note: 'Neural maintenance with power expression'
+        }
+    }
+};
     
     const experienceData = repRangeMatrix[experience] || repRangeMatrix.beginner;
     const waveData = experienceData[waveType] || experienceData.volume;
@@ -177,25 +215,63 @@ function getPhaseIntensity(experience, phase, week) {
     const waveType = getBlockWaveType(phase);
     
     const intensityMatrix = {
-        beginner: {
-            volume: { 1: 'RPE 7-8', 2: 'RPE 8', 3: 'RPE 8-9', 4: 'RPE 6-7' },
-            intensity: { 1: 'RPE 8-9', 2: 'RPE 9', 3: 'RPE 9', 4: 'RPE 7-8' },
-            specificity: { 1: 'RPE 8-9', 2: 'RPE 9', 3: 'RPE 9', 4: 'RPE 7-8' },
-            maintenance: { 1: 'RPE 7-8', 2: 'RPE 7-8', 3: 'RPE 7-8', 4: 'RPE 7-8' }
+    beginner: {
+        'early-offseason': { 
+            1: 'RPE 7', 2: 'RPE 7-8', 3: 'RPE 8', 4: 'RPE 6-7',
+            note: 'Conservative loads for technical development'
         },
-        intermediate: {
-            volume: { 1: '75-80%', 2: '80-85%', 3: '85%', 4: '70-75%' },
-            intensity: { 1: '85-90%', 2: '90-95%', 3: '95%+', 4: '80-85%' },
-            specificity: { 1: '85-90%', 2: '90-95%', 3: '95%+', 4: '80-85%' },
-            maintenance: { 1: '80-85%', 2: '80-85%', 3: '80-85%', 4: '80-85%' }
+        'mid-offseason': { 
+            1: 'RPE 8', 2: 'RPE 8-9', 3: 'RPE 9', 4: 'RPE 7',
+            note: 'Building intensity tolerance'
         },
-        advanced: {
-            volume: { 1: '80-85%', 2: '85%', 3: '85%', 4: '75-80%' },
-            intensity: { 1: '90-95%', 2: '95%+', 3: '100%+', 4: '85-90%' },
-            specificity: { 1: '90-95%', 2: '95%+', 3: '100%+', 4: '85-90%' },
-            maintenance: { 1: '85-90%', 2: '85-90%', 3: '85-90%', 4: '85-90%' }
+        'preseason': { 
+            1: 'RPE 8-9', 2: 'RPE 9', 3: 'RPE 9', 4: 'RPE 7-8',
+            note: 'High intent, moderate volume'
+        },
+        'inseason': { 
+            1: 'RPE 7-8', 2: 'RPE 7-8', 3: 'RPE 7-8', 4: 'RPE 7-8',
+            note: 'Consistent sub-maximal effort'
         }
-    };
+    },
+    
+    intermediate: {
+        'early-offseason': { 
+            1: '75-80%', 2: '80-85%', 3: '85%', 4: '75%',
+            note: 'Volume accumulation at moderate intensity'
+        },
+        'mid-offseason': { 
+            1: '85%', 2: '87-90%', 3: '90-95%', 4: '80-85%',
+            note: 'True maximal strength development'
+        },
+        'preseason': { 
+            1: '87-90%', 2: '90-95%', 3: '95%+', 4: '85%',
+            note: 'Peak intensity with reduced volume'
+        },
+        'inseason': { 
+            1: '80-85%', 2: '80-85%', 3: '80-85%', 4: '80-85%',
+            note: 'Moderate intensity maintenance'
+        }
+    },
+    
+    advanced: {
+        'early-offseason': { 
+            1: '85%', 2: '85%', 3: '85%', 4: '80%',
+            note: 'Maintain strength base during volume phase'
+        },
+        'mid-offseason': { 
+            1: '90%', 2: '95%', 3: '100%+', 4: '87%',
+            note: 'Maximal and supramaximal loading'
+        },
+        'preseason': { 
+            1: '90-95% + Power', 2: '95%+ + Plyos', 3: 'Max Velocity', 4: '85% + Light Power',
+            note: 'Minimum dose strength + maximal power'
+        },
+        'inseason': { 
+            1: '87-90%', 2: '87-90%', 3: '87-90%', 4: '87-90%',
+            note: 'Heavy enough to maintain, light enough to recover'
+        }
+    }
+};
     
     const experienceData = intensityMatrix[experience] || intensityMatrix.beginner;
     const waveData = experienceData[waveType] || experienceData.volume;
@@ -215,29 +291,77 @@ function getConcentratedLoading(phase, week) {
     const waveType = getBlockWaveType(phase);
     
     const loadingSchemes = {
-        volume: {
-            primary: { quality: 'Volume/Hypertrophy', allocation: 100, focus: 'Work capacity, movement quality, muscle mass' },
-            secondary: { quality: 'Basic Strength', allocation: 60, focus: 'Technique refinement, moderate loads' },
-            tertiary: { quality: 'Power', allocation: 20, focus: 'Movement pattern maintenance only' }
+        'early-offseason': {  // ACCUMULATION
+            primary: { 
+                quality: 'Volume/Hypertrophy', 
+                allocation: 100, 
+                focus: 'Work capacity, movement quality, muscle mass' 
+            },
+            secondary: { 
+                quality: 'Basic Strength', 
+                allocation: 60, 
+                focus: 'Technique refinement, moderate loads' 
+            },
+            tertiary: { 
+                quality: 'Power', 
+                allocation: 20, 
+                focus: 'Movement pattern maintenance only' 
+            }
         },
-        intensity: {
-            primary: { quality: 'Maximal Strength', allocation: 100, focus: 'Neural efficiency, heavy loads, competition lifts' },
-            secondary: { quality: 'Volume', allocation: 40, focus: 'Reduced due to sport practice demands' },
-            tertiary: { quality: 'Power', allocation: 60, focus: 'Building toward realization phase' }
+        'mid-offseason': {    // TRANSMUTATION
+            primary: { 
+                quality: 'Maximal Strength', 
+                allocation: 100, 
+                focus: 'Neural efficiency, heavy loads, competition lifts' 
+            },
+            secondary: { 
+                quality: 'Volume', 
+                allocation: 40, 
+                focus: 'Reduced volume, maintain muscle mass' 
+            },
+            tertiary: { 
+                quality: 'Power', 
+                allocation: 60, 
+                focus: 'Building toward realization phase' 
+            }
         },
-        specificity: {
-            primary: { quality: 'Power Expression', allocation: 100, focus: 'Speed, agility, sport-specific power' },
-            secondary: { quality: 'Strength', allocation: 60, focus: 'Maintenance without interference' },
-            tertiary: { quality: 'Volume', allocation: 20, focus: 'Minimal due to high sport demands' }
+        'preseason': {        // REALIZATION
+            primary: { 
+                quality: 'Power Expression', 
+                allocation: 100, 
+                focus: 'Speed, agility, sport-specific power' 
+            },
+            secondary: { 
+                quality: 'Strength', 
+                allocation: 60, 
+                focus: 'Minimum dose maintenance' 
+            },
+            tertiary: { 
+                quality: 'Volume', 
+                allocation: 20, 
+                focus: 'Minimal due to high sport demands' 
+            }
         },
-        maintenance: {
-            primary: { quality: 'Competition', allocation: 100, focus: 'Game performance, recovery, readiness' },
-            secondary: { quality: 'Strength', allocation: 40, focus: 'Neural maintenance, injury prevention' },
-            tertiary: { quality: 'Power', allocation: 30, focus: 'Sport-specific expression only' }
+        'inseason': {         // MAINTENANCE
+            primary: { 
+                quality: 'Competition', 
+                allocation: 100, 
+                focus: 'Game performance, recovery, readiness' 
+            },
+            secondary: { 
+                quality: 'Strength', 
+                allocation: 40, 
+                focus: 'Neural maintenance, injury prevention' 
+            },
+            tertiary: { 
+                quality: 'Power', 
+                allocation: 30, 
+                focus: 'Sport-specific expression only' 
+            }
         }
     };
     
-    return loadingSchemes[waveType] || loadingSchemes.maintenance;
+    return loadingSchemes[phase] || loadingSchemes['inseason'];
 }
 
 // ==================== WEEKLY FOCUS AND COACHING NOTES ====================
