@@ -93,16 +93,6 @@ function calculateSpecificityWave(week) {
 
 // ==================== EXPERIENCE-BASED REP RANGE PROGRESSIONS ====================
 
-/**
- * Gets appropriate rep range/RM target based on experience, phase, and week
- * @param {string} experience - Athlete experience level (beginner, intermediate, advanced)
- * @param {string} phase - Training phase
- * @param {number} week - Week number (1-4)
- * @returns {string} Rep range or RM target (e.g., "5RM", "1-3RM")
- */
-function getPhaseRM(experience, phase, week) {
-    const waveType = getBlockWaveType(phase);
-    
     const repRangeMatrix = {
     beginner: {
         'early-offseason': {  // ACCUMULATION BLOCK Hypertrophy 
@@ -151,7 +141,7 @@ function getPhaseRM(experience, phase, week) {
             note: 'Maximal strength development - true transmutation phase'
         },
         'preseason': {        // REALIZATION BLOCK
-            1: '1-33RM',          // Week 1: Strength expression
+            1: '1-3RM',          // Week 1: Strength expression
             2: '1-3RM',        // Week 2: Max strength + power intro
             3: '1-3RM',  // Week 3: Competition simulation
             4: '1-3RM',          // Week 4: Active recovery
@@ -198,21 +188,19 @@ function getPhaseRM(experience, phase, week) {
     }
 };
     
-    const experienceData = intensityMatrix[experience] || intensityMatrix.beginner;
-    
-    const phaseData = experienceData[phase] || experienceData['early-offseason'];
-    return phaseData[week] || phaseData[1];
+    /**
+     * Gets appropriate rep range/RM target based on experience, phase, and week
+     * @param {string} experience - Athlete experience level (beginner, intermediate, advanced)
+     * @param {string} phase - Training phase
+     * @param {number} week - Week number (1-4)
+     * @returns {string} Rep range or RM target (e.g., "5RM", "1-3RM")
+     */
+    function getPhaseRM(experience, phase, week) {
+        const experienceData = repRangeMatrix[experience] || repRangeMatrix.beginner;
+        const phaseData = experienceData[phase] || experienceData['early-offseason'];
+        return phaseData[week] || phaseData[1];
 }
 
-/**
- * Gets intensity guidelines for the current phase and week
- * @param {string} experience - Athlete experience level
- * @param {string} phase - Training phase  
- * @param {number} week - Week number (1-4)
- * @returns {string} Intensity guideline (e.g., "85-90%", "RPE 8-9")
- */
-function getPhaseIntensity(experience, phase, week) {
-    const waveType = getBlockWaveType(phase);
     
     const intensityMatrix = {
     beginner: {
@@ -273,9 +261,17 @@ function getPhaseIntensity(experience, phase, week) {
     }
 };
     
-    const experienceData = repRangeMatrix[experience] || repRangeMatrix.beginner;
-    const phaseData = experienceData[phase] || experienceData['early-offseason'];
-    return phaseData[week] || phaseData[1];
+    /**
+     * Gets intensity guidelines for the current phase and week
+     * @param {string} experience - Athlete experience level
+     * @param {string} phase - Training phase  
+     * @param {number} week - Week number (1-4)
+     * @returns {string} Intensity guideline (e.g., "85-90%", "RPE 8-9")
+     */
+    function getPhaseIntensity(experience, phase, week) {
+        const experienceData = intensityMatrix[experience] || intensityMatrix.beginner;
+        const phaseData = experienceData[phase] || experienceData['early-offseason'];
+        return phaseData[week] || phaseData[1];
 }
 
 // ==================== CONCENTRATED LOADING PRINCIPLES ====================
