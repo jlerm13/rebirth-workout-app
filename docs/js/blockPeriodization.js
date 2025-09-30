@@ -198,7 +198,8 @@ function getPhaseRM(experience, phase, week) {
     }
 };
     
-    const experienceData = repRangeMatrix[experience] || repRangeMatrix.beginner;
+    const experienceData = intensityMatrix[experience] || intensityMatrix.beginner;
+    
     const phaseData = experienceData[phase] || experienceData['early-offseason'];
     return phaseData[week] || phaseData[1];
 }
