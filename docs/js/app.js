@@ -286,8 +286,8 @@ function showContextScreen() {
                     <div class="option-desc">Coaching athletes with mixed abilities</div>
                 </div>
                 <div class="option-card" onclick="selectContext('meathead')">
-                    <div class="option-title">Serious Lifter</div>
-                    <div class="option-desc">Former athlete who trains seriously for strength and performance</div>
+                    <div class="option-title">Retired Vetern</div>
+                    <div class="option-desc"> Strength-focused former athlete with health consideration</div>
                 </div>
             </div>
             <div class="btn-group">
