@@ -20,7 +20,7 @@
                             { type: "max-effort", exercise: "trapBarDeadlift", sets: "Work up to 5RM", note: "Safer on back" },
                             { type: "assistance", exercise: "walkingLunges", sets: "3 × 8 each", note: "Maintain posture" },
                             { type: "assistance", exercise: "singleLegRDL", sets: "3 × 8 each", note: "Slow tempo" },
-                            { type: "repetition", exercise: "hyperextensions", sets: "3 × 12". note: "Add load over time" },
+                            { type: "repetition", exercise: "hyperextensions", sets: "3 × 12", note: "Add load over time" },
                             { type: "core", exercise: "plank", sets: "3 × 45 seconds" }
                         ]
                     },
