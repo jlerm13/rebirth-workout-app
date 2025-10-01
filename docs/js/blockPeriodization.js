@@ -97,27 +97,27 @@ function calculateSpecificityWave(week) {
     beginner: {
         'early-offseason': {  // ACCUMULATION BLOCK Hypertrophy 
             1: '10RM',         // Week 1: Introduction phase
-            2: '10RM',       // Week 2: Build phase
-            3: '10RM',          // Week 3: Overreach phase
-            4: '10RM',      // Week 4: Deload (lighter, higher reps)
+            2: '10RM',        // Week 2: Build phase
+            3: '10RM',        // Week 3: Overreach phase
+            4: '10RM',        // Week 4: Deload (lighter, higher reps)
             note: 'Building work capacity and movement learning through higher volume'
         },
         'mid-offseason': {    // TRANSMUTATION BLOCK Basic Strength
-            1: '6RM',          // Week 1: Bridge from volume
+            1: '6RM',        // Week 1: Bridge from volume
             2: '6RM',        // Week 2: Strength building
-            3: '6RM',          // Week 3: Peak strength phase
-            4: '6RM',          // Week 4: Deload (back to start of range)
+            3: '6RM',        // Week 3: Peak strength phase
+            4: '6RM',        // Week 4: Deload (back to start of range)
             note: 'Conservative strength building with emphasis on technique'
         },
         'preseason': {        // REALIZATION BLOCK Max Strength
-            1: '3RM',          // Week 1: Strength expression
+            1: '3RM',        // Week 1: Strength expression
             2: '3RM',        // Week 2: Heavy strength
-            3: '3RM',          // Week 3: Peak strength
-            4: '3RM',          // Week 4: Deload
+            3: '3RM',        // Week 3: Peak strength
+            4: '3RM',        // Week 4: Deload
             note: 'Introducing heavier loads while maintaining movement quality'
         },
         'inseason': {         // MAINTENANCE BLOCK
-            1: '5RM',          // Consistent maintenance
+            1: '5RM',        // Consistent maintenance
             2: '5RM',
             3: '5RM',
             4: '5RM',
@@ -127,24 +127,24 @@ function calculateSpecificityWave(week) {
     
     intermediate: {
         'early-offseason': {  // ACCUMULATION BLOCK
-            1: '6-10RM',          // Week 1: Strength-endurance intro
+            1: '6-10RM',        // Week 1: Strength-endurance intro
             2: '6-10RM',        // Week 2: Mixed range
-            3: '6-10RM',          // Week 3: Peak strength-endurance
-            4: '6-10RM',          // Week 4: Deload
+            3: '6-10RM',        // Week 3: Peak strength-endurance
+            4: '6-10RM',        // Week 4: Deload
             note: 'Strength endurance development with moderate volume'
         },
         'mid-offseason': {    // TRANSMUTATION BLOCK  
-            1: '3-5RM',          // Week 1: Build strength
+            1: '3-5RM',        // Week 1: Build strength
             2: '3-5RM',        // Week 2: Heavy strength
-            3: '3-5RM',          // Week 3: Maximal strength
-            4: '3-5RM',          // Week 4: Deload
+            3: '3-5RM',        // Week 3: Maximal strength
+            4: '3-5RM',        // Week 4: Deload
             note: 'Maximal strength development - true transmutation phase'
         },
         'preseason': {        // REALIZATION BLOCK
-            1: '1-3RM',          // Week 1: Strength expression
+            1: '1-3RM',        // Week 1: Strength expression
             2: '1-3RM',        // Week 2: Max strength + power intro
-            3: '1-3RM',  // Week 3: Competition simulation
-            4: '1-3RM',          // Week 4: Active recovery
+            3: '1-3RM',        // Week 3: Competition simulation
+            4: '1-3RM',        // Week 4: Active recovery
             note: 'Converting strength to power and sport-specific expression'
         },
         'inseason': {         // MAINTENANCE BLOCK
@@ -161,28 +161,28 @@ function calculateSpecificityWave(week) {
             1: '5RM',          // Week 1: Maintain strength
             2: '5RM',          // Week 2: Maintain strength
             3: '5RM',          // Week 3: Maintain strength (focus on volume in accessories)
-            4: '5RM',          // Week 4: Consistent
+            4: '5RM',          // Week 4: Deload
             note: 'Strength maintenance during base building - volume comes from accessories'
         },
         'mid-offseason': {    // TRANSMUTATION BLOCK
-            1: '1-3RM',         // Week 1: Heavy strength
+            1: '1-3RM',        // Week 1: Heavy strength
             2: '1-3RM',        // Week 2: Maximal strength
             3: '1-3RM',        // Week 3: Testing maxes
-            4: '1-3RM',          // Week 4: Deload
+            4: '1-3RM',        // Week 4: Deload
             note: 'Maximum strength development and performance testing'
         },
         'preseason': {        // REALIZATION BLOCK
-            1: 'Power PRs + Singles',      // Week 1: Jump height, velocity tracking
-            2: 'Max Velocity + Plyos',     // Week 2: Peak power output
-            3: 'Competition Performance',   // Week 3: Game simulation
-            4: 'Active Recovery',          // Week 4: Maintain sharpness
+            1: '1-3RM',        // Week 1: Power PRs + Cluster Singles + Plyos
+            2: '1-3RM',        // Week 2: Power PRs + Cluster Singles + Plyos
+            3: '1-3RM',        // Week 3: Power PRs + Cluster Singles + Plyos
+            4: '1-3RM',        // Week 4: Deload
             note: 'Power expression and competition readiness - strength maintained minimally'
         },
         'inseason': {         // MAINTENANCE BLOCK
-            1: '3RM + Power', // Light strength + power maintenance
-            2: '3RM + Power',
-            3: '3RM + Power',
-            4: '3RM + Power',
+            1: '1-3RM',        // Light strength + power maintenance
+            2: '1-3RM',
+            3: '1-3RM',
+            4: '1-3RM',
             note: 'Neural maintenance with power expression'
         }
     }
