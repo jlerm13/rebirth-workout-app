@@ -536,7 +536,7 @@ function renderWorkouts() {
     const weekKey = `week${userData.currentWeek}`;
     let templates;
 
-    if (userData.context === 'meathead') {
+    if (userData.context === 'retired veteran') {
         templates = window.workoutTemplates?.['Retired Veteran']?.['3day'];
     } else {
         templates = window.workoutTemplates?.[userData.experience]?.[userData.phase]?.[userData.currentTemplate];
