@@ -11,7 +11,7 @@
                             { type: "supplemental", exercise: "dbBenchPress", sets: "3 × 10-12" },
                             { type: "assistance", exercise: "barbellRows", sets: "4 × 10" },
                             { type: "repetition", exercise: "facePulls", sets: "3 × 15", note: "Shoulder health" },
-                            { type: "conditioning", exercise: "farmerCarry", sets: "3 × 30m", note: "Heavy but safe" }
+                            { type: "conditioning", exercise: "farmerWalk", sets: "3 × 30m", note: "Heavy but safe" }
                         ]
                     },
                     wednesday: {
@@ -19,7 +19,7 @@
                         exercises: [
                             { type: "max-effort", exercise: "trapBarDeadlift", sets: "Work up to 5RM", note: "Safer on back" },
                             { type: "assistance", exercise: "walkingLunges", sets: "3 × 8 each", note: "Maintain posture" },
-                            { type: "assistance", exercise: "RDL", sets: "3 × 8 each", note: "Slow tempo" },
+                            { type: "assistance", exercise: "singleLegRDL", sets: "3 × 8 each", note: "Slow tempo" },
                             { type: "repetition", exercise: "hyperextensions", sets: "3 × 12". note: "Add load over time" },
                             { type: "core", exercise: "plank", sets: "3 × 45 seconds" }
                         ]
