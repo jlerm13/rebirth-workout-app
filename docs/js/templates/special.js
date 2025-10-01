@@ -11,7 +11,7 @@
                             { type: "supplemental", exercise: "dbBenchPress", sets: "3 × 10-12" },
                             { type: "assistance", exercise: "barbellRows", sets: "4 × 10" },
                             { type: "repetition", exercise: "facePulls", sets: "3 × 15", note: "Shoulder health" },
-                            { type: "core", exercise: "farmerCarry", sets: "3 × 30m", note: "Heavy but safe" }
+                            { type: "conditioning", exercise: "farmerCarry", sets: "3 × 30m", note: "Heavy but safe" }
                         ]
                     },
                     wednesday: {
