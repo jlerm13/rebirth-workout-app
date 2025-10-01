@@ -1,7 +1,7 @@
 // special.js - Corrected syntax
 (function() {
     const specialTemplates = {
-        'washed-up-meathead': {
+        'Serious Lifter': {
             '3day': {
                 week1: {
                     monday: {
