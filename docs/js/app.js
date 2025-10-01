@@ -576,20 +576,20 @@ function renderWorkouts() {
                         </div>
                         
                         <div class="conditioning-section" style="margin-bottom: 20px; padding: 12px; background: var(--bg-tertiary); border-radius: 6px;">
-                            <h4 style="margin-bottom: 8px; color: var(--text-primary);">Session Type 1: ${workoutDay.sessions.cardiacOutput.goal}</h4>
-                            <p style="margin-bottom: 6px;"><strong>Structure:</strong> ${workoutDay.sessions.cardiacOutput.structure.join(' → ')}</p>
-                            <p style="margin-bottom: 6px;"><strong>Effort:</strong> ${workoutDay.sessions.cardiacOutput.effortCue}</p>
-                            <p style="margin-bottom: 0;"><strong>Progression:</strong> ${workoutDay.sessions.cardiacOutput.progression}</p>
+                            <h4 style="margin-bottom: 8px; color: var(--text-primary);">Session Type 1: ${workoutDay.sessions.steadyCardio.goal}</h4>
+                            <p style="margin-bottom: 6px;"><strong>Structure:</strong> ${workoutDay.sessions.steadyCardio.structure.join(' → ')}</p>
+                            <p style="margin-bottom: 6px;"><strong>Effort:</strong> ${workoutDay.sessions.steadyCardio.effortCue}</p>
+                            <p style="margin-bottom: 0;"><strong>Progression:</strong> ${workoutDay.sessions.steadyCardio.progression}</p>
                         </div>
                         
                         <div class="conditioning-section" style="margin-bottom: 20px; padding: 12px; background: var(--bg-tertiary); border-radius: 6px;">
-                            <h4 style="margin-bottom: 8px; color: var(--text-primary);">Session Type 2: ${workoutDay.sessions.extensiveTempo.goal}</h4>
+                            <h4 style="margin-bottom: 8px; color: var(--text-primary);">Session Type 2: ${workoutDay.sessions.easyIntervals.goal}</h4>
                             <p style="margin-bottom: 8px;"><strong>Options:</strong></p>
                             <ul style="margin-bottom: 8px; padding-left: 20px;">
-                                ${workoutDay.sessions.extensiveTempo.options.map(option => `<li style="margin-bottom: 4px;">${option}</li>`).join('')}
+                                ${workoutDay.sessions.easyIntervals.options.map(option => `<li style="margin-bottom: 4px;">${option}</li>`).join('')}
                             </ul>
-                            <p style="margin-bottom: 6px;"><strong>Effort:</strong> ${workoutDay.sessions.extensiveTempo.effortCue}</p>
-                            <p style="margin-bottom: 0;"><strong>Progression:</strong> ${workoutDay.sessions.extensiveTempo.progression}</p>
+                            <p style="margin-bottom: 6px;"><strong>Effort:</strong> ${workoutDay.sessions.easyIntervals.effortCue}</p>
+                            <p style="margin-bottom: 0;"><strong>Progression:</strong> ${workoutDay.sessions.easyIntervals.progression}</p>
                         </div>
                         
                         <div class="conditioning-section" style="padding: 12px; background: var(--bg-secondary); border-radius: 6px; border-left: 4px solid var(--primary-color);">
