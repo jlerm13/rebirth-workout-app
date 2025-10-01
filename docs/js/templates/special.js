@@ -7,19 +7,20 @@
                     monday: {
                         title: "Max-Effort Upper Body",
                         exercises: [
-                            { type: "max-effort", exercise: "benchPress", sets: "Work up to 5RM", note: "Leave ego at door" },
+                            { type: "max-effort", exercise: "benchPress", sets: "Work up to 5RM", note: "Moderate load, never to failure" },
                             { type: "supplemental", exercise: "dbBenchPress", sets: "3 × 10-12" },
                             { type: "assistance", exercise: "barbellRows", sets: "4 × 10" },
                             { type: "repetition", exercise: "facePulls", sets: "3 × 15", note: "Shoulder health" },
-                            { type: "repetition", exercise: "hammerCurls", sets: "3 × 15", note: "Arm pump" }
+                            { type: "core", exercise: "farmerCarry", sets: "3 × 30m", note: "Heavy but safe" }
                         ]
                     },
                     wednesday: {
                         title: "Max-Effort Lower Body",
                         exercises: [
                             { type: "max-effort", exercise: "trapBarDeadlift", sets: "Work up to 5RM", note: "Safer on back" },
-                            { type: "assistance", exercise: "walkingLunges", sets: "3 × 8 each", note: "Knee-friendly" },
-                            { type: "repetition", exercise: "hyperextensions", sets: "3 × 12" },
+                            { type: "assistance", exercise: "walkingLunges", sets: "3 × 8 each", note: "Maintain posture" },
+                            { type: "assistance", exercise: "RDL", sets: "3 × 8 each", note: "Slow tempo" },
+                            { type: "repetition", exercise: "hyperextensions", sets: "3 × 12". note: "Add load over time" },
                             { type: "core", exercise: "plank", sets: "3 × 45 seconds" }
                         ]
                     },
