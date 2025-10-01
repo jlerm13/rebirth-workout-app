@@ -459,9 +459,9 @@ function generateTemplateTabs() {
 }
 
 function getAvailableTemplatesForPhase(phase) {
-    // Special case for washed-up meathead
-    if (userData.context === 'meathead') {
-        return [{ key: '3day', name: 'Meathead 3-Day' }];
+    // Special case for retired veteran
+    if (userData.context === 'retired veteran') {
+        return [{ key: '3day', name: 'Retired Veteran 3-Day' }];
     }
     
     const templateOptions = {
