@@ -285,8 +285,8 @@ function showContextScreen() {
                     <div class="option-title">Team Setting</div>
                     <div class="option-desc">Coaching athletes with mixed abilities</div>
                 </div>
-                <div class="option-card" onclick="selectContext('meathead')">
-                    <div class="option-title">Retired Vetern</div>
+                <div class="option-card" onclick="selectContext('retired veteran')">
+                    <div class="option-title">Retired Veteran</div>
                     <div class="option-desc"> Strength-focused former athlete with health consideration</div>
                 </div>
             </div>
@@ -430,7 +430,7 @@ function generateProgram() {
     // Set default template based on phase and context
     if (userData.phase === 'inseason') {
         userData.currentTemplate = '2day';
-    } else if (userData.context === 'meathead') {
+    } else if (userData.context === 'retired veteran') {
         userData.currentTemplate = '3day';
     } else {
         userData.currentTemplate = '4day';
@@ -499,7 +499,7 @@ function generateProgramOverview() {
         'franchise': 'Adapted for group training environment.',
         'remote': 'Flexible for variable equipment access.',
         'team': 'Designed for teams with mixed ability levels.',
-        'meathead': 'Strength-focused with health consideration.'
+        'retired veteran': 'Strength-focused with health consideration.'
     };
 
     overview.innerHTML = `
@@ -537,7 +537,7 @@ function renderWorkouts() {
     let templates;
 
     if (userData.context === 'meathead') {
-        templates = window.workoutTemplates?.['washed-up-meathead']?.['3day'];
+        templates = window.workoutTemplates?.['Retired Veteran']?.['3day'];
     } else {
         templates = window.workoutTemplates?.[userData.experience]?.[userData.phase]?.[userData.currentTemplate];
     }
@@ -561,6 +561,50 @@ function renderWorkouts() {
     Object.entries(currentWeek).forEach(([dayKey, workoutDay]) => {
         if (dayKey === 'title' || dayKey === 'notes') return;
         
+        // Handle conditioning guidelines separately
+        if (dayKey === 'conditioningGuidelines') {
+            html += `
+                <div class="workout-day">
+                    <div class="workout-header">
+                        <div class="workout-title">${workoutDay.title}</div>
+                        <div class="workout-badge">CONDITIONING</div>
+                    </div>
+                    <div class="conditioning-content" style="padding: 16px;">
+                        <div class="conditioning-section" style="margin-bottom: 20px;">
+                            <h4 style="margin-bottom: 8px; color: var(--primary-color);">Frequency: ${workoutDay.weeklyFrequency}</h4>
+                            <p style="margin-bottom: 12px;"><strong>Equipment Options:</strong> ${workoutDay.modalities.join(', ')}</p>
+                        </div>
+                        
+                        <div class="conditioning-section" style="margin-bottom: 20px; padding: 12px; background: var(--bg-tertiary); border-radius: 6px;">
+                            <h4 style="margin-bottom: 8px; color: var(--text-primary);">Session Type 1: ${workoutDay.sessions.cardiacOutput.goal}</h4>
+                            <p style="margin-bottom: 6px;"><strong>Structure:</strong> ${workoutDay.sessions.cardiacOutput.structure.join(' → ')}</p>
+                            <p style="margin-bottom: 6px;"><strong>Effort:</strong> ${workoutDay.sessions.cardiacOutput.effortCue}</p>
+                            <p style="margin-bottom: 0;"><strong>Progression:</strong> ${workoutDay.sessions.cardiacOutput.progression}</p>
+                        </div>
+                        
+                        <div class="conditioning-section" style="margin-bottom: 20px; padding: 12px; background: var(--bg-tertiary); border-radius: 6px;">
+                            <h4 style="margin-bottom: 8px; color: var(--text-primary);">Session Type 2: ${workoutDay.sessions.extensiveTempo.goal}</h4>
+                            <p style="margin-bottom: 8px;"><strong>Options:</strong></p>
+                            <ul style="margin-bottom: 8px; padding-left: 20px;">
+                                ${workoutDay.sessions.extensiveTempo.options.map(option => `<li style="margin-bottom: 4px;">${option}</li>`).join('')}
+                            </ul>
+                            <p style="margin-bottom: 6px;"><strong>Effort:</strong> ${workoutDay.sessions.extensiveTempo.effortCue}</p>
+                            <p style="margin-bottom: 0;"><strong>Progression:</strong> ${workoutDay.sessions.extensiveTempo.progression}</p>
+                        </div>
+                        
+                        <div class="conditioning-section" style="padding: 12px; background: var(--bg-secondary); border-radius: 6px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="margin-bottom: 8px; color: var(--text-primary);">Key Points:</h4>
+                            <ul style="margin-bottom: 0; padding-left: 20px;">
+                                ${workoutDay.notes.map(note => `<li style="margin-bottom: 4px;">${note}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            return; // Exit early for conditioning guidelines
+        }
+        
+        // Regular workout day rendering continues here...
         html += `
             <div class="workout-day">
                 <div class="workout-header">
@@ -639,7 +683,6 @@ function renderWorkouts() {
     
     container.innerHTML = html;
 }
-
 // ==================== VARIATIONS FUNCTIONALITY ====================
 function showVariations(exerciseId, buttonElement) {
     const dropdown = document.getElementById(`variations-${exerciseId}`);
