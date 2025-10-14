@@ -503,26 +503,76 @@ function getAvailableTemplatesForPhase(phase) {
 function generateProgramOverview() {
     const overview = document.getElementById('programOverview');
     const phaseGuidelines = {
-        'early-offseason': 'Focus on recovery, movement quality, and building base strength.',
-        'mid-offseason': 'Maximum strength and muscle building. High training volume.',
-        'preseason': 'Convert strength to power. Sport-specific prep.',
-        'inseason': 'Maintenance, manage fatigue, stay game-ready.'
+        'early-offseason': {
+            focus: 'Recovery & Base Building',
+            goals: ['Build work capacity', 'Movement quality', 'Aerobic base'],
+            emphasis: 'Volume accumulation with moderate intensity (75-85%)',
+            weeks: '4-6 week block'
+        },
+        'mid-offseason': {
+            focus: 'Maximum Strength Development',
+            goals: ['Peak strength gains', 'Muscle mass', 'Neural efficiency'],
+            emphasis: 'Intensity progression (85-95%), reduced volume',
+            weeks: '4-6 week block'
+        },
+        'preseason': {
+            focus: 'Power & Sport-Specific Preparation',
+            goals: ['Convert strength to power', 'Speed development', 'Competition readiness'],
+            emphasis: 'Lower volume, max velocity work, plyometrics',
+            weeks: '3-4 week block'
+        },
+        'inseason': {
+            focus: 'Maintenance & Performance',
+            goals: ['Maintain strength', 'Manage fatigue', 'Stay game-ready'],
+            emphasis: 'Minimal effective dose, 2 days/week',
+            weeks: 'Duration of season'
+        }      
     };
     const contextNotes = {
-        'franchise': 'Adapted for group training environment.',
-        'remote': 'Flexible for variable equipment access.',
-        'team': 'Designed for teams with mixed ability levels.',
-        'retired veteran': 'Strength-focused with health consideration.'
+        'franchise': 'Adapted for group training with mixed abilities',
+        'remote': 'Flexible for variable equipment access during travel',
+        'team': 'Designed for team settings with shared facilities',
+        'retired veteran': 'Strength-focused with joint health considerations'
     };
 
+    const phase = phaseDescriptions[userData.phase];
+    
     overview.innerHTML = `
-        <h4>Your Program Overview</h4>
-        <ul>
-            <li><strong>Phase Focus:</strong> ${phaseGuidelines[userData.phase] || 'N/A'}</li>
-            <li><strong>Context:</strong> ${contextNotes[userData.context] || 'N/A'}</li>
-            <li><strong>Equipment Level:</strong> ${userData.equipment || 'N/A'}</li>
-            <li><strong>Weekly Volume:</strong> ${userData.currentTemplate}</li>
-        </ul>
+        <h4>Your Training Plan</h4>
+        <div style="background: var(--bg-tertiary); padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                <div>
+                    <h3 style="margin: 0; color: var(--primary-color);">${phase.focus}</h3>
+                    <p style="margin: 4px 0 0 0; color: var(--text-secondary); font-size: 0.9rem;">
+                        ${userData.experience.charAt(0).toUpperCase() + userData.experience.slice(1)} Level | ${phase.weeks}
+                    </p>
+                </div>
+                <div style="background: var(--primary-color); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">
+                    ${userData.currentTemplate.toUpperCase()}
+                </div>
+            </div>
+            
+            <p style="margin: 0; font-weight: 500;">${phase.emphasis}</p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+            <div style="background: var(--bg-secondary); padding: 12px; border-radius: 6px;">
+                <h5 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--text-secondary);">Primary Goals</h5>
+                ${phase.goals.map(goal => `<div style="margin: 4px 0;">• ${goal}</div>`).join('')}
+            </div>
+            <div style="background: var(--bg-secondary); padding: 12px; border-radius: 6px;">
+                <h5 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--text-secondary);">Your Context</h5>
+                <div style="margin: 4px 0;"><strong>Setup:</strong> ${contextNotes[userData.context]}</div>
+                <div style="margin: 4px 0;"><strong>Equipment:</strong> ${userData.equipment}</div>
+            </div>
+        </div>
+        
+        <div style="background: rgba(37, 99, 235, 0.1); border-left: 4px solid var(--primary-color); padding: 12px; border-radius: 4px;">
+            <p style="margin: 0; font-size: 0.9rem;">
+                <strong>🎯 Demo Note:</strong> This shows how the periodization engine adapts to your profile. 
+                Navigate through weeks to see progression. Click "Variations" on exercises to see equipment adaptations.
+            </p>
+        </div>
     `;
 }
 
