@@ -212,15 +212,18 @@ function showExperienceScreen() {
             <div class="options-grid">
                 <div class="option-card" onclick="selectExperience('beginner')">
                     <div class="option-title">Beginner</div>
-                    <div class="option-desc">Less than 2 years of structured training</div>
+                    <div class="option-desc">0-6 months to 1 year of structured training</div>
+                    <div class="option-detail">Learning movement patterns, rapid progress</div>
                 </div>
                 <div class="option-card" onclick="selectExperience('intermediate')">
                     <div class="option-title">Intermediate</div>
-                    <div class="option-desc">2-5 years of consistent training</div>
+                    <div class="option-desc">1-3 years of consistent training</div>
+                    <div class="option-detail">Solid technique, steady progress</div>
                 </div>
                 <div class="option-card" onclick="selectExperience('advanced')">
                     <div class="option-title">Advanced</div>
-                    <div class="option-desc">5+ years, competitive background</div>
+                    <div class="option-desc">3+ years consistent training </div>
+                    <div class="option-detail">Highly refined technique, advanced exercises</div>
                 </div>
             </div>
             <div class="btn-group">
