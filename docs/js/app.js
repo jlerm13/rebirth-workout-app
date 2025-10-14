@@ -535,7 +535,7 @@ function generateProgramOverview() {
         'retired veteran': 'Strength-focused with joint health considerations'
     };
 
-    const phase = phaseDescriptions[userData.phase];
+    const phase = phaseGuidelines[userData.phase];
     
     overview.innerHTML = `
         <h4>Your Training Plan</h4>
