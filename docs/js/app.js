@@ -209,21 +209,31 @@ function showExperienceScreen() {
     screen.innerHTML = `
         <div class="card">
             <h2>What's your training experience?</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                This determines rep ranges, intensity, and exercise complexity. 
+                <strong>For demos: Pick "Intermediate" to see typical programming.</strong>
+            </p>
             <div class="options-grid">
                 <div class="option-card" onclick="selectExperience('beginner')">
                     <div class="option-title">Beginner</div>
                     <div class="option-desc">0-6 months to 1 year of structured training</div>
-                    <div class="option-detail">Learning movement patterns, rapid progress</div>
+                    <div style="margin-top: 8px; font-size: 0.85rem; color: var(--text-tertiary);">
+                        Focus: Learning Technique, higher reps (8-12RM)
+                    </div>
                 </div>
                 <div class="option-card" onclick="selectExperience('intermediate')">
                     <div class="option-title">Intermediate</div>
                     <div class="option-desc">1-3 years of consistent training</div>
-                    <div class="option-detail">Solid technique, steady progress</div>
+                    <div style="margin-top: 8px; font-size: 0.85rem; color: var(--text-tertiary);">
+                        Focus: Solid Technique, Strength building (3-8RM)
+                    </div>
                 </div>
                 <div class="option-card" onclick="selectExperience('advanced')">
                     <div class="option-title">Advanced</div>
                     <div class="option-desc">3+ years consistent training </div>
-                    <div class="option-detail">Highly refined technique, advanced exercises</div>
+                    <div style="margin-top: 8px; font-size: 0.85rem; color: var(--text-tertiary);">
+                        Focus: Highly Refined Technique, Max strength (1-5RM)
+                    </div>
                 </div>
             </div>
             <div class="btn-group">
