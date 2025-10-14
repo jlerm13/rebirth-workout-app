@@ -755,7 +755,7 @@ function previousWeek() {
 }
 
 function nextWeek() {
-    if (userData.currentWeek < 12) {
+    if (userData.currentWeek < 6) {
         userData.currentWeek++;
         updateWeekDisplay();
         renderWorkouts();
