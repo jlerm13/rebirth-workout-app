@@ -36,7 +36,7 @@ let userData = {
     currentWeek: 1,
     currentTemplate: '4day',
     exerciseVariations: {}, // Store user's exercise variation selections
-    maxWeeks: 12 // Maximum weeks for progression tracking
+    maxWeeks: 6 // Maximum weeks for progression tracking
 };
 
 // ==================== DYNAMIC TEMPLATE EVALUATION ====================
