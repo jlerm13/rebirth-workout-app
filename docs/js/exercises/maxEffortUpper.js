@@ -37,7 +37,7 @@
           },
           
           variations: [
-            "Competition Bench Press",
+            "Tempo Bench Press",
             "Wide-Grip Bench Press",
             "Touch-and-Go Bench Press",
             "Paused Bench Press (2-3 second pause)"
